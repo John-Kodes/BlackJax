@@ -1,4 +1,6 @@
 import React from "react";
+// Components
+import Card from "../components/Card";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -8,7 +10,9 @@ const Board = () => {
   return (
     <StyledBoardOut>
       <StyledBoardBorder>
-        <StyledBoardIn></StyledBoardIn>
+        <StyledBoardIn>
+          <Card />
+        </StyledBoardIn>
       </StyledBoardBorder>
     </StyledBoardOut>
   );
@@ -29,7 +33,8 @@ const StyledBoardOut = styled(motion.div)`
 
 const StyledBoardIn = styled(motion.div)`
   display: flex;
-  background-color: #2c2a32;
+  justify-content: center;
+  background: linear-gradient(to bottom, #2c2a32 50%, #322c39);
   height: 100%;
   width: 100%;
   padding: 1rem;
