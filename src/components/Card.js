@@ -1,21 +1,36 @@
 import React from "react";
+// Components
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
-const Card = () => {
+const Card = ({ suit, value }) => {
+  const symbol = (s) => {
+    switch (s) {
+      case "D":
+        return "♦";
+      case "H":
+        return "♥";
+      case "C":
+        return "♣";
+      case "S":
+        return "♠";
+      default:
+        return "err";
+    }
+  };
   return (
     <StyledCard>
       <StyledCardContent>
         <StyledCardID>
-          <div className="value">Q</div>
-          <div className="suit">♦</div>
+          <div className="value">{value}</div>
+          <div className="suit">{symbol(suit)}</div>
         </StyledCardID>
-        <StyledCardArt>🤡</StyledCardArt>
+        <StyledCardArt>👑</StyledCardArt>
         <StyledCardIDBottom>
-          <div className="value">Q</div>
-          <div className="suit">♦</div>
+          <div className="value">{value}</div>
+          <div className="suit">{symbol(suit)}</div>
         </StyledCardIDBottom>
       </StyledCardContent>
     </StyledCard>
@@ -33,6 +48,7 @@ const StyledCard = styled(motion.div)`
   background-color: white;
   color: black;
   border-radius: 1.4rem;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.3);
 `;
 
 const StyledCardContent = styled(motion.div)`
@@ -56,7 +72,7 @@ const StyledCardID = styled(motion.div)`
   font-size: 2rem;
   line-height: 1;
   .suit {
-    margin-top: -0.5rem;
+    margin-top: -0.2rem;
     font-size: 2rem;
   }
 `;

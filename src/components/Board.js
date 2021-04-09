@@ -1,18 +1,29 @@
 import React from "react";
 // Components
 import Card from "../components/Card";
+import deckOfCards from "../deckOfCards";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
 const Board = () => {
+  const createCardHandler = () => {
+    const cardNumber = Math.trunc(Math.random() * deckOfCards.length + 1);
+
+    return (
+      <Card
+        suit={deckOfCards[cardNumber].suit}
+        value={deckOfCards[cardNumber].value}
+        img={deckOfCards[cardNumber].img}
+      />
+    );
+  };
+
   return (
     <StyledBoardOut>
       <StyledBoardBorder>
-        <StyledBoardIn>
-          <Card />
-        </StyledBoardIn>
+        <StyledBoardIn>{createCardHandler()}</StyledBoardIn>
       </StyledBoardBorder>
     </StyledBoardOut>
   );
@@ -51,6 +62,7 @@ const StyledBoardBorder = styled.div`
   position: relative;
   background-image: linear-gradient(200deg, #f2ce30, #fcff6f 60%, #eba900);
   border-radius: 0.4rem;
+  box-shadow: 0 0 3rem rgba(0, 0, 0, 0.4);
 `;
 
 export default Board;

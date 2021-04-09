@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+// Components
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+// Redux bb
+import { createStore } from "redux";
+import rootReducer from "./reducers";
+import { Provider } from "react-redux";
 
 ReactDOM.render(
   <React.StrictMode>
