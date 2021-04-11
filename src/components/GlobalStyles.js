@@ -17,6 +17,12 @@ const GlobalStyles = createGlobalStyle`
     h1{
         font-weight: 400;
     }
+    button {
+        font-family:'Raleway', sans-serif;
+        border: none;
+        color: white;
+        outline: none;
+    }
 `;
 
 export default GlobalStyles;

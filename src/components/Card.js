@@ -28,10 +28,6 @@ const Card = ({ suit, value }) => {
           <div className="suit">{symbol(suit)}</div>
         </StyledCardID>
         <StyledCardArt>👑</StyledCardArt>
-        <StyledCardIDBottom>
-          <div className="value">{value}</div>
-          <div className="suit">{symbol(suit)}</div>
-        </StyledCardIDBottom>
       </StyledCardContent>
     </StyledCard>
   );
@@ -44,7 +40,7 @@ const StyledCard = styled(motion.div)`
 
   height: 20rem;
   width: 14.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
   background-color: white;
   color: black;
   border-radius: 1.4rem;
@@ -66,14 +62,15 @@ const StyledCardID = styled(motion.div)`
   align-items: center;
 
   position: absolute;
-  top: 0;
+  top: -0.2rem;
   left: 0;
 
-  font-size: 2rem;
+  font-size: 4rem;
   line-height: 1;
+
   .suit {
     margin-top: -0.2rem;
-    font-size: 2rem;
+    font-size: 3rem;
   }
 `;
 
@@ -81,18 +78,12 @@ const StyledCardArt = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 85%;
-  width: 75%;
-
+  height: 80%;
+  width: 100%;
   font-size: 8rem;
-  border: solid 2px #888;
+
+  position: absolute;
+  bottom: 0;
 `;
 
-const StyledCardIDBottom = styled(StyledCardID)`
-  transform: rotate(180deg);
-  top: auto;
-  left: auto;
-  bottom: 0;
-  right: 0;
-`;
 export default Card;

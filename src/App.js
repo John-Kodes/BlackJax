@@ -1,18 +1,21 @@
 import React from "react";
 // Components
 import Board from "./components/Board";
+import GlobalTheme from "./components/GlobalTheme";
 // Styling
 import GlobalStyles from "./components/GlobalStyles";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
 function App() {
   return (
-    <StyledApp>
-      <GlobalStyles />
-      <Board />
-    </StyledApp>
+    <ThemeProvider theme={GlobalTheme}>
+      <StyledApp>
+        <GlobalStyles />
+        <Board />
+      </StyledApp>
+    </ThemeProvider>
   );
 }
 

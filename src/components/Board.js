@@ -2,6 +2,8 @@ import React from "react";
 // Components
 import Card from "../components/Card";
 import deckOfCards from "../deckOfCards";
+import DealerHand from "./DealerHand";
+import UI from "./UI";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -23,7 +25,10 @@ const Board = () => {
   return (
     <StyledBoardOut>
       <StyledBoardBorder>
-        <StyledBoardIn>{createCardHandler()}</StyledBoardIn>
+        <StyledBoardIn>
+          <UI />
+          <DealerHand card={createCardHandler()}></DealerHand>
+        </StyledBoardIn>
       </StyledBoardBorder>
     </StyledBoardOut>
   );
@@ -60,7 +65,7 @@ const StyledBoardBorder = styled.div`
   height: 100%;
   width: 100%;
   position: relative;
-  background-image: linear-gradient(200deg, #f2ce30, #fcff6f 60%, #eba900);
+  background-image: ${(props) => props.theme.borderGold};
   border-radius: 0.4rem;
   box-shadow: 0 0 3rem rgba(0, 0, 0, 0.4);
 `;
