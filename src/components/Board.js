@@ -2,8 +2,9 @@ import React from "react";
 // Components
 import Card from "../components/Card";
 import deckOfCards from "../deckOfCards";
-import DealerHand from "./DealerHand";
 import UI from "./UI";
+import DealerHand from "./DealerHand";
+import PlayerHand from "./PlayerHand";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -28,6 +29,7 @@ const Board = () => {
         <StyledBoardIn>
           <UI />
           <DealerHand card={createCardHandler()}></DealerHand>
+          <PlayerHand card={createCardHandler()}></PlayerHand>
         </StyledBoardIn>
       </StyledBoardBorder>
     </StyledBoardOut>
@@ -49,7 +51,9 @@ const StyledBoardOut = styled(motion.div)`
 
 const StyledBoardIn = styled(motion.div)`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   background: ${(props) => props.theme.primaryColor};
   height: 100%;
   width: 100%;

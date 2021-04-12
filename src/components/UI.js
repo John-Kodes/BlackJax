@@ -1,6 +1,9 @@
 import React from "react";
 // Components
-import StandBtn from "../components/StandBtn";
+import BtnStand from "./BtnStand";
+import BtnHit from "./BtnHit";
+import BtnSplit from "./BtnSplit";
+import BtnInsurance from "./BtnInsurance";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -21,12 +24,12 @@ const UI = () => {
       <Bank>Bank: $888 888 888</Bank>
       <BtnsContainer>
         <BtnsBox>
-          <StandBtn />
-          <StandBtn />
+          <BtnSplit />
+          <BtnInsurance />
         </BtnsBox>
         <BtnsBox>
-          <StandBtn />
-          <StandBtn />
+          <BtnStand />
+          <BtnHit />
         </BtnsBox>
       </BtnsContainer>
       <CounterContainer>Counter</CounterContainer>
