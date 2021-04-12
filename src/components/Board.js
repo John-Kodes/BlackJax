@@ -50,11 +50,12 @@ const StyledBoardOut = styled(motion.div)`
 const StyledBoardIn = styled(motion.div)`
   display: flex;
   justify-content: center;
-  background: linear-gradient(to bottom, #2c2a32 50%, #322c39);
+  background: ${(props) => props.theme.primaryColor};
   height: 100%;
   width: 100%;
-  padding: 1rem;
+  padding: 4rem;
   position: relative;
+  overflow: hidden;
 
   background-clip: padding-box;
   border: solid 1px transparent;

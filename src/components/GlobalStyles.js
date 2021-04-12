@@ -23,6 +23,11 @@ const GlobalStyles = createGlobalStyle`
         color: white;
         outline: none;
     }
+
+    ::selection{
+        background-color: #f2ce30;
+        color: black;
+    }
 `;
 
 export default GlobalStyles;

@@ -18,7 +18,7 @@ const UI = () => {
         <span>88</span>
         Player
       </PlayerTag>
-      <Bank>Bank: 888 888 8889</Bank>
+      <Bank>Bank: $888 888 888</Bank>
       <BtnsContainer>
         <BtnsBox>
           <StandBtn />
@@ -52,8 +52,9 @@ const CardsLeft = styled(motion.div)`
   right: 0;
   font-size: 2rem;
   padding: 0.2rem 1rem 0.2rem 3rem;
+  color: #d3d3d3;
 
-  background-color: teal;
+  background-color: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5rem 100%);
 `;
 
@@ -63,8 +64,9 @@ const Bank = styled(motion.div)`
   right: 0;
   font-size: 2rem;
   padding: 0.2rem 1rem 0.2rem 3rem;
+  color: #d3d3d3;
 
-  background-color: teal;
+  background-color: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(2.5rem 0, 100% 0, 100% 100%, 0% 100%);
 `;
 
@@ -72,10 +74,11 @@ const DealerTag = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;
-
   font-size: 3rem;
-  padding: 0.2rem 5rem 0.2rem 1rem;
-  background-color: #339;
+  color: #d3d3d3;
+
+  padding: 0.5rem 5rem 0.5rem 1.5rem;
+  background: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
   span {
     margin-right: 1rem;
@@ -105,12 +108,12 @@ const BtnsBox = styled(motion.div)`
 
 const CounterContainer = styled(motion.div)`
   position: absolute;
-  bottom: 16%;
-  right: 12%;
+  bottom: 20%;
+  right: 9%;
 
   background-color: darkblue;
   font-size: 4rem;
-  padding: 0.5rem 2rem;
+  padding: 2rem 2rem;
 `;
 
 export default UI;

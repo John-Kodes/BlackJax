@@ -20,7 +20,7 @@ const DealerHand = ({ card }) => {
 
 const StyledDealerHand = styled(motion.div)`
   height: 20rem;
-  width: 30%;
+  width: 40%;
   position: relative;
 `;
 
@@ -44,6 +44,10 @@ const Card4 = styled(Card1)`
 
 const Card5 = styled(Card1)`
   left: 16rem;
+`;
+
+const Card6 = styled(Card1)`
+  left: 20rem;
 `;
 
 export default DealerHand;
