@@ -47,6 +47,7 @@ const StyledBoardOut = styled(motion.div)`
   height: 100%;
   width: 100%;
   padding: 2.8rem;
+  box-shadow: 0 3rem 8rem rgba(0, 0, 0, 0.7);
 `;
 
 const StyledBoardIn = styled(motion.div)`
