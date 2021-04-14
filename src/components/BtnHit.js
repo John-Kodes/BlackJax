@@ -3,9 +3,17 @@ import React from "react";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
+// Redux
+import { useDispatch } from "react-redux";
+import { drawCard } from "../actions/cardAction";
 
 const BtnHit = () => {
-  return <StyledBtn>🎯 HIT</StyledBtn>;
+  const dispatch = useDispatch();
+  const drawCardHandler = () => {
+    dispatch(drawCard());
+  };
+
+  return <StyledBtn onClick={drawCardHandler}>🎯 HIT</StyledBtn>;
 };
 
 const StyledBtn = styled(motion.button)``;

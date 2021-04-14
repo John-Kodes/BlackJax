@@ -46,8 +46,4 @@ const Card5 = styled(Card1)`
   left: 16rem;
 `;
 
-const Card6 = styled(Card1)`
-  left: 20rem;
-`;
-
 export default DealerHand;
