@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-
+// UUID
+import { v4 as uuidv4 } from "uuid";
 // Components
 import Card from "../components/Card";
 import deckOfCards from "../deckOfCards";
@@ -36,9 +37,12 @@ const Board = () => {
   const renderNewCard = () => {
     if (cards.length === 0) return;
 
-    console.log(cards);
+    const drawnCards = cards.map((card) => {
+      return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
+    });
 
-    return <Card suit={cards[0].suit} value={cards[0].value} />;
+    console.log(drawnCards);
+    return drawnCards;
   };
 
   return (
@@ -47,7 +51,7 @@ const Board = () => {
         <StyledBoardIn>
           <UI />
           <DealerHand card={createCardHandler()}></DealerHand>
-          {cards && <PlayerHand card={renderNewCard()}></PlayerHand>}
+          <PlayerHand cards={renderNewCard()}></PlayerHand>
         </StyledBoardIn>
       </StyledBoardBorder>
     </StyledBoardOut>

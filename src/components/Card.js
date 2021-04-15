@@ -24,8 +24,26 @@ const Card = ({ suit, value }) => {
     <StyledCard>
       <StyledCardContent>
         <StyledCardID>
-          <div className="value">{value}</div>
-          <div className="suit">{symbol(suit)}</div>
+          <div
+            className="value"
+            style={{
+              color: `${
+                suit === "D" ? "#e78b00" : suit === "H" ? "#e78b00" : "black"
+              }`,
+            }}
+          >
+            {value}
+          </div>
+          <div
+            className="suit"
+            style={{
+              color: `${
+                suit === "D" ? "#e78b00" : suit === "H" ? "#e78b00" : "black"
+              }`,
+            }}
+          >
+            {symbol(suit)}
+          </div>
         </StyledCardID>
         <StyledCardArt>👑</StyledCardArt>
       </StyledCardContent>
