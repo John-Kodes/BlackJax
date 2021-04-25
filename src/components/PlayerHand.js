@@ -1,11 +1,19 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
+// Components
+import Card from "./Card";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
-const PlayerHand = ({ cards }) => {
+const PlayerHand = () => {
+  // cards should be an array of card react elements to display
+  const playerCards = useSelector((store) => store.cards.playerHand);
+  const cards = playerCards.map((card) => {
+    return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
+  });
   return (
     <>
       <StyledPlayerHand>

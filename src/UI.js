@@ -1,24 +1,34 @@
 import React from "react";
 // Components
-import BtnStand from "./BtnStand";
-import BtnHit from "./BtnHit";
-import BtnSplit from "./BtnSplit";
-import BtnInsurance from "./BtnInsurance";
+import BtnStand from "./components/BtnStand";
+import BtnHit from "./components/BtnHit";
+import BtnSplit from "./components/BtnSplit";
+import BtnInsurance from "./components/BtnInsurance";
+// Redux
+import { useSelector } from "react-redux";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
 const UI = () => {
+  const deckNum = useSelector((store) => store.cards.deckOfCards).length;
+  const playerHand = useSelector((store) => store.cards.playerHand);
+
+  const playerTotalValue = () => {
+    if (playerHand.length === 0) return;
+    const ptv = playerHand.reduce((acc, cur) => acc + cur.rv, 0);
+    return ptv;
+  };
   return (
     <Canvas>
-      <CardsLeft>🃏888</CardsLeft>
+      <CardsLeft>🃏{deckNum ? deckNum : "err"}</CardsLeft>
       <DealerTag>
         <span>88</span>
         Dealer
       </DealerTag>
       <PlayerTag>
-        <span>88</span>
+        <span>{playerTotalValue()}</span>
         Player
       </PlayerTag>
       <Bank>Bank: $888 888 888</Bank>

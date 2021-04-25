@@ -4,13 +4,17 @@ import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 // Redux
-import { useDispatch } from "react-redux";
-import { drawCard } from "../actions/cardAction";
+import { useDispatch, useSelector } from "react-redux";
+import { playerDrawsCard, removeCardFromDeck } from "./cardsSlice";
 
 const BtnHit = () => {
+  const deck = useSelector((store) => store.cards.deckOfCards);
   const dispatch = useDispatch();
+
   const drawCardHandler = () => {
-    dispatch(drawCard());
+    const index = Math.trunc(Math.random() * deck.length) + 1;
+    dispatch(playerDrawsCard({ index }));
+    dispatch(removeCardFromDeck({ index }));
   };
 
   return <StyledBtn onClick={drawCardHandler}>🎯 HIT</StyledBtn>;

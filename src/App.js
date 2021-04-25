@@ -1,9 +1,9 @@
 import React from "react";
 // Components
-import GlobalTheme from "./components/GlobalTheme";
+import GlobalTheme from "./GlobalTheme";
 import Home from "./pages/Home";
 // Styling
-import GlobalStyles from "./components/GlobalStyles";
+import GlobalStyles from "./GlobalStyles";
 import { ThemeProvider } from "styled-components";
 // Animation
 // import { motion } from "framer-motion";

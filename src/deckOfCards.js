@@ -10,10 +10,26 @@ const cardsData = {
 
 const deckOfCards = [];
 
+const findRealValue = (value) => {
+  if (Number(value)) {
+    return Number(value);
+  }
+  if (value === "J" || value === "Q" || value === "K") {
+    return 10;
+  }
+  if (value === "A") {
+    return 1;
+  }
+};
+
 const createDeck = () => {
   cardsData.suits.forEach((suit) => {
     cardsData.value.forEach((value) => {
-      deckOfCards.push({ suit, value });
+      deckOfCards.push({
+        suit,
+        value,
+        rv: findRealValue(value),
+      });
     });
   });
 };
