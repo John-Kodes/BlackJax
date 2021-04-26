@@ -38,10 +38,10 @@ const GlobalStyles = createGlobalStyle`
             box-shadow: 0 1.2rem 2rem rgba(0, 0, 0, 0.3);
         }
         &:active {
-            transform: scale(1) translateY(0.1rem);
+            transform: scale(1.02) translateY(0.1rem);
             border: 1px solid #f2ce30;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
-  }
+        }
     }
 
     ::selection{

@@ -1,37 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Components
-import BtnStand from "./components/BtnStand";
-import BtnHit from "./components/BtnHit";
-import BtnSplit from "./components/BtnSplit";
-import BtnInsurance from "./components/BtnInsurance";
+import BtnStand from "./components/UIButtons/BtnStand";
+import BtnHit from "./components/UIButtons/BtnHit";
+import BtnSplit from "./components/UIButtons/BtnSplit";
+import BtnInsurance from "./components/UIButtons/BtnInsurance";
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  playerTotalValueAdd,
+  dealerTotalValueAdd,
+} from "./components/gameSlice";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
 const UI = () => {
+  const dispatch = useDispatch();
+
+  //// STATES
   const deckNum = useSelector((store) => store.cards.deckOfCards).length;
   const playerHand = useSelector((store) => store.cards.playerHand);
+  const dealersHand = useSelector((store) => store.cards.dealersHand);
 
-  const playerTotalValue = () => {
-    if (playerHand.length === 0) return;
-    const ptv = playerHand.reduce((acc, cur) => acc + cur.rv, 0);
-    return ptv;
+  // const { bet } = useSelector((store) => store.game);
+  const { bank } = useSelector((store) => store.game);
+  const playerHandTotal = useSelector(
+    (store) => store.game.TotalHandValue.playerHand
+  );
+
+  const calcPlayerHandTotal = () => {
+    dispatch(playerTotalValueAdd({ cards: playerHand }));
   };
+
+  // const calcDealerHandTotal = () => {
+  //   dispatch(dealerTotalValueAdd({}))
+  // }
+
+  // useEffect: I want to update the playerHandTotal whenever a new card is added to the hand.
+  useEffect(calcPlayerHandTotal, [playerHand, dispatch]);
+
   return (
     <Canvas>
       <CardsLeft>🃏{deckNum ? deckNum : "err"}</CardsLeft>
       <DealerTag>
-        <span>88</span>
+        <span>{dealersHand}</span>
         Dealer
       </DealerTag>
       <PlayerTag>
-        <span>{playerTotalValue()}</span>
+        <span>{playerHandTotal}</span>
         Player
       </PlayerTag>
-      <Bank>Bank: $888 888 888</Bank>
+      <Bank>Bank: ${bank}</Bank>
       <BtnsContainer>
         <BtnsBox>
           <BtnSplit />
@@ -39,7 +59,7 @@ const UI = () => {
         </BtnsBox>
         <BtnsBox>
           <BtnStand />
-          <BtnHit />
+          <BtnHit disabled={playerHandTotal < 21} />
         </BtnsBox>
       </BtnsContainer>
       <CounterContainer>Counter</CounterContainer>

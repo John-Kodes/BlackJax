@@ -5,11 +5,14 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { playerDrawsCard, removeCardFromDeck } from "./cardsSlice";
+import { playerDrawsCard, removeCardFromDeck } from "../cardsSlice";
 
 const BtnHit = () => {
   const deck = useSelector((store) => store.cards.deckOfCards);
   const dispatch = useDispatch();
+  const playerHandTotal = useSelector(
+    (store) => store.game.TotalHandValue.playerHand
+  );
 
   const drawCardHandler = () => {
     const index = Math.trunc(Math.random() * deck.length) + 1;
@@ -17,7 +20,11 @@ const BtnHit = () => {
     dispatch(removeCardFromDeck({ index }));
   };
 
-  return <StyledBtn onClick={drawCardHandler}>🎯 HIT</StyledBtn>;
+  return (
+    <StyledBtn onClick={drawCardHandler} disabled={playerHandTotal > 21}>
+      🎯 HIT
+    </StyledBtn>
+  );
 };
 
 const StyledBtn = styled(motion.button)``;

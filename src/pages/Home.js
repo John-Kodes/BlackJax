@@ -27,7 +27,7 @@ const StyledHome = styled(motion.div)`
   background-image: url(${BGSVG}),
     linear-gradient(185deg, rgba(0, 0, 0, 0.9), rgba(3, 0, 8, 0.9));
   background-blend-mode: overlay;
-  background-size: 115%;
+  background-size: cover;
   background-position: center center;
 `;
 

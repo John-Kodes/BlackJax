@@ -9,14 +9,14 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const PlayerHand = () => {
-  // cards should be an array of card react elements to display
-  const playerCards = useSelector((store) => store.cards.playerHand);
-  const cards = playerCards.map((card) => {
+  const playerHand = useSelector((store) => store.cards.playerHand);
+  const cards = playerHand.map((card) => {
     return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
   });
+
   return (
     <>
-      <StyledPlayerHand>
+      <StyledHand>
         {cards
           ? cards.map((card, index) => {
               return (
@@ -26,12 +26,12 @@ const PlayerHand = () => {
               );
             })
           : ""}
-      </StyledPlayerHand>
+      </StyledHand>
     </>
   );
 };
 
-const StyledPlayerHand = styled(motion.div)`
+const StyledHand = styled(motion.div)`
   height: 20rem;
   width: 40%;
   position: relative;

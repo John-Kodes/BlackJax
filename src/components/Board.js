@@ -1,9 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 // Components
-import Card from "../components/Card";
-import deckOfCards from "../deckOfCards";
 import UI from "../UI";
 import DealerHand from "./DealerHand";
 import PlayerHand from "./PlayerHand";
@@ -13,43 +10,12 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const Board = () => {
-  const cards = useSelector((store) => store.drawnCards);
-  const cardPicker = () => {
-    const num = Math.trunc(Math.random() * deckOfCards.length + 1);
-    return num;
-  };
-
-  // Temp
-  const createCardHandler = () => {
-    const cardNum = cardPicker();
-
-    return (
-      <Card
-        suit={deckOfCards[cardNum].suit}
-        value={deckOfCards[cardNum].value}
-        img={deckOfCards[cardNum].img}
-      />
-    );
-  };
-
-  // New plan, we randomly pick a card from the deck, we add it to the drawn cards state, and render that state.
-  const renderNewCard = () => {
-    // if (cards.length === 0) return;
-
-    // const drawnCards = cards.map((card) => {
-    //   return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
-    // });
-
-    // return drawnCards;
-    console.log("rendering new card");
-  };
-
   return (
     <StyledBoardOut>
       <StyledBoardBorder>
         <StyledBoardIn>
           <UI />
-          <DealerHand card={createCardHandler()} />
+          <DealerHand />
           <PlayerHand />
         </StyledBoardIn>
       </StyledBoardBorder>

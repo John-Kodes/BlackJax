@@ -1,4 +1,4 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import deckOfCards from "../deckOfCards";
 
 const initialState = {
@@ -23,9 +23,20 @@ const cardsSlice = createSlice({
 
       playerHand.push(deck[index]);
     },
+    dealerDrawsCard(state, action) {
+      const deck = state.deckOfCards;
+      const dealerHand = state.dealerHand;
+      const index = action.payload.index;
+
+      dealerHand.push(deck[index]);
+    },
   },
 });
 
-export const { removeCardFromDeck, playerDrawsCard } = cardsSlice.actions;
+export const {
+  removeCardFromDeck,
+  playerDrawsCard,
+  dealerDrawsCard,
+} = cardsSlice.actions;
 
 export default cardsSlice.reducer;

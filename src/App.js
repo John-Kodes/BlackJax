@@ -1,12 +1,10 @@
 import React from "react";
 // Components
-import GlobalTheme from "./GlobalTheme";
+import GlobalTheme from "./Globals/GlobalTheme";
 import Home from "./pages/Home";
 // Styling
-import GlobalStyles from "./GlobalStyles";
+import GlobalStyles from "./Globals/GlobalStyles";
 import { ThemeProvider } from "styled-components";
-// Animation
-// import { motion } from "framer-motion";
 
 function App() {
   return (
