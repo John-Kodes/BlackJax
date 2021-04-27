@@ -34,6 +34,7 @@ const cardsSlice = createSlice({
 
       state.totalHandValue.playerHand = playerTotalValue;
     },
+
     dealerDrawsCard(state, action) {
       const deck = state.deckOfCards;
       const dealerHand = state.dealerHand;
@@ -50,25 +51,6 @@ const cardsSlice = createSlice({
       }
 
       state.totalHandValue.dealerHand = dealerTotalValue;
-
-      //// ___________________________________________________________
-      // const deck = state.deckOfCards;
-      // const dealerHand = state.dealerHand;
-      // const indexArr = action.payload.indexArr;
-
-      // indexArr.forEach((i) => {
-      //   dealerHand.push(deck[i]);
-      //   deck.splice(i, 1);
-      // });
-
-      // let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
-      // const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
-
-      // if (check && dealerTotalValue < 12) {
-      //   dealerTotalValue += 10;
-      // }
-
-      // state.totalHandValue.dealerHand = dealerTotalValue;
     },
   },
 });
