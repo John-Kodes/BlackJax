@@ -6,10 +6,7 @@ import BtnSplit from "./components/UIButtons/BtnSplit";
 import BtnInsurance from "./components/UIButtons/BtnInsurance";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import {
-  playerTotalValueAdd,
-  dealerTotalValueAdd,
-} from "./components/gameSlice";
+import {} from "./components/gameSlice";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -20,31 +17,21 @@ const UI = () => {
 
   //// STATES
   const deckNum = useSelector((store) => store.cards.deckOfCards).length;
-  const playerHand = useSelector((store) => store.cards.playerHand);
-  const dealersHand = useSelector((store) => store.cards.dealersHand);
 
   // const { bet } = useSelector((store) => store.game);
   const { bank } = useSelector((store) => store.game);
   const playerHandTotal = useSelector(
-    (store) => store.game.TotalHandValue.playerHand
+    (store) => store.cards.totalHandValue.playerHand
   );
-
-  const calcPlayerHandTotal = () => {
-    dispatch(playerTotalValueAdd({ cards: playerHand }));
-  };
-
-  // const calcDealerHandTotal = () => {
-  //   dispatch(dealerTotalValueAdd({}))
-  // }
-
-  // useEffect: I want to update the playerHandTotal whenever a new card is added to the hand.
-  useEffect(calcPlayerHandTotal, [playerHand, dispatch]);
+  const dealerHandTotal = useSelector(
+    (store) => store.cards.totalHandValue.dealerHand
+  );
 
   return (
     <Canvas>
       <CardsLeft>🃏{deckNum ? deckNum : "err"}</CardsLeft>
       <DealerTag>
-        <span>{dealersHand}</span>
+        <span>{dealerHandTotal}</span>
         Dealer
       </DealerTag>
       <PlayerTag>
@@ -59,7 +46,7 @@ const UI = () => {
         </BtnsBox>
         <BtnsBox>
           <BtnStand />
-          <BtnHit disabled={playerHandTotal < 21} />
+          <BtnHit />
         </BtnsBox>
       </BtnsContainer>
       <CounterContainer>Counter</CounterContainer>

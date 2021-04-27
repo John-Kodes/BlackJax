@@ -2,36 +2,41 @@ import React from "react";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { dealerDrawsCard, removeCardFromDeck } from "../cardsSlice";
+import { dealerDrawsCard } from "../cardsSlice";
+import {} from "../gameSlice";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
 const BtnStand = () => {
-  const deck = useSelector((store) => store.cards.deckOfCards);
   const dispatch = useDispatch();
+
+  const deck = useSelector((store) => store.cards.deckOfCards);
   const dealerHandTotal = useSelector(
-    (store) => store.game.TotalHandValue.dealerHand
+    (store) => store.cards.totalHandValue.dealerHand
   );
 
-  const drawCardHandler = () => {
-    const index = Math.trunc(Math.random() * deck.length) + 1;
-    dispatch(dealerDrawsCard({ index }));
-    dispatch(removeCardFromDeck({ index }));
+  const dealerLoop = () => {
+    setTimeout(() => {
+      const index = Math.trunc(Math.random() * deck.length) + 1;
+      dispatch(dealerDrawsCard({ index }));
+      console.log(dealerHandTotal);
+      if (dealerHandTotal < 17) dealerLoop();
+    }, 1000);
   };
 
-  // dealer logic
-  // loop: draw if dealerHand < 17. Else, stand/push
-  const dealerPlays = () => {
-    let x = 0;
-    while (x < 5) {
-      drawCardHandler();
-      x++;
-    }
-  };
+  //// __________________________________
 
-  return <StyledBtn onClick={dealerPlays}>✋ STAND</StyledBtn>;
+  // const cardsToAdd = [];
+  // for (let dealtCards = 0; dealtCards + dealerHandTotal < 3; dealtCards++) {
+  //   const index = Math.trunc(Math.random() * (deck.length - dealtCards)) + 1;
+  //   cardsToAdd.push(index);
+  //   console.log(dealtCards, dealerHandTotal);
+  // }
+  // dispatch(dealerDrawsCard({ indexArr: cardsToAdd }));
+
+  return <StyledBtn onClick={dealerLoop}>✋ STAND</StyledBtn>;
 };
 
 const StyledBtn = styled(motion.button)``;

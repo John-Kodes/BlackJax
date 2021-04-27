@@ -5,23 +5,22 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { playerDrawsCard, removeCardFromDeck } from "../cardsSlice";
+import { playerDrawsCard } from "../cardsSlice";
 
 const BtnHit = () => {
   const deck = useSelector((store) => store.cards.deckOfCards);
   const dispatch = useDispatch();
   const playerHandTotal = useSelector(
-    (store) => store.game.TotalHandValue.playerHand
+    (store) => store.cards.totalHandValue.playerHand
   );
 
   const drawCardHandler = () => {
     const index = Math.trunc(Math.random() * deck.length) + 1;
     dispatch(playerDrawsCard({ index }));
-    dispatch(removeCardFromDeck({ index }));
   };
 
   return (
-    <StyledBtn onClick={drawCardHandler} disabled={playerHandTotal > 21}>
+    <StyledBtn onClick={drawCardHandler} disabled={playerHandTotal > 20}>
       🎯 HIT
     </StyledBtn>
   );
