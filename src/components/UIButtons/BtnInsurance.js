@@ -5,12 +5,16 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const BtnInsurance = () => {
-  return <StyledBtn>🩺 INSURANCE</StyledBtn>;
+  const resetRound = () => {
+    return "sdfs";
+  };
+
+  return <StyledBtn onClick={resetRound}>🩺 RESET</StyledBtn>;
 };
 
 const StyledBtn = styled(motion.button)`
-  font-size: 1.6rem;
-  padding: 1rem 1.2rem;
+  font-size: 2.4rem;
+  padding: 0.6rem 1.2rem;
 `;
 
 export default BtnInsurance;

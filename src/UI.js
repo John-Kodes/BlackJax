@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 // Components
 import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
 import BtnSplit from "./components/UIButtons/BtnSplit";
 import BtnInsurance from "./components/UIButtons/BtnInsurance";
+import RoundResults from "./components/RoundResults";
 // Redux
-import { useSelector, useDispatch } from "react-redux";
-import {} from "./components/gameSlice";
+import { useSelector } from "react-redux";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
 const UI = () => {
-  const dispatch = useDispatch();
-
   //// STATES
   const deckNum = useSelector((store) => store.cards.deckOfCards).length;
 
@@ -29,6 +27,7 @@ const UI = () => {
 
   return (
     <Canvas>
+      <RoundResults />
       <CardsLeft>🃏{deckNum ? deckNum : "err"}</CardsLeft>
       <DealerTag>
         <span>{dealerHandTotal}</span>

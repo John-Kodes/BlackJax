@@ -17,40 +17,61 @@ const cardsSlice = createSlice({
   name: "cards",
   initialState,
   reducers: {
-    playerDrawsCard(state, action) {
-      const deck = state.deckOfCards;
-      const playerHand = state.playerHand;
-      const index = action.payload.index;
+    playerDrawsCard: {
+      reducer(state, action) {
+        const deck = state.deckOfCards;
+        const playerHand = state.playerHand;
+        const index = action.payload.index;
 
-      playerHand.push(deck[index]);
-      deck.splice(index, 1);
+        playerHand.push(deck[index]);
+        deck.splice(index, 1);
 
-      let playerTotalValue = playerHand.reduce((acc, cur) => acc + cur.rv, 0);
-      const check = playerHand.some((card) => card.value === "A"); // undefined OR card details
+        let playerTotalValue = playerHand.reduce((acc, cur) => acc + cur.rv, 0);
+        const check = playerHand.some((card) => card.value === "A"); // undefined OR card details
 
-      if (check && playerTotalValue < 12) {
-        playerTotalValue += 10;
-      }
+        if (check && playerTotalValue < 12) {
+          playerTotalValue += 10;
+        }
 
-      state.totalHandValue.playerHand = playerTotalValue;
+        state.totalHandValue.playerHand = playerTotalValue;
+      },
+
+      prepare(deck) {
+        const index = Math.trunc(Math.random() * deck.length) + 1;
+        return {
+          payload: {
+            index,
+          },
+        };
+      },
     },
 
-    dealerDrawsCard(state, action) {
-      const deck = state.deckOfCards;
-      const dealerHand = state.dealerHand;
-      const index = action.payload.index;
+    dealerDrawsCard: {
+      reducer(state, action) {
+        const deck = state.deckOfCards;
+        const dealerHand = state.dealerHand;
+        const index = action.payload.index;
 
-      dealerHand.push(deck[index]);
-      deck.splice(index, 1);
+        dealerHand.push(deck[index]);
+        deck.splice(index, 1);
 
-      let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
-      const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
+        let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
+        const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
 
-      if (check && dealerTotalValue < 12) {
-        dealerTotalValue += 10;
-      }
+        if (check && dealerTotalValue < 12) {
+          dealerTotalValue += 10;
+        }
 
-      state.totalHandValue.dealerHand = dealerTotalValue;
+        state.totalHandValue.dealerHand = dealerTotalValue;
+      },
+      prepare(deck) {
+        const index = Math.trunc(Math.random() * deck.length) + 1;
+        return {
+          payload: {
+            index,
+          },
+        };
+      },
     },
   },
 });

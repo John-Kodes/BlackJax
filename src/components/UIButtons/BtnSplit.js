@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const BtnSplit = () => {
-  return <StyledBtn>✂ SPLIT</StyledBtn>;
+  return <StyledBtn>✂ START</StyledBtn>;
 };
 
 const StyledBtn = styled(motion.button)``;
