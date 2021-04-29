@@ -16,32 +16,33 @@ const initialState = {
 const gameSlice = createSlice({
   name: "game",
   initialState,
-
-  dealersTurn(state) {
-    state.dealerWillPlay = !state.dealerWillPlay;
-  },
-  outputResults: {
-    reducer(state, action) {
-      const { playerTotal } = action.payload;
-      const { dealerTotal } = action.payload;
-
-      if (playerTotal <= 21 && playerTotal > dealerTotal)
-        state.winnerResult = "player";
-      if (dealerTotal <= 21 && dealerTotal > playerTotal)
-        state.winnerResult = "dealer";
-      if (dealerTotal > 21 && playerTotal > 21) state.winnerResult = "push";
+  reducers: {
+    dealersTurn(state) {
+      state.dealerWillPlay = true;
     },
-    prepare(playerTotal, dealerTotal) {
-      return {
-        payload: {
-          playerTotal,
-          dealerTotal,
-        },
-      };
+    outputResults: {
+      reducer(state, action) {
+        const { playerTotal } = action.payload;
+        const { dealerTotal } = action.payload;
+
+        if (playerTotal <= 21 && playerTotal > dealerTotal)
+          state.winnerResult = "player";
+        if (dealerTotal <= 21 && dealerTotal > playerTotal)
+          state.winnerResult = "dealer";
+        if (dealerTotal > 21 && playerTotal > 21) state.winnerResult = "push";
+      },
+      prepare(playerTotal, dealerTotal) {
+        return {
+          payload: {
+            playerTotal,
+            dealerTotal,
+          },
+        };
+      },
     },
-  },
-  resetRound(state) {
-    state.dealerWillPlay = false;
+    resetRound(state) {
+      state.dealerWillPlay = false;
+    },
   },
 });
 

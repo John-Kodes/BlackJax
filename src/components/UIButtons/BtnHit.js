@@ -19,6 +19,7 @@ const BtnHit = React.memo(() => {
   const drawCardHandler = () => {
     dispatch(playerDrawsCard(deck));
   };
+  console.log(playerHandTotal, dealerWillPlay);
 
   useEffect(() => {
     if (playerHandTotal > 20 && !dealerWillPlay) dispatch(dealersTurn());
