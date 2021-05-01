@@ -15,18 +15,22 @@ const BtnHit = React.memo(() => {
   const playerHandTotal = useSelector(
     (store) => store.cards.totalHandValue.playerHand
   );
+
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
+
   const drawCardHandler = () => {
     dispatch(playerDrawsCard(deck));
   };
-  console.log(playerHandTotal, dealerWillPlay);
 
   useEffect(() => {
     if (playerHandTotal > 20 && !dealerWillPlay) dispatch(dealersTurn());
-  });
+  }, [dispatch, playerHandTotal, dealerWillPlay]);
 
   return (
-    <StyledBtn onClick={drawCardHandler} disabled={playerHandTotal > 20}>
+    <StyledBtn
+      onClick={drawCardHandler}
+      disabled={playerHandTotal > 20 || dealerWillPlay}
+    >
       🎯 HIT
     </StyledBtn>
   );

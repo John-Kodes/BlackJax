@@ -3,7 +3,7 @@ import React, { useEffect, useCallback, useState } from "react";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { dealerDrawsCard } from "../cardsSlice";
-import { outputResults } from "../gameSlice";
+import { dealersTurn, outputResults } from "../gameSlice";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -18,6 +18,9 @@ const BtnStand = React.memo(() => {
   const dealerHandTotal = useSelector(
     (state) => state.cards.totalHandValue.dealerHand
   );
+  const playerHandTotal = useSelector(
+    (state) => state.cards.totalHandValue.playerHand
+  );
 
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
 
@@ -27,16 +30,24 @@ const BtnStand = React.memo(() => {
     }, 1000);
   }, [dispatch, deck]);
 
+  const dipatchResults = () => {
+    setTimeout(() => {
+      dispatch(outputResults(playerHandTotal, dealerHandTotal));
+    }, 1500);
+  };
+
   useEffect(() => {
     if (
       (dealerHandTotal < 17 && buttonClicked) ||
       (dealerHandTotal < 17 && dealerWillPlay)
     )
       dealerLoop();
+    else if (dealerHandTotal > 0) dipatchResults();
   }, [dealerHandTotal, dealerLoop, buttonClicked, dealerWillPlay]);
 
   const toggle = () => {
-    setButtonClicked(!buttonClicked);
+    dispatch(dealersTurn(playerHandTotal, dealerHandTotal));
+    setButtonClicked(true);
   };
 
   return (
