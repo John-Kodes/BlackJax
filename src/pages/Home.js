@@ -14,7 +14,7 @@ function Home() {
     </StyledHome>
   );
 }
-//rgba(3, 0, 8, 0.9)
+
 const StyledHome = styled(motion.div)`
   display: flexbox;
   justify-content: center;

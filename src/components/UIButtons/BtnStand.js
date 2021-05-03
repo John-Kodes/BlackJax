@@ -30,11 +30,11 @@ const BtnStand = React.memo(() => {
     }, 1000);
   }, [dispatch, deck]);
 
-  const dipatchResults = () => {
+  const dipatchResults = useCallback(() => {
     setTimeout(() => {
       dispatch(outputResults(playerHandTotal, dealerHandTotal));
     }, 1500);
-  };
+  }, [playerHandTotal, dealerHandTotal, dispatch]);
 
   useEffect(() => {
     if (
@@ -43,7 +43,14 @@ const BtnStand = React.memo(() => {
     )
       dealerLoop();
     else if (dealerHandTotal > 0) dipatchResults();
-  }, [dealerHandTotal, dealerLoop, buttonClicked, dealerWillPlay]);
+  }, [
+    dispatch,
+    dealerHandTotal,
+    dealerLoop,
+    buttonClicked,
+    dealerWillPlay,
+    dipatchResults,
+  ]);
 
   const toggle = () => {
     dispatch(dealersTurn(playerHandTotal, dealerHandTotal));

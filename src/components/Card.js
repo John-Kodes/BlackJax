@@ -22,6 +22,7 @@ const Card = ({ suit, value }) => {
   };
   return (
     <StyledCard>
+      {console.log("card component being re-rendered")}
       <StyledCardContent>
         <StyledCardID>
           <div

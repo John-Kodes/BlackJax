@@ -10,7 +10,7 @@ const RoundResults = () => {
   const results = useSelector((state) => state.game.winnerResult);
   let text = "";
   switch (results) {
-    case "draw":
+    case "push":
       text = "PUSH";
       break;
     case "dealer":
@@ -46,4 +46,4 @@ const StyledRoundResults = styled(motion.div)`
   backdrop-filter: blur(2px) brightness(180%) invert(90%) opacity(80%);
 `;
 
-export default RoundResults;
+export default React.memo(RoundResults);

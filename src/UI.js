@@ -5,6 +5,7 @@ import BtnHit from "./components/UIButtons/BtnHit";
 import BtnSplit from "./components/UIButtons/BtnSplit";
 import BtnInsurance from "./components/UIButtons/BtnInsurance";
 import RoundResults from "./components/RoundResults";
+import CardCounter from "./components/CardCounter";
 // Redux
 import { useSelector } from "react-redux";
 // Styling
@@ -18,6 +19,8 @@ const UI = () => {
 
   // const { bet } = useSelector((store) => store.game);
   const { bank } = useSelector((store) => store.game);
+  const results = useSelector((state) => state.game.winnerResult);
+
   const playerHandTotal = useSelector(
     (store) => store.cards.totalHandValue.playerHand
   );
@@ -27,7 +30,7 @@ const UI = () => {
 
   return (
     <Canvas>
-      <RoundResults />
+      {results !== "none" ? <RoundResults /> : ""}
       <CardsLeft>🃏{deckNum ? deckNum : "err"}</CardsLeft>
       <DealerTag>
         <span>{dealerHandTotal}</span>
@@ -48,7 +51,9 @@ const UI = () => {
           <BtnHit />
         </BtnsBox>
       </BtnsContainer>
-      <CounterContainer>Counter</CounterContainer>
+      <CounterContainer>
+        <CardCounter />
+      </CounterContainer>
     </Canvas>
   );
 };
@@ -126,13 +131,15 @@ const BtnsBox = styled(motion.div)`
 `;
 
 const CounterContainer = styled(motion.div)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: absolute;
-  bottom: 20%;
-  right: 9%;
 
-  background-color: darkblue;
-  font-size: 4rem;
-  padding: 2rem 2rem;
+  bottom: 10%;
+  right: 4%;
+  height: 25%;
+  width: 32%;
 `;
 
-export default UI;
+export default React.memo(UI);

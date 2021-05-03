@@ -63,4 +63,4 @@ const StyledBoardBorder = styled.div`
   box-shadow: 0 0 3rem rgba(0, 0, 0, 0.4);
 `;
 
-export default Board;
+export default React.memo(Board);
