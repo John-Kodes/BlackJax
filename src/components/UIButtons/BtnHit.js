@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 // Styling
-import styled from "styled-components";
-// Animation
-import { motion } from "framer-motion";
+import { PlayingBtn } from "../../Globals/GlobalStyles";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { playerDrawsCard } from "../cardsSlice";
@@ -26,16 +24,31 @@ const BtnHit = React.memo(() => {
     if (playerHandTotal > 20 && !dealerWillPlay) dispatch(dealersTurn());
   }, [dispatch, playerHandTotal, dealerWillPlay]);
 
+  const playingBtnAnim = {
+    initial: { y: 0 },
+    animate: { y: 0 },
+    hover: {
+      y: -3,
+      transition: {
+        duration: 0.1,
+        type: "tween",
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
-    <StyledBtn
+    <PlayingBtn
+      // variants={playingBtnAnim}
+      // initial="initial"
+      // animate="animate"
+      // whileHover="hover"
       onClick={drawCardHandler}
       disabled={playerHandTotal > 20 || dealerWillPlay}
     >
       🎯 HIT
-    </StyledBtn>
+    </PlayingBtn>
   );
 });
-
-const StyledBtn = styled(motion.button)``;
 
 export default BtnHit;

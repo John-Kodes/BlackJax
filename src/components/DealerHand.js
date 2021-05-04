@@ -16,7 +16,12 @@ const DealerHand = () => {
 
   return (
     <>
-      <StyledHand>
+      <StyledHand
+        style={{
+          width: `${14.5 + 4 * (cards.length - 1)}rem`,
+          transition: "all 0.5s",
+        }}
+      >
         {cards
           ? cards.map((card, index) => {
               return (

@@ -1,13 +1,9 @@
 import React from "react";
 // Styling
-import styled from "styled-components";
-// Animation
-import { motion } from "framer-motion";
+import { PlayingBtn } from "../../Globals/GlobalStyles";
 
 const BtnSplit = () => {
-  return <StyledBtn>✂ START</StyledBtn>;
+  return <PlayingBtn>✂ START</PlayingBtn>;
 };
-
-const StyledBtn = styled(motion.button)``;
 
 export default BtnSplit;

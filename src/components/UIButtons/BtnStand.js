@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dealerDrawsCard } from "../cardsSlice";
 import { dealersTurn, outputResults } from "../gameSlice";
 // Styling
-import styled from "styled-components";
-// Animation
-import { motion } from "framer-motion";
+import { PlayingBtn } from "../../Globals/GlobalStyles";
 
 const BtnStand = React.memo(() => {
   const dispatch = useDispatch();
@@ -58,12 +56,10 @@ const BtnStand = React.memo(() => {
   };
 
   return (
-    <StyledBtn onClick={toggle} disabled={buttonClicked}>
+    <PlayingBtn onClick={toggle} disabled={buttonClicked}>
       <span>✋</span> STAND
-    </StyledBtn>
+    </PlayingBtn>
   );
 });
-
-const StyledBtn = styled(motion.button)``;
 
 export default BtnStand;

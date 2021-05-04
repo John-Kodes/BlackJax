@@ -1,4 +1,5 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { motion } from "framer-motion";
 
 const GlobalStyles = createGlobalStyle`
     *{
@@ -27,27 +28,29 @@ const GlobalStyles = createGlobalStyle`
         font-weight: 600;
         background-color: #13131b;
         border-radius: 4px;
-        border: 2px solid transparent;
-        box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
+        border: none;
         cursor: pointer;
-
-        transition: all 0.1s;
-
-        &:hover {
-            transform: scale(1.02) translateY(-0.2rem);
-            box-shadow: 0 1.2rem 2rem rgba(0, 0, 0, 0.3);
-        }
-        &:active {
-            transform: scale(1.02) translateY(0.1rem);
-            border: 1px solid #f2ce30;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
-        }
     }
 
     ::selection{
         background-color: #f2ce30;
         color: black;
     }
+`;
+
+export const PlayingBtn = styled(motion.button)`
+  box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1.3rem 2.2rem rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  }
 `;
 
 export default GlobalStyles;

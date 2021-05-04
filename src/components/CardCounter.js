@@ -10,7 +10,10 @@ const CardCounter = () => {
     scale: 1.2,
     transition: {
       duration: 0.2,
+      type: "tween",
+      ease: "easeInOut",
     },
+    filter: "brightness(5) hue-rotate(-10deg)",
   };
 
   return (
@@ -56,7 +59,9 @@ const StyledCounterBox = styled(motion.div)`
   }
 `;
 
-const StyledButton = styled(motion.div)`
+const StyledButton = styled(motion.button)`
+  all: unset;
+  box-sizing: content-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,6 +76,11 @@ const StyledButton = styled(motion.div)`
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
   span {
     margin-top: -6px;
+  }
+
+  &:active {
+    border: none;
+    box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
   }
 `;
 
