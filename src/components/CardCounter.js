@@ -3,33 +3,47 @@ import React from "react";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
+import { btnHover, btnTap } from "../animations";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { countCounter } from "./cardsSlice";
 
 const CardCounter = () => {
-  const btnHover = {
-    y: -3,
-    scale: 1.2,
-    transition: {
-      duration: 0.2,
-      type: "tween",
-      ease: "easeInOut",
-    },
-    filter: "brightness(5) hue-rotate(-10deg)",
+  const dispatch = useDispatch();
+  const count = useSelector((state) => state.cards.count);
+
+  const incrementCount = () => {
+    dispatch(countCounter(1));
+  };
+
+  const decrementCount = () => {
+    dispatch(countCounter(-1));
   };
 
   return (
     <>
-      <StyledButton whileHover={btnHover}>
+      <StyledButton
+        whileHover={btnHover}
+        whileTap={btnTap}
+        onClick={decrementCount}
+      >
         <span>-</span>
       </StyledButton>
       <StyledCounterBox>
         <div>
-          Count: <span>00</span>
+          Count: <span>{count}</span>
         </div>
         <div>
           True Count: <span>00</span>
         </div>
       </StyledCounterBox>
-      <StyledButton whileHover={btnHover}>+</StyledButton>
+      <StyledButton
+        whileHover={btnHover}
+        whileTap={btnTap}
+        onClick={incrementCount}
+      >
+        +
+      </StyledButton>
     </>
   );
 };
@@ -72,6 +86,7 @@ const StyledButton = styled(motion.button)`
   z-index: 9999;
   border-radius: 100%;
   background-color: ${(props) => props.theme.UIElementColor};
+  cursor: pointer;
 
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
   span {

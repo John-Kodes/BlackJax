@@ -11,6 +11,7 @@ const initialState = {
     dealerHand: 0,
     playerHand: 0,
   },
+  count: 0,
 };
 
 const cardsSlice = createSlice({
@@ -73,9 +74,28 @@ const cardsSlice = createSlice({
         };
       },
     },
+    countCounter: {
+      reducer(state, action) {
+        const change = action.payload.change;
+
+        state.count += change;
+      },
+
+      prepare(change) {
+        return {
+          payload: {
+            change,
+          },
+        };
+      },
+    },
   },
 });
 
-export const { playerDrawsCard, dealerDrawsCard } = cardsSlice.actions;
+export const {
+  playerDrawsCard,
+  dealerDrawsCard,
+  countCounter,
+} = cardsSlice.actions;
 
 export default cardsSlice.reducer;

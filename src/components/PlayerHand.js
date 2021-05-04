@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 // Components
@@ -10,12 +10,9 @@ import { motion } from "framer-motion";
 
 const PlayerHand = () => {
   const playerHand = useSelector((store) => store.cards.playerHand);
-  const cards = useCallback(
-    playerHand.map((card) => {
-      return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
-    }),
-    [playerHand]
-  );
+  const cards = playerHand.map((card) => {
+    return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
+  });
 
   return (
     <>
