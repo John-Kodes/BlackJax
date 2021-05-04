@@ -7,10 +7,6 @@ const initialState = {
   bet: 0,
   dealerWillPlay: false,
   winnerResult: "none", // dealer/player/draw/none
-  TurnsState: {
-    player: "playing", // waiting/playing/finished
-    dealer: "waiting",
-  },
 };
 
 const gameSlice = createSlice({
@@ -55,10 +51,11 @@ const gameSlice = createSlice({
     },
     resetRound(state) {
       state.dealerWillPlay = false;
+      state.winnerResult = "none";
     },
   },
 });
 
-export const { dealersTurn, outputResults } = gameSlice.actions;
+export const { dealersTurn, outputResults, resetRound } = gameSlice.actions;
 
 export default gameSlice.reducer;

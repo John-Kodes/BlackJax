@@ -25,22 +25,24 @@ const BtnStand = React.memo(() => {
   const dealerLoop = useCallback(() => {
     setTimeout(() => {
       dispatch(dealerDrawsCard(deck));
-    }, 1000);
+    }, 750);
   }, [dispatch, deck]);
 
   const dipatchResults = useCallback(() => {
     setTimeout(() => {
       dispatch(outputResults(playerHandTotal, dealerHandTotal));
+      setButtonClicked(false);
     }, 1500);
   }, [playerHandTotal, dealerHandTotal, dispatch]);
 
+  // Dealer loop logic
   useEffect(() => {
     if (
       (dealerHandTotal < 17 && buttonClicked) ||
       (dealerHandTotal < 17 && dealerWillPlay)
     )
       dealerLoop();
-    else if (dealerHandTotal > 0) dipatchResults();
+    else if (dealerHandTotal > 0 && dealerWillPlay) dipatchResults();
   }, [
     dispatch,
     dealerHandTotal,

@@ -20,29 +20,13 @@ const BtnHit = React.memo(() => {
     dispatch(playerDrawsCard(deck));
   };
 
+  // Dealer loop logic
   useEffect(() => {
     if (playerHandTotal > 20 && !dealerWillPlay) dispatch(dealersTurn());
   }, [dispatch, playerHandTotal, dealerWillPlay]);
 
-  // const playingBtnAnim = {
-  //   initial: { y: 0 },
-  //   animate: { y: 0 },
-  //   hover: {
-  //     y: -3,
-  //     transition: {
-  //       duration: 0.1,
-  //       type: "tween",
-  //       ease: "easeInOut",
-  //     },
-  //   },
-  // };
-
   return (
     <PlayingBtn
-      // variants={playingBtnAnim}
-      // initial="initial"
-      // animate="animate"
-      // whileHover="hover"
       onClick={drawCardHandler}
       disabled={playerHandTotal > 20 || dealerWillPlay}
     >

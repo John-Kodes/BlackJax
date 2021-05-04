@@ -89,6 +89,14 @@ const cardsSlice = createSlice({
         };
       },
     },
+    resetCards(state, action) {
+      state.dealerHand = [];
+      state.playerHand = [];
+      state.totalHandValue = {
+        dealerHand: 0,
+        playerHand: 0,
+      };
+    },
   },
 });
 
@@ -96,6 +104,7 @@ export const {
   playerDrawsCard,
   dealerDrawsCard,
   countCounter,
+  resetCards,
 } = cardsSlice.actions;
 
 export default cardsSlice.reducer;

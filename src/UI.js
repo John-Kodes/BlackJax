@@ -3,7 +3,7 @@ import React from "react";
 import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
 import BtnSplit from "./components/UIButtons/BtnSplit";
-import BtnInsurance from "./components/UIButtons/BtnInsurance";
+import BtnInsurance from "./components/UIButtons/BtnReset";
 import RoundResults from "./components/RoundResults";
 import CardCounter from "./components/CardCounter";
 // Redux
