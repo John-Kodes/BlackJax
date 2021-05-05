@@ -10,7 +10,6 @@ const BtnInsurance = () => {
   const dispatch = useDispatch();
 
   const toggle = () => {
-    console.log("button pressed");
     dispatch(resetRound());
     dispatch(resetCards());
   };

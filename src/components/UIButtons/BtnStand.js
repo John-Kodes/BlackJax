@@ -1,11 +1,11 @@
 import React, { useEffect, useCallback, useState } from "react";
+// Styling
+import { PlayingBtn } from "../../Globals/GlobalStyles";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { dealerDrawsCard } from "../cardsSlice";
 import { dealersTurn, outputResults } from "../gameSlice";
-// Styling
-import { PlayingBtn } from "../../Globals/GlobalStyles";
 
 const BtnStand = React.memo(() => {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const BtnStand = React.memo(() => {
   ]);
 
   const toggle = () => {
-    dispatch(dealersTurn(playerHandTotal, dealerHandTotal));
+    dispatch(dealersTurn());
     setButtonClicked(true);
   };
 
