@@ -3,14 +3,14 @@ import React from "react";
 import { PlayingBtn } from "../../Globals/GlobalStyles";
 // Redux
 import { useDispatch } from "react-redux";
-import { resetRound } from "../gameSlice";
+import { resetGame } from "../gameSlice";
 import { resetCards } from "../cardsSlice";
 
 const BtnInsurance = () => {
   const dispatch = useDispatch();
 
   const toggle = () => {
-    dispatch(resetRound());
+    dispatch(resetGame());
     dispatch(resetCards());
   };
 

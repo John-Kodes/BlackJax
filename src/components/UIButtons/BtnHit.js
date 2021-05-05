@@ -15,6 +15,7 @@ const BtnHit = React.memo(() => {
   );
 
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
+  // const result = useSelector((store) => store.game.winnerResult);
 
   const drawCardHandler = () => {
     dispatch(playerDrawsCard(deck));
@@ -22,8 +23,10 @@ const BtnHit = React.memo(() => {
 
   // Dealer loop logic
   useEffect(() => {
-    if (playerHandTotal > 20 && !dealerWillPlay) dispatch(dealersTurn());
-  }, [dispatch, playerHandTotal, dealerWillPlay]);
+    if (playerHandTotal > 20 && !dealerWillPlay) {
+      dispatch(dealersTurn());
+    }
+  }, [dispatch, playerHandTotal]);
 
   return (
     <PlayingBtn

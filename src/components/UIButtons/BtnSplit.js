@@ -13,8 +13,6 @@ const BtnSplit = () => {
 
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  console.log(playerHandLength);
-
   const dealCards = useCallback(() => {
     setTimeout(() => {
       dispatch(distributeCards(deck));
@@ -24,7 +22,7 @@ const BtnSplit = () => {
   useEffect(() => {
     if (buttonClicked && playerHandLength < 2) dealCards();
     else setButtonClicked(false);
-  }, [buttonClicked, dealCards]);
+  }, [buttonClicked, playerHandLength, dealCards]);
 
   const toggle = () => {
     setButtonClicked(true);

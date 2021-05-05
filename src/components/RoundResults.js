@@ -35,7 +35,7 @@ const RoundResults = () => {
 
 const StyledRoundResults = styled(motion.div)`
   position: fixed;
-  font-size: 9rem;
+  font-size: 7rem;
   padding: 1rem 5rem;
   border: 1px solid yellow;
   border-radius: 8px;

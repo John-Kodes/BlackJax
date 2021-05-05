@@ -38,7 +38,7 @@ const gameSlice = createSlice({
           dealerTotal === playerTotal
         )
           state.winnerResult = "push";
-        console.log("err", playerTotal, dealerTotal, state.winnerResult);
+        // console.log("err", playerTotal, dealerTotal, state.winnerResult);
       },
       prepare(playerTotal, dealerTotal) {
         return {
@@ -49,13 +49,13 @@ const gameSlice = createSlice({
         };
       },
     },
-    resetRound(state) {
+    resetGame(state) {
       state.dealerWillPlay = false;
       state.winnerResult = "none";
     },
   },
 });
 
-export const { dealersTurn, outputResults, resetRound } = gameSlice.actions;
+export const { dealersTurn, outputResults, resetGame } = gameSlice.actions;
 
 export default gameSlice.reducer;
