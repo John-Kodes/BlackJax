@@ -2,8 +2,6 @@ import React from "react";
 // Components
 import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
-import BtnSplit from "./components/UIButtons/BtnSplit";
-import BtnInsurance from "./components/UIButtons/BtnReset";
 import RoundResults from "./components/RoundResults";
 import CardCounter from "./components/CardCounter";
 // Redux
@@ -19,7 +17,6 @@ const UI = () => {
 
   // const { bet } = useSelector((store) => store.game);
   const { bank } = useSelector((store) => store.game);
-  const results = useSelector((state) => state.game.winnerResult);
 
   const playerHandTotal = useSelector(
     (store) => store.cards.totalHandValue.playerHand
@@ -30,7 +27,6 @@ const UI = () => {
 
   return (
     <Canvas>
-      {results !== "none" ? <RoundResults /> : ""}
       <CardsLeft>🃏{deckNum ? deckNum : "err"}</CardsLeft>
       <DealerTag>
         <span>{dealerHandTotal}</span>
@@ -43,31 +39,27 @@ const UI = () => {
       <Bank>Bank: ${bank}</Bank>
       <BtnsContainer>
         <BtnsBox>
-          <BtnSplit />
-          <BtnInsurance />
-        </BtnsBox>
-        <BtnsBox>
           <BtnStand />
           <BtnHit />
         </BtnsBox>
+        <CounterContainer>
+          <CardCounter />
+        </CounterContainer>
       </BtnsContainer>
-      <CounterContainer>
-        <CardCounter />
-      </CounterContainer>
     </Canvas>
   );
 };
 
 const Canvas = styled(motion.div)`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   position: absolute;
   height: 100%;
   width: 100%;
   top: 0;
 
-  padding: 12%;
+  padding: 6rem 2rem;
 `;
 
 const CardsLeft = styled(motion.div)`
@@ -118,28 +110,28 @@ const PlayerTag = styled(DealerTag)`
 
 const BtnsContainer = styled(motion.div)`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  width: 100%;
-  height: 10rem;
+
+  width: 33%;
+  height: 100%;
 `;
 
 const BtnsBox = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  margin-top: 75%;
+  height: 10rem;
 `;
 
 const CounterContainer = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-
-  bottom: 10%;
-  right: 4%;
-  height: 25%;
-  width: 32%;
 `;
 
 export default React.memo(UI);

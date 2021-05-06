@@ -19,9 +19,9 @@ const GlobalStyles = createGlobalStyle`
         font-weight: 400;
     }
     button {
+        box-sizing: content-box;
         font-family:'Raleway', sans-serif;
         color: white;
-        outline: none;
         font-size: 2.4rem;
         padding: 0.5rem 1.2rem;
 
@@ -40,16 +40,19 @@ const GlobalStyles = createGlobalStyle`
 
 export const PlayingBtn = styled(motion.button)`
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
+  border: 1px solid transparent;
   transition: all 0.2s;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 1.3rem 2.2rem rgba(0, 0, 0, 0.3);
+    border: 1px solid #999999;
   }
 
   &:active {
     transform: translateY(2px);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+    border: 1px solid #ffdc43;
   }
 `;
 

@@ -15,24 +15,22 @@ const DealerHand = () => {
   });
 
   return (
-    <>
-      <StyledHand
-        style={{
-          width: `${14.5 + 4 * (cards.length - 1)}rem`,
-          transition: "all 0.5s",
-        }}
-      >
-        {cards
-          ? cards.map((card, index) => {
-              return (
-                <Card1 key={uuidv4()} style={{ left: `${index * 4}rem` }}>
-                  {card}
-                </Card1>
-              );
-            })
-          : ""}
-      </StyledHand>
-    </>
+    <StyledHand
+      style={{
+        width: `${14.5 + 4 * (cards.length - 1)}rem`,
+        transition: "all 0.5s",
+      }}
+    >
+      {cards
+        ? cards.map((card, index) => {
+            return (
+              <Card1 key={uuidv4()} style={{ left: `${index * 4}rem` }}>
+                {card}
+              </Card1>
+            );
+          })
+        : ""}
+    </StyledHand>
   );
 };
 
@@ -40,6 +38,8 @@ const StyledHand = styled(motion.div)`
   height: 20rem;
   width: 40%;
   position: relative;
+
+  margin-right: 30%;
 `;
 
 const Card1 = styled.div`

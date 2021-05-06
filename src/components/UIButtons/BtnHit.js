@@ -23,7 +23,7 @@ const BtnHit = React.memo(() => {
 
   // Dealer loop logic
   useEffect(() => {
-    if (playerHandTotal > 20 && !dealerWillPlay) {
+    if (playerHandTotal > 20) {
       dispatch(dealersTurn());
     }
   }, [dispatch, playerHandTotal]);

@@ -64,6 +64,12 @@ const StyledCard = styled(motion.div)`
   color: black;
   border-radius: 1.4rem;
   box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.3);
+
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-1rem);
+  }
 `;
 
 const StyledCardContent = styled(motion.div)`

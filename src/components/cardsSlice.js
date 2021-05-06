@@ -58,7 +58,8 @@ const cardsSlice = createSlice({
       },
 
       prepare(deck) {
-        const index = Math.trunc(Math.random() * deck.length) + 1;
+        const index = Math.trunc(Math.random() * deck.length);
+
         return {
           payload: {
             index,
@@ -86,7 +87,8 @@ const cardsSlice = createSlice({
       },
 
       prepare(deck) {
-        const index = Math.trunc(Math.random() * deck.length) + 1;
+        const index = Math.trunc(Math.random() * deck.length);
+
         return {
           payload: {
             index,
@@ -114,7 +116,8 @@ const cardsSlice = createSlice({
         state.totalHandValue.dealerHand = dealerTotalValue;
       },
       prepare(deck) {
-        const index = Math.trunc(Math.random() * deck.length) + 1;
+        const index = Math.trunc(Math.random() * deck.length);
+
         return {
           payload: {
             index,

@@ -4,16 +4,21 @@ import React from "react";
 import UI from "../UI";
 import DealerHand from "./DealerHand";
 import PlayerHand from "./PlayerHand";
+import RoundResults from "./RoundResults";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const Board = () => {
+  const results = useSelector((state) => state.game.winnerResult);
+
   return (
     <StyledBoardOut>
       <StyledBoardBorder>
         <StyledBoardIn>
+          {results !== "none" ? <RoundResults /> : ""}
           <UI />
           <DealerHand />
           <PlayerHand />
@@ -27,6 +32,7 @@ const StyledBoardOut = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
+
   background: linear-gradient(to bottom, #1f1d22, #15101b);
   border-radius: 0.4rem;
   max-height: 70rem;
@@ -42,11 +48,12 @@ const StyledBoardIn = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+
   background: ${(props) => props.theme.primaryColor};
   height: 100%;
   width: 100%;
-  padding: 4rem;
-  position: relative;
+  padding: 6rem;
   overflow: hidden;
 
   background-clip: padding-box;

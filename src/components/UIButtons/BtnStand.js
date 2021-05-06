@@ -4,7 +4,7 @@ import { PlayingBtn } from "../../Globals/GlobalStyles";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { dealerDrawsCard, resetCards } from "../cardsSlice";
+import { dealerDrawsCard, resetCards, distributeCards } from "../cardsSlice";
 import { dealersTurn, outputResults, resetGame } from "../gameSlice";
 
 const BtnStand = React.memo(() => {
@@ -20,6 +20,8 @@ const BtnStand = React.memo(() => {
   const playerHandTotal = useSelector(
     (state) => state.cards.totalHandValue.playerHand
   );
+  const playerHandLength = useSelector((state) => state.cards.playerHand)
+    .length;
   const results = useSelector((state) => state.game.winnerResult);
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
 
@@ -40,6 +42,13 @@ const BtnStand = React.memo(() => {
     }, 4000);
   }, [dispatch]);
 
+  // START NEXT ROUND
+  const dealCards = () => {
+    setTimeout(() => {
+      dispatch(distributeCards(deck));
+    }, 500);
+  };
+
   // SHOWING RESULTS POPUP
   const dipatchResults = useCallback(() => {
     setTimeout(() => {
@@ -57,24 +66,23 @@ const BtnStand = React.memo(() => {
 
   // Dealer loop logic
   useEffect(() => {
-    if (
+    if (playerHandLength < 2) {
+      dealCards();
+    } else if (
       (dealerHandTotal < 17 && buttonClicked) ||
       (dealerHandTotal < 17 && dealerWillPlay)
     )
       dealerLoop();
-    else if (dealerHandTotal > 0 && dealerWillPlay && results === "none")
+    else if (dealerHandTotal > 0 && dealerWillPlay && results === "none") {
       dipatchResults();
-  }, [
-    dealerHandTotal,
-    dealerLoop,
-    buttonClicked,
-    dealerWillPlay,
-    dipatchResults,
-    results,
-  ]);
+    }
+  });
 
   return (
-    <PlayingBtn onClick={toggle} disabled={buttonClicked}>
+    <PlayingBtn
+      onClick={toggle}
+      disabled={buttonClicked || playerHandTotal < 1}
+    >
       <span>✋</span> STAND
     </PlayingBtn>
   );

@@ -34,9 +34,18 @@ const RoundResults = () => {
 };
 
 const StyledRoundResults = styled(motion.div)`
-  position: fixed;
-  font-size: 7rem;
-  padding: 1rem 5rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  font-size: 8rem;
+  padding: 1rem 2rem;
   border: 1px solid yellow;
   border-radius: 8px;
   background-color: ${(props) => props.theme.primaryColor}aa;
