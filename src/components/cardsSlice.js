@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import deckOfCards from "../deckOfCards";
 
 // This slice will contain EVERYTHING about the cards
+const newDeck = [...deckOfCards];
 
 const initialState = {
   deckOfCards,
@@ -59,7 +60,7 @@ const cardsSlice = createSlice({
 
       prepare(deck) {
         const index = Math.trunc(Math.random() * deck.length);
-
+        // console.log(index, deck.length);
         return {
           payload: {
             index,
@@ -88,6 +89,7 @@ const cardsSlice = createSlice({
 
       prepare(deck) {
         const index = Math.trunc(Math.random() * deck.length);
+        // console.log(index, deck.length);
 
         return {
           payload: {
@@ -117,6 +119,7 @@ const cardsSlice = createSlice({
       },
       prepare(deck) {
         const index = Math.trunc(Math.random() * deck.length);
+        // console.log(index, deck.length);
 
         return {
           payload: {
@@ -140,13 +143,16 @@ const cardsSlice = createSlice({
         };
       },
     },
-    resetCards(state, action) {
+    resetCards(state) {
       state.dealerHand = [];
       state.playerHand = [];
       state.totalHandValue = {
         dealerHand: 0,
         playerHand: 0,
       };
+    },
+    shuffleCards(state) {
+      state.deckOfCards = newDeck;
     },
   },
 });
@@ -157,6 +163,7 @@ export const {
   dealerDrawsCard,
   countCounter,
   resetCards,
+  shuffleCards,
 } = cardsSlice.actions;
 
 export default cardsSlice.reducer;

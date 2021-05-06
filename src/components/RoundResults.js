@@ -44,7 +44,7 @@ const StyledRoundResults = styled(motion.div)`
   flex-direction: column;
   text-align: center;
 
-  font-size: 8rem;
+  font-size: 10rem;
   padding: 1rem 2rem;
   border: 1px solid yellow;
   border-radius: 8px;
@@ -52,7 +52,8 @@ const StyledRoundResults = styled(motion.div)`
   box-shadow: 0 2rem 4rem rgba(3, 0, 17, 0.404);
   z-index: 9999;
 
-  backdrop-filter: blur(2px) brightness(180%) invert(90%) opacity(80%);
+  backdrop-filter: blur(2px) brightness(180%) invert(90%) opacity(90%)
+    drop-shadow(0px 4px 10px rgb(0, 0, 0));
 `;
 
 export default React.memo(RoundResults);

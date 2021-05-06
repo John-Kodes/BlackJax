@@ -2,7 +2,6 @@ import React from "react";
 // Components
 import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
-import RoundResults from "./components/RoundResults";
 import CardCounter from "./components/CardCounter";
 // Redux
 import { useSelector } from "react-redux";

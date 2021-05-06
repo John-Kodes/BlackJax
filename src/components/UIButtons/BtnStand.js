@@ -81,7 +81,7 @@ const BtnStand = React.memo(() => {
   return (
     <PlayingBtn
       onClick={toggle}
-      disabled={buttonClicked || playerHandTotal < 1}
+      disabled={buttonClicked || playerHandTotal < 1 || playerHandTotal > 20}
     >
       <span>✋</span> STAND
     </PlayingBtn>
