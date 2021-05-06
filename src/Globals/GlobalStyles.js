@@ -46,12 +46,15 @@ export const PlayingBtn = styled(motion.button)`
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 1.3rem 2.2rem rgba(0, 0, 0, 0.3);
+    background-color: #1e1e2b;
     border: 1px solid #999999;
   }
 
   &:active {
     transform: translateY(2px);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+    background-color: #13131b;
+
     border: 1px solid #ffdc43;
   }
 `;

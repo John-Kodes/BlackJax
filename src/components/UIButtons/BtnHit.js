@@ -13,6 +13,8 @@ const BtnHit = React.memo(() => {
   const playerHandTotal = useSelector(
     (store) => store.cards.totalHandValue.playerHand
   );
+  const playerHandLength = useSelector((store) => store.cards.playerHand)
+    .length;
 
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
   // const result = useSelector((store) => store.game.winnerResult);
@@ -31,7 +33,7 @@ const BtnHit = React.memo(() => {
   return (
     <PlayingBtn
       onClick={drawCardHandler}
-      disabled={playerHandTotal > 20 || dealerWillPlay}
+      disabled={playerHandTotal > 20 || dealerWillPlay || playerHandLength < 2}
     >
       🎯 HIT
     </PlayingBtn>
