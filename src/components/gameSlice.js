@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // this slice will contain everything related to the game state like money, win/lose
 
 const initialState = {
-  bank: 0,
+  bank: 1000,
   bet: 0,
   dealerWillPlay: false,
   winnerResult: "none", // dealer/player/draw/none

@@ -1,5 +1,6 @@
 import React from "react";
 // Components
+import chipsArr from "../data/chipsData";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
@@ -9,13 +10,27 @@ import { motion } from "framer-motion";
 // import { useSelector } from "react-redux";s
 
 const BettingScreen = () => {
+  const chipsArrStyled = chipsArr.map((chip) => {
+    return (
+      <StyledChip
+        style={{ borderColor: chip.color, color: chip.color }}
+        key={chip.value}
+      >
+        {chip.value}
+      </StyledChip>
+    );
+  });
+
   return (
     <StyledBackDrop>
       <StyledBettingScreen>
-        <StyledBank>Bank: $0</StyledBank>
-        <StyledCalcBox>PLACEHOLDER TEXT</StyledCalcBox>
+        <StyledBank>Bank: $888 888 888</StyledBank>
+        <StyledChipBox>
+          {chipsArrStyled}
+          <StyledChip>100</StyledChip>
+        </StyledChipBox>
         <StyledBetBox>
-          <h1>$888</h1>
+          <h1>$888 888 888</h1>
           <BtnDeal />
         </StyledBetBox>
       </StyledBettingScreen>
@@ -23,15 +38,30 @@ const BettingScreen = () => {
   );
 };
 
-const StyledCalcBox = styled(motion.div)`
+const StyledChip = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  width: 10rem;
+  font-size: 3rem;
+  font-weight: 600;
+
+  color: rgb(255, 165, 0);
+  border: 4px solid orange;
+  border-radius: 50%;
+`;
+
+const StyledChipBox = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
+  flex-wrap: wrap;
   margin-right: 2rem;
   border-radius: 4px;
-
-  background-color: rgba(0, 128, 128, 0.192);
+  gap: 1.5rem;
+  /* background-color: rgba(0, 128, 128, 0.192); */
 `;
 
 const StyledBetBox = styled(motion.div)`
@@ -41,9 +71,12 @@ const StyledBetBox = styled(motion.div)`
   justify-content: center;
   align-items: center;
 
-  font-size: 4rem;
+  font-size: 2rem;
   background-color: rgba(119, 103, 85, 0.349);
   border-radius: 4px;
+  h1 {
+    margin-bottom: 2rem;
+  }
 `;
 
 const StyledBank = styled(motion.div)`
@@ -56,7 +89,7 @@ const StyledBank = styled(motion.div)`
   color: #775100;
 
   background-color: #f2ce30;
-  clip-path: polygon(2.5rem 0, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(2.5rem 0, 110% 0, 110% 110%, 0% 100%);
 `;
 
 const StyledBettingScreen = styled(motion.div)`

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import deckOfCards from "../deckOfCards";
+import deckOfCards from "../data/deckOfCards";
 
 // This slice will contain EVERYTHING about the cards
 const newDeck = [...deckOfCards];
