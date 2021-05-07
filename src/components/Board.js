@@ -9,6 +9,7 @@ import RoundResults from "./RoundResults";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
+// Redux
 import { useSelector } from "react-redux";
 
 const Board = () => {

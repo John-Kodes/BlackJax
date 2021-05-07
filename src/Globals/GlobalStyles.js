@@ -41,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
 export const PlayingBtn = styled(motion.button)`
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
   border: 1px solid transparent;
-  transition: all 0.2s;
+  transition: all 0.3s;
 
   &:hover {
     transform: translateY(-3px);

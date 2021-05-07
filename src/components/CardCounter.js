@@ -83,7 +83,7 @@ const StyledButton = styled(motion.button)`
   line-height: 0.5;
   height: 4rem;
   width: 4rem;
-  z-index: 9999;
+  z-index: 20;
   border-radius: 100%;
   background-color: ${(props) => props.theme.UIElementColor};
   cursor: pointer;
