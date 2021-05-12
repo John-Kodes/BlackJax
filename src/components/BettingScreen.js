@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
-// import { calcBet } from "./gameSlice";
+import { calcBet } from "./gameSlice";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
 // Animation
 import { motion } from "framer-motion";
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const BettingScreen = () => {
-  const [betArr, setBetArr] = useState([]);
-  const [btnIsClicked, setBtnClicked] = useState(false);
+  const tempBank = useSelector((state) => state.game.tempBank);
 
-  const bank = useSelector((state) => state.game.bank);
-  const bet = useSelector((state) => state.game.bet);
+  const [btnIsClicked, setBtnClicked] = useState(false);
+  const [betArr, setBetArr] = useState([]);
+  const [betTotal, setBetTotal] = useState(0);
+
+  const dispatch = useDispatch();
 
   // click a chip to push it to an array. all the values in that array will be dispatched
   const betAmount = (amount) => {
     setBetArr([...betArr, amount]);
   };
 
-  const chipsArrFiltered = chipsArr.filter((chip) => chip.value < bank);
+  const chipsArrFiltered = chipsArr.filter((chip) => chip.value < tempBank);
   const chipsArrStyled = chipsArrFiltered.map((chip) => {
     return (
       <StyledChipContainer
@@ -38,16 +40,28 @@ const BettingScreen = () => {
 
   const toggle = () => {
     setBtnClicked(true);
-    console.log("i am clicked", betArr);
   };
+
+  useEffect(() => {
+    if (betArr.length < 1) return;
+    const total = betArr.reduce((acc, cur) => acc + cur);
+    setBetTotal(total);
+    dispatch(calcBet(betArr));
+  }, [dispatch, betArr]);
+
+  //// HOW THIS FUCKING SHIT WILL WORK
+  // We have an array of chips selected [10, 10, 500]
+  // The total will be calculated with array.reduce()
+  // There may need to be 2 states for banks. 1 tempBank then the real bank.
+  // The tempBank state will calculated -- tempBank = bank - chipsTotal
 
   return (
     <StyledBackDrop>
       <StyledBettingScreen>
-        <StyledBank>Bank: ${bank}</StyledBank>
+        <StyledBank>Bank: ${tempBank}</StyledBank>
         <StyledChipBox>{chipsArrStyled}</StyledChipBox>
         <StyledBetBox>
-          <h1>${bet}</h1>
+          <h1>${betTotal}</h1>
           <BtnDeal
             click={toggle}
             setBtnClicked={setBtnClicked}

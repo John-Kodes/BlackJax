@@ -4,7 +4,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   bank: 1000,
+  tempBank: 1000,
   bet: 0,
+  betArr: [0],
   dealerWillPlay: false,
   winnerResult: "none", // dealer/player/draw/none
 };
@@ -53,8 +55,9 @@ const gameSlice = createSlice({
       reducer(state, action) {
         const betArr = action.payload.betArr;
 
+        state.betArr = betArr;
         state.bet = betArr.reduce((acc, cur) => acc + cur);
-        state.bank -= state.bet;
+        state.tempBank = state.bank - state.bet;
       },
       prepare(betArr) {
         return {

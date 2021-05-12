@@ -6,12 +6,12 @@ import BGSVG from "../img/BGSVG.svg";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
-// import BettingScreen from "../components/BettingScreen";
+import BettingScreen from "../components/BettingScreen";
 
 function Home() {
   return (
     <StyledHome>
-      {/* <BettingScreen /> */}
+      <BettingScreen />
       <Board />
     </StyledHome>
   );
