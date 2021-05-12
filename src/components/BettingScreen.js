@@ -1,67 +1,116 @@
-import React from "react";
+import React, { useState } from "react";
 // Components
 import chipsArr from "../data/chipsData";
+import PokerChipColor from "../img/PokerChip.js";
+// import { calcBet } from "./gameSlice";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
 // Animation
 import { motion } from "framer-motion";
 // Redux
-// import { useSelector } from "react-redux";s
+import { useSelector } from "react-redux";
 
 const BettingScreen = () => {
-  const chipsArrStyled = chipsArr.map((chip) => {
+  const [betArr, setBetArr] = useState([]);
+  const [btnIsClicked, setBtnClicked] = useState(false);
+
+  const bank = useSelector((state) => state.game.bank);
+  const bet = useSelector((state) => state.game.bet);
+
+  // click a chip to push it to an array. all the values in that array will be dispatched
+  const betAmount = (amount) => {
+    setBetArr([...betArr, amount]);
+  };
+
+  const chipsArrFiltered = chipsArr.filter((chip) => chip.value < bank);
+  const chipsArrStyled = chipsArrFiltered.map((chip) => {
     return (
-      <StyledChip
-        style={{ borderColor: chip.color, color: chip.color }}
+      <StyledChipContainer
         key={chip.value}
+        onClick={() => betAmount(chip.value)}
       >
-        {chip.value}
-      </StyledChip>
+        {PokerChipColor(chip.color)}
+        <StyledChip style={{ color: "white" }}>{chip.value}</StyledChip>
+      </StyledChipContainer>
     );
   });
+
+  const toggle = () => {
+    setBtnClicked(true);
+    console.log("i am clicked", betArr);
+  };
 
   return (
     <StyledBackDrop>
       <StyledBettingScreen>
-        <StyledBank>Bank: $888 888 888</StyledBank>
-        <StyledChipBox>
-          {chipsArrStyled}
-          <StyledChip>100</StyledChip>
-        </StyledChipBox>
+        <StyledBank>Bank: ${bank}</StyledBank>
+        <StyledChipBox>{chipsArrStyled}</StyledChipBox>
         <StyledBetBox>
-          <h1>$888 888 888</h1>
-          <BtnDeal />
+          <h1>${bet}</h1>
+          <BtnDeal
+            click={toggle}
+            setBtnClicked={setBtnClicked}
+            btnIsClicked={btnIsClicked}
+          ></BtnDeal>
         </StyledBetBox>
       </StyledBettingScreen>
     </StyledBackDrop>
   );
 };
 
+export default React.memo(BettingScreen);
+
+const StyledChipContainer = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 11rem;
+  width: 11rem;
+  position: relative;
+
+  svg {
+    filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.699));
+  }
+
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+`;
+
 const StyledChip = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+
   height: 10rem;
   width: 10rem;
   font-size: 3rem;
   font-weight: 600;
 
-  color: rgb(255, 165, 0);
-  border: 4px solid orange;
-  border-radius: 50%;
+  filter: drop-shadow(0 0 0.4rem rgb(0, 0, 0));
 `;
 
 const StyledChipBox = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
+  align-content: center;
   flex: 1;
-  flex-wrap: wrap;
+  height: 100%;
   margin-right: 2rem;
   border-radius: 4px;
+  background-color: rgba(145, 145, 145, 0.192);
+
+  flex-wrap: wrap;
   gap: 1.5rem;
-  /* background-color: rgba(0, 128, 128, 0.192); */
 `;
 
 const StyledBetBox = styled(motion.div)`
@@ -70,6 +119,8 @@ const StyledBetBox = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 30rem;
+  clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
 
   font-size: 2rem;
   background-color: rgba(119, 103, 85, 0.349);
@@ -94,8 +145,9 @@ const StyledBank = styled(motion.div)`
 
 const StyledBettingScreen = styled(motion.div)`
   display: flex;
+  align-items: center;
 
-  background-color: rgba(133, 92, 17, 0.178);
+  background-color: rgba(139, 128, 105, 0.178);
   height: 60rem;
   width: 100rem;
   border-radius: 4px;
@@ -122,5 +174,3 @@ const StyledBackDrop = styled(motion.div)`
   transform: translate(-50%, -50%);
   z-index: 99;
 `;
-
-export default BettingScreen;

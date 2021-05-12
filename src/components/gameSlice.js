@@ -49,6 +49,21 @@ const gameSlice = createSlice({
         };
       },
     },
+    calcBet: {
+      reducer(state, action) {
+        const betArr = action.payload.betArr;
+
+        state.bet = betArr.reduce((acc, cur) => acc + cur);
+        state.bank -= state.bet;
+      },
+      prepare(betArr) {
+        return {
+          payload: {
+            betArr,
+          },
+        };
+      },
+    },
     resetGame(state) {
       state.dealerWillPlay = false;
       state.winnerResult = "none";
@@ -56,6 +71,11 @@ const gameSlice = createSlice({
   },
 });
 
-export const { dealersTurn, outputResults, resetGame } = gameSlice.actions;
+export const {
+  dealersTurn,
+  outputResults,
+  calcBet,
+  resetGame,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

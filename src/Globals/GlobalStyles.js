@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
         font-size: 62.5%; // 1 rem = 10px
     }
     body{
-        font-family:'Raleway', sans-serif;
+        font-family:'Montserrat', sans-serif;
         background-color: #333;
         color: white;
     }
@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
     }
     button {
         box-sizing: content-box;
-        font-family:'Raleway', sans-serif;
+        font-family:'Montserrat', sans-serif;
         color: white;
         font-size: 2.4rem;
         padding: 0.5rem 1.2rem;

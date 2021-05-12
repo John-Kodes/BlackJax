@@ -4,12 +4,8 @@ import React from "react";
 import styled from "styled-components";
 import { PlayingBtn } from "../../Globals/GlobalStyles";
 
-const BtnDeal = () => {
-  return (
-    <>
-      <StyledBtnDeal>DEAL</StyledBtnDeal>
-    </>
-  );
+const BtnDeal = ({ click, setBtnIsClicked, btnIsClicked }) => {
+  return <StyledBtnDeal onClick={click}>DEAL</StyledBtnDeal>;
 };
 
 const StyledBtnDeal = styled(PlayingBtn)`
@@ -19,6 +15,7 @@ const StyledBtnDeal = styled(PlayingBtn)`
   font-size: 5rem;
   padding: 1rem 2rem;
 
+  transition: all 0.2s;
   &:hover {
     background-color: #f1ce30;
     color: black;
