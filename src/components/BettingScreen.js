@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
-import { calcBet } from "./gameSlice";
+import { calcBet, updateBank } from "./gameSlice";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 
-const BettingScreen = () => {
+const BettingScreen = ({ setShowBettingScreen }) => {
   const tempBank = useSelector((state) => state.game.tempBank);
 
   const [btnIsClicked, setBtnClicked] = useState(false);
@@ -39,7 +39,9 @@ const BettingScreen = () => {
   });
 
   const toggle = () => {
+    setShowBettingScreen(false);
     setBtnClicked(true);
+    dispatch(updateBank());
   };
 
   useEffect(() => {
@@ -48,12 +50,6 @@ const BettingScreen = () => {
     setBetTotal(total);
     dispatch(calcBet(betArr));
   }, [dispatch, betArr]);
-
-  //// HOW THIS FUCKING SHIT WILL WORK
-  // We have an array of chips selected [10, 10, 500]
-  // The total will be calculated with array.reduce()
-  // There may need to be 2 states for banks. 1 tempBank then the real bank.
-  // The tempBank state will calculated -- tempBank = bank - chipsTotal
 
   return (
     <StyledBackDrop>

@@ -67,6 +67,18 @@ const gameSlice = createSlice({
         };
       },
     },
+    updateBank: {
+      reducer(state) {
+        state.bank = state.tempBank;
+      },
+      prepare(bet = 0) {
+        return {
+          payload: {
+            bet,
+          },
+        };
+      },
+    },
     resetGame(state) {
       state.dealerWillPlay = false;
       state.winnerResult = "none";
@@ -78,6 +90,7 @@ export const {
   dealersTurn,
   outputResults,
   calcBet,
+  updateBank,
   resetGame,
 } = gameSlice.actions;
 

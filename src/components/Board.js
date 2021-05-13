@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 // Redux
 import { useSelector } from "react-redux";
 
-const Board = () => {
+const Board = ({ setShowBettingScreen, showBettingScreen }) => {
   const results = useSelector((state) => state.game.winnerResult);
 
   return (
@@ -20,7 +20,10 @@ const Board = () => {
       <StyledBoardBorder>
         <StyledBoardIn>
           {results !== "none" ? <RoundResults /> : ""}
-          <UI />
+          <UI
+            setShowBettingScreen={setShowBettingScreen}
+            showBettingScreen={showBettingScreen}
+          />
           <DealerHand />
           <PlayerHand />
         </StyledBoardIn>

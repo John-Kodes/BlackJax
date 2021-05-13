@@ -29,6 +29,7 @@ const createDeck = () => {
         suit,
         value,
         rv: findRealValue(value),
+        hide: false,
       });
     });
   });

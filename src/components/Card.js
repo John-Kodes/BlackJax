@@ -44,50 +44,118 @@ const Card = ({ suit, value }) => {
   };
 
   return (
-    <StyledCardBorder>
-      <StyledCard>
-        {/* {console.log("card component being re-rendered")} */}
-        <StyledCardContent>
-          <StyledCardID>
-            <div
-              className="value"
+    <CardContainer>
+      <StyledCardBorder className="front">
+        <StyledCard>
+          {/* {console.log("card component being re-rendered")} */}
+          <StyledCardContent>
+            <StyledCardID>
+              <div
+                className="value"
+                style={{
+                  color: `${
+                    suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
+                  }`,
+                }}
+              >
+                {value}
+              </div>
+              <div
+                className="suit"
+                style={{
+                  color: `${
+                    suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
+                  }`,
+                }}
+              >
+                {symbol(suit)}
+              </div>
+            </StyledCardID>
+            <StyledCardArt
+              className="svg-container"
               style={{
                 color: `${
                   suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
                 }`,
               }}
             >
-              {value}
-            </div>
-            <div
-              className="suit"
+              {cardArt(
+                value,
+                `${
+                  suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
+                }`
+              )}
+            </StyledCardArt>
+          </StyledCardContent>
+        </StyledCard>
+      </StyledCardBorder>
+      <StyledCardBorder className="back">
+        <StyledCard>
+          <StyledCardContent>
+            <StyledCardID>
+              <div
+                className="value"
+                style={{
+                  color: `${
+                    suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
+                  }`,
+                }}
+              >
+                1
+              </div>
+              <div
+                className="suit"
+                style={{
+                  color: `${
+                    suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
+                  }`,
+                }}
+              >
+                2
+              </div>
+            </StyledCardID>
+            <StyledCardArt
+              className="svg-container"
               style={{
                 color: `${
                   suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
                 }`,
               }}
             >
-              {symbol(suit)}
-            </div>
-          </StyledCardID>
-          <StyledCardArt
-            className="svg-container"
-            style={{
-              color: `${
-                suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
-              }`,
-            }}
-          >
-            {cardArt(
-              value,
-              `${suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"}`
-            )}
-          </StyledCardArt>
-        </StyledCardContent>
-      </StyledCard>
-    </StyledCardBorder>
+              3
+            </StyledCardArt>
+          </StyledCardContent>
+        </StyledCard>
+      </StyledCardBorder>
+    </CardContainer>
   );
 };
+
+const CardContainer = styled(motion.div)`
+  position: relative;
+
+  height: 20.5rem;
+  width: 15rem;
+  transform: perspective(40rem);
+
+  transition: all 2s;
+
+  & > .front {
+    transform: perspective(40rem) rotateY(0deg);
+    backface-visibility: hidden;
+  }
+  &:hover > .front {
+    transform: perspective(40rem) rotateY(180deg);
+  }
+
+  & > .back {
+    transform: perspective(40rem) rotateY(-180deg);
+    backface-visibility: hidden;
+  }
+  :hover& > .back {
+    transform: perspective(40rem) rotateY(0deg);
+  }
+`;
 
 const StyledCard = styled(motion.div)`
   display: flex;
@@ -109,16 +177,16 @@ const StyledCardBorder = styled(motion.div)`
   justify-content: center;
   align-items: center;
 
+  position: absolute;
+  top: 0;
+  left: 0;
+
   z-index: -1;
   padding: 2px;
   border-radius: 1.2rem;
   background: linear-gradient(to top right, #181722 10%, #222631 90%, #424858);
 
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: translateY(-1rem);
-  }
+  transition: all 2s;
 `;
 
 const StyledCardContent = styled(motion.div)`

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Components
 import Board from "../components/Board";
 import BGSVG from "../img/BGSVG.svg";
@@ -9,13 +9,55 @@ import { motion } from "framer-motion";
 import BettingScreen from "../components/BettingScreen";
 
 function Home() {
+  const [showBettingScreen, setShowBettingScreen] = useState(false);
+
+  const BettingScreenAnim = {
+    initial: { y: 400 },
+    animate: { y: 0, transition: { duration: 1 } },
+  };
+
   return (
     <StyledHome>
-      <BettingScreen />
-      <Board />
+      {showBettingScreen ? (
+        <BettingScreen
+          variants={BettingScreenAnim}
+          initial="initial"
+          animate="animate"
+          setShowBettingScreen={setShowBettingScreen}
+        />
+      ) : (
+        ""
+      )}
+      <Board
+        setShowBettingScreen={setShowBettingScreen}
+        showBettingScreen={showBettingScreen}
+      />
+      <TestButton onClick={() => setShowBettingScreen(!showBettingScreen)}>
+        butt
+      </TestButton>
     </StyledHome>
   );
 }
+
+// Temp
+const TestButton = styled(motion.button)`
+  position: absolute;
+  right: 5px;
+  background-color: #34353f;
+
+  z-index: 99999999999999999999999999999999999999999999999;
+
+  transition: all 0.2s;
+  &:hover {
+    transform: translateY(-5px);
+    filter: brightness(150%);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    filter: brightness(100%);
+  }
+`;
 
 const StyledHome = styled(motion.div)`
   display: flexbox;

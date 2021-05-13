@@ -10,11 +10,11 @@ import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
-const UI = () => {
+const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   //// STATES
   const deckNum = useSelector((store) => store.cards.deckOfCards).length;
 
-  // const { bet } = useSelector((store) => store.game);
+  const { bet } = useSelector((store) => store.game);
   const { bank } = useSelector((store) => store.game);
 
   const playerHandTotal = useSelector(
@@ -37,8 +37,14 @@ const UI = () => {
       </PlayerTag>
       <Bank>Bank: ${bank}</Bank>
       <BtnsContainer>
+        <BetNum>
+          <span>BET</span>${bet}
+        </BetNum>
         <BtnsBox>
-          <BtnStand />
+          <BtnStand
+            setShowBettingScreen={setShowBettingScreen}
+            showBettingScreen={showBettingScreen}
+          />
           <BtnHit />
         </BtnsBox>
         <CounterContainer>
@@ -114,8 +120,23 @@ const BtnsContainer = styled(motion.div)`
   align-items: center;
   flex-wrap: wrap;
 
-  width: 33%;
+  width: 40%;
   height: 100%;
+`;
+
+const BetNum = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 4rem;
+  font-size: 8rem;
+  font-weight: 200;
+
+  span {
+    font-size: 2rem;
+    font-weight: 400;
+  }
 `;
 
 const BtnsBox = styled(motion.div)`
@@ -123,8 +144,8 @@ const BtnsBox = styled(motion.div)`
   flex-direction: column;
   justify-content: space-between;
 
-  margin-top: 75%;
   height: 10rem;
+  margin-top: -3rem;
 `;
 
 const CounterContainer = styled(motion.div)`

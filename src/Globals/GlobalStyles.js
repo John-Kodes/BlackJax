@@ -14,6 +14,7 @@ const GlobalStyles = createGlobalStyle`
         font-family:'Montserrat', sans-serif;
         background-color: #333;
         color: white;
+        user-select: none;
     }
     h1{
         font-weight: 400;

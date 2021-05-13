@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { dealerDrawsCard, resetCards, distributeCards } from "../cardsSlice";
 import { dealersTurn, outputResults, resetGame } from "../gameSlice";
 
+// Currently, most or if not, all the dealer logic is in this component.
+// It also automatically moves to the next round. I should have it automatically bring up the
+// BettingScreen instead and also move the dealer logic to a different file... or maybe leave it here idk
+
 const BtnStand = React.memo(() => {
   const dispatch = useDispatch();
 
