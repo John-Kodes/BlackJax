@@ -14,7 +14,7 @@ import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
-const Card = ({ suit, value }) => {
+const Card = ({ suit, value, flipBool }) => {
   const symbol = (s) => {
     switch (s) {
       case "D":
@@ -45,9 +45,8 @@ const Card = ({ suit, value }) => {
 
   return (
     <CardContainer>
-      <StyledCardBorder className="front">
+      <StyledCardBorder className={`front ${flipBool ? "front--animate" : ""}`}>
         <StyledCard>
-          {/* {console.log("card component being re-rendered")} */}
           <StyledCardContent>
             <StyledCardID>
               <div
@@ -89,7 +88,7 @@ const Card = ({ suit, value }) => {
           </StyledCardContent>
         </StyledCard>
       </StyledCardBorder>
-      <StyledCardBorder className="back">
+      <StyledCardBorder className={`back ${flipBool ? "back--animate" : ""}`}>
         <StyledCard>
           <StyledCardContent>
             <StyledCardID>
@@ -138,13 +137,17 @@ const CardContainer = styled(motion.div)`
   width: 15rem;
   transform: perspective(40rem);
 
-  transition: all 2s;
+  transition: all 0.5s;
+
+  &:hover {
+    transform: translateY(-1rem);
+  }
 
   & > .front {
     transform: perspective(40rem) rotateY(0deg);
     backface-visibility: hidden;
   }
-  &:hover > .front {
+  & > .front--animate {
     transform: perspective(40rem) rotateY(180deg);
   }
 
@@ -152,10 +155,13 @@ const CardContainer = styled(motion.div)`
     transform: perspective(40rem) rotateY(-180deg);
     backface-visibility: hidden;
   }
-  :hover& > .back {
+  & > .back--animate {
     transform: perspective(40rem) rotateY(0deg);
   }
 `;
+
+// So what i wanna do here is if have an active class that will be flipped if the element has the class.
+// The front and back elements are the ones that are actually doing the animation.
 
 const StyledCard = styled(motion.div)`
   display: flex;
@@ -163,8 +169,8 @@ const StyledCard = styled(motion.div)`
   align-items: center;
   font-weight: 200;
 
-  height: 20rem;
-  width: 14.5rem;
+  height: 22.9rem;
+  width: 17.05rem;
   padding: 1rem;
   background-image: linear-gradient(to top right, #050608, #171a1f);
   color: black;
@@ -186,7 +192,7 @@ const StyledCardBorder = styled(motion.div)`
   border-radius: 1.2rem;
   background: linear-gradient(to top right, #181722 10%, #222631 90%, #424858);
 
-  transition: all 2s;
+  transition: inherit;
 `;
 
 const StyledCardContent = styled(motion.div)`

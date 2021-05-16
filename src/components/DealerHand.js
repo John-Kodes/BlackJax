@@ -10,8 +10,16 @@ import { motion } from "framer-motion";
 
 const DealerHand = () => {
   const dealerHand = useSelector((store) => store.cards.dealerHand);
-  const cards = dealerHand.map((card) => {
-    return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
+  const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
+  const cards = dealerHand.map((card, index) => {
+    return (
+      <Card
+        suit={card.suit}
+        value={card.value}
+        flipBool={index === 0 ? !dealersTurn : false}
+        key={uuidv4()}
+      />
+    );
   });
 
   return (
