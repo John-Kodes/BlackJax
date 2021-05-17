@@ -37,7 +37,8 @@ const PlayerHand = () => {
 };
 
 const StyledHand = styled(motion.div)`
-  height: 20rem;
+  height: 23.4rem;
+
   position: relative;
   margin-right: 30%;
 `;

@@ -9,12 +9,20 @@ import {
   KingFace,
   QueenFace,
 } from "../img/SvgCardArt";
+import CardBackSvg from "../img/CardBackSVG";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
-const Card = ({ suit, value, flipBool }) => {
+const Card = ({ suit, value, index }) => {
+  const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
+  let hideBool = false;
+
+  if (index === 1 && !dealersTurn) hideBool = true;
+
+  console.log(hideBool);
   const symbol = (s) => {
     switch (s) {
       case "D":
@@ -45,7 +53,7 @@ const Card = ({ suit, value, flipBool }) => {
 
   return (
     <CardContainer>
-      <StyledCardBorder className={`front ${flipBool ? "front--animate" : ""}`}>
+      <StyledCardBorder className={`front ${hideBool ? "front--animate" : ""}`}>
         <StyledCard>
           <StyledCardContent>
             <StyledCardID>
@@ -88,47 +96,20 @@ const Card = ({ suit, value, flipBool }) => {
           </StyledCardContent>
         </StyledCard>
       </StyledCardBorder>
-      <StyledCardBorder className={`back ${flipBool ? "back--animate" : ""}`}>
-        <StyledCard>
-          <StyledCardContent>
-            <StyledCardID>
-              <div
-                className="value"
-                style={{
-                  color: `${
-                    suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
-                  }`,
-                }}
-              >
-                1
-              </div>
-              <div
-                className="suit"
-                style={{
-                  color: `${
-                    suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
-                  }`,
-                }}
-              >
-                2
-              </div>
-            </StyledCardID>
-            <StyledCardArt
-              className="svg-container"
-              style={{
-                color: `${
-                  suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
-                }`,
-              }}
-            >
-              3
-            </StyledCardArt>
-          </StyledCardContent>
-        </StyledCard>
+      <StyledCardBorder className={`back ${hideBool ? "back--animate" : ""}`}>
+        <Cardback>{CardBackSvg("41 38  243 264")}</Cardback>
       </StyledCardBorder>
     </CardContainer>
   );
 };
+const Cardback = styled(motion.div)`
+  height: 23rem;
+  width: 17.15rem;
+
+  svg {
+    filter: contrast(120%) brightness(90%);
+  }
+`;
 
 const CardContainer = styled(motion.div)`
   position: relative;
@@ -137,7 +118,7 @@ const CardContainer = styled(motion.div)`
   width: 15rem;
   transform: perspective(40rem);
 
-  transition: all 0.5s;
+  transition: all 1s;
 
   &:hover {
     transform: translateY(-1rem);
@@ -169,8 +150,8 @@ const StyledCard = styled(motion.div)`
   align-items: center;
   font-weight: 200;
 
-  height: 22.9rem;
-  width: 17.05rem;
+  height: 23rem;
+  width: 17.15rem;
   padding: 1rem;
   background-image: linear-gradient(to top right, #050608, #171a1f);
   color: black;
@@ -188,7 +169,7 @@ const StyledCardBorder = styled(motion.div)`
   left: 0;
 
   z-index: -1;
-  padding: 2px;
+  padding: 1.5px;
   border-radius: 1.2rem;
   background: linear-gradient(to top right, #181722 10%, #222631 90%, #424858);
 

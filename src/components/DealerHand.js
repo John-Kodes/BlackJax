@@ -10,15 +10,9 @@ import { motion } from "framer-motion";
 
 const DealerHand = () => {
   const dealerHand = useSelector((store) => store.cards.dealerHand);
-  const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
   const cards = dealerHand.map((card, index) => {
     return (
-      <Card
-        suit={card.suit}
-        value={card.value}
-        flipBool={index === 0 ? !dealersTurn : false}
-        key={uuidv4()}
-      />
+      <Card suit={card.suit} value={card.value} index={index} key={uuidv4()} />
     );
   });
 
@@ -43,7 +37,7 @@ const DealerHand = () => {
 };
 
 const StyledHand = styled(motion.div)`
-  height: 20rem;
+  height: 23.4rem;
   width: 40%;
   position: relative;
 
