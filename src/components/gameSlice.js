@@ -8,7 +8,7 @@ const initialState = {
   bet: 0,
   betArr: [0],
   dealerWillPlay: false,
-  winnerResult: "none", // dealer/player/draw/none
+  winnerResult: "none", // dealer/player/push/none
 };
 
 const gameSlice = createSlice({
@@ -79,9 +79,30 @@ const gameSlice = createSlice({
         };
       },
     },
-    resetGame(state) {
-      state.dealerWillPlay = false;
-      state.winnerResult = "none";
+    resetGame: {
+      reducer(state) {
+        state.dealerWillPlay = false;
+
+        const results = state.winnerResult;
+        const bet = state.bet;
+        const bank = state.tempBank;
+
+        if (results === "dealer") state.bet = 0;
+        if (results === "player") state.bank = bet * 2 + bank;
+        if (results === "push") state.bank = bet + bank;
+
+        state.winnerResult = "none";
+        state.bet = 0;
+        state.tempBank = state.bank;
+        // if LOST: CLEAR bet. Bet from bank has already been subtracted.
+        // if WIN: (bet * 2) + bank
+        // if PUSH: bet + bank
+      },
+      prepare() {
+        return {
+          payload: {},
+        };
+      },
     },
   },
 });

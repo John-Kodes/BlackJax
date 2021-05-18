@@ -20,9 +20,8 @@ const Card = ({ suit, value, index }) => {
   const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
   let hideBool = false;
 
-  if (index === 1 && !dealersTurn) hideBool = true;
+  if (index === 0 && !dealersTurn) hideBool = true;
 
-  console.log(hideBool);
   const symbol = (s) => {
     switch (s) {
       case "D":
@@ -105,9 +104,9 @@ const Card = ({ suit, value, index }) => {
 const Cardback = styled(motion.div)`
   height: 23rem;
   width: 17.15rem;
-
+  overflow: hidden;
   svg {
-    filter: contrast(120%) brightness(90%);
+    filter: contrast(120%) brightness(90%) hue-rotate(20deg);
   }
 `;
 
@@ -118,7 +117,7 @@ const CardContainer = styled(motion.div)`
   width: 15rem;
   transform: perspective(40rem);
 
-  transition: all 1s;
+  transition: all 0.4s cubic-bezier(0.41, -0.39, 0.68, 1.35);
 
   &:hover {
     transform: translateY(-1rem);

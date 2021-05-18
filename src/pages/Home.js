@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import BettingScreen from "../components/BettingScreen";
 
 function Home() {
-  const [showBettingScreen, setShowBettingScreen] = useState(false);
+  const [showBettingScreen, setShowBettingScreen] = useState(true);
 
   const BettingScreenAnim = {
     initial: { y: 400 },

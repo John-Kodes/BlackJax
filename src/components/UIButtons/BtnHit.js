@@ -17,7 +17,6 @@ const BtnHit = React.memo(() => {
     .length;
 
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
-  // const result = useSelector((store) => store.game.winnerResult);
 
   const drawCardHandler = () => {
     dispatch(playerDrawsCard(deck));

@@ -15,7 +15,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   const deckNum = useSelector((store) => store.cards.deckOfCards).length;
 
   const { bet } = useSelector((store) => store.game);
-  const { bank } = useSelector((store) => store.game);
+  const { tempBank } = useSelector((store) => store.game);
 
   const playerHandTotal = useSelector(
     (store) => store.cards.totalHandValue.playerHand
@@ -35,7 +35,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
         <span>{playerHandTotal}</span>
         Player
       </PlayerTag>
-      <Bank>Bank: ${bank}</Bank>
+      <Bank>Bank: ${tempBank}</Bank>
       <BtnsContainer>
         <BetNum>
           <span>BET</span>${bet}

@@ -57,7 +57,7 @@ const StyledBoardIn = styled(motion.div)`
   background: ${(props) => props.theme.primaryColor};
   height: 100%;
   width: 100%;
-  padding: 5rem;
+  padding: 4rem;
   overflow: hidden;
 
   background-clip: padding-box;

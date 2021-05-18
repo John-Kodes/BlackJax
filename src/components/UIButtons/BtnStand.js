@@ -11,11 +11,12 @@ import { dealersTurn, outputResults, resetGame } from "../gameSlice";
 // It also automatically moves to the next round. I should have it automatically bring up the
 // BettingScreen instead and also move the dealer logic to a different file... or maybe leave it here idk
 
-const BtnStand = React.memo(() => {
+const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   const dispatch = useDispatch();
 
   // STATES
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [dealerLoopBool, setDealerLoopBool] = useState(false);
 
   const deck = useSelector((store) => store.cards.deckOfCards);
   const dealerHandTotal = useSelector(
@@ -32,53 +33,77 @@ const BtnStand = React.memo(() => {
   //////////////////////// FUNCTIONS
 
   // DEALER DRAWS CARD
-  const dealerLoop = useCallback(() => {
-    setTimeout(() => {
-      dispatch(dealerDrawsCard(deck));
-    }, 750);
-  }, [dispatch, deck]);
+  const dealerLoop = useCallback(
+    (time = 5) => {
+      setTimeout(() => {
+        dispatch(dealerDrawsCard(deck));
+      }, time * 1000);
+    },
+    [dispatch, deck]
+  );
+
+  const startDealerLoop = (time = 5) => {
+    setTimeout(() => setDealerLoopBool(true), time * 1000);
+  };
 
   // RESET ROUND
-  const resetRound = useCallback(() => {
-    setTimeout(() => {
-      dispatch(resetGame());
-      dispatch(resetCards());
-    }, 4000);
-  }, [dispatch]);
+  const resetRound = useCallback(
+    (time = 5) => {
+      setTimeout(() => {
+        setDealerLoopBool(false);
+        setShowBettingScreen(true);
+        dispatch(resetCards());
+        dispatch(resetGame());
+        //// I think this can happen in the resetCards()
+        // if LOST: CLEAR bet. Bet from bank has already been subtracted.
+        // if WIN: (bet * 2) + bank
+        // if PUSH: bet + bank
+      }, time * 1000);
+    },
+    [dispatch, setShowBettingScreen]
+  );
 
   // START NEXT ROUND
-  const dealCards = () => {
+  const dealCards = (time = 5) => {
     setTimeout(() => {
       dispatch(distributeCards(deck));
-    }, 500);
+    }, time * 1000);
   };
 
   // SHOWING RESULTS POPUP
-  const dipatchResults = useCallback(() => {
-    setTimeout(() => {
-      dispatch(outputResults(playerHandTotal, dealerHandTotal));
-      setButtonClicked(false);
-    }, 1500);
-    resetRound();
-  }, [playerHandTotal, resetRound, dealerHandTotal, dispatch]);
+  const dipatchResults = useCallback(
+    (time = 5) => {
+      setTimeout(() => {
+        dispatch(outputResults(playerHandTotal, dealerHandTotal));
+        setButtonClicked(false);
+      }, time * 1000);
+      resetRound(4);
+    },
+    [playerHandTotal, resetRound, dealerHandTotal, dispatch]
+  );
 
   // onClick handler
   const toggle = () => {
-    dispatch(dealersTurn());
     setButtonClicked(true);
+    dispatch(dealersTurn());
   };
 
   // Dealer loop logic
   useEffect(() => {
-    if (playerHandLength < 2) {
-      dealCards();
+    if (playerHandLength < 2 && !showBettingScreen) {
+      dealCards(0.5);
     } else if (
-      (dealerHandTotal < 17 && buttonClicked) ||
-      (dealerHandTotal < 17 && dealerWillPlay)
+      (dealerHandTotal < 17 && buttonClicked && !dealerLoopBool) ||
+      (dealerHandTotal < 17 && dealerWillPlay && !dealerLoopBool)
+    ) {
+      startDealerLoop(0.5);
+    } else if (
+      (dealerHandTotal < 17 && buttonClicked && dealerLoopBool) ||
+      (dealerHandTotal < 17 && dealerWillPlay && dealerLoopBool)
     )
-      dealerLoop();
+      dealerLoop(0.75);
     else if (dealerHandTotal > 0 && dealerWillPlay && results === "none") {
-      dipatchResults();
+      dipatchResults(1.5);
     }
   });
 
@@ -90,6 +115,6 @@ const BtnStand = React.memo(() => {
       <span>✋</span> STAND
     </PlayingBtn>
   );
-});
+};
 
-export default BtnStand;
+export default React.memo(BtnStand);
