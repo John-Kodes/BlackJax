@@ -4,8 +4,12 @@ import React from "react";
 import styled from "styled-components";
 import { PlayingBtn } from "../../Globals/GlobalStyles";
 
-const BtnDeal = ({ click, setBtnIsClicked, btnIsClicked }) => {
-  return <StyledBtnDeal onClick={click}>DEAL</StyledBtnDeal>;
+const BtnDeal = ({ click, betTotal }) => {
+  return (
+    <StyledBtnDeal onClick={click} disabled={betTotal < 1}>
+      DEAL
+    </StyledBtnDeal>
+  );
 };
 
 const StyledBtnDeal = styled(PlayingBtn)`
@@ -28,6 +32,10 @@ const StyledBtnDeal = styled(PlayingBtn)`
     color: black;
     border: 1px solid transparent;
     filter: brightness(80%) hue-rotate(-10deg);
+  }
+
+  &:disabled {
+    filter: brightness(80%) saturate(0%);
   }
 `;
 

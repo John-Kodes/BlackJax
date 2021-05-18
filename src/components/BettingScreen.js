@@ -13,8 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const BettingScreen = ({ setShowBettingScreen }) => {
   const tempBank = useSelector((state) => state.game.tempBank);
+  const bank = useSelector((state) => state.game.bank);
 
-  const [btnIsClicked, setBtnClicked] = useState(false);
   const [betArr, setBetArr] = useState([]);
   const [betTotal, setBetTotal] = useState(0);
 
@@ -25,7 +25,7 @@ const BettingScreen = ({ setShowBettingScreen }) => {
     setBetArr([...betArr, amount]);
   };
 
-  const chipsArrFiltered = chipsArr.filter((chip) => chip.value < tempBank);
+  const chipsArrFiltered = chipsArr.filter((chip) => chip.value <= tempBank);
   const chipsArrStyled = chipsArrFiltered.map((chip) => {
     return (
       <StyledChipContainer
@@ -40,8 +40,18 @@ const BettingScreen = ({ setShowBettingScreen }) => {
 
   const toggle = () => {
     setShowBettingScreen(false);
-    setBtnClicked(true);
     dispatch(updateBank());
+  };
+
+  const betAll = () => {
+    if (betTotal === bank) {
+      setBetTotal(0);
+      setBetArr([0]);
+      dispatch(calcBet([0]));
+    } else {
+      setBetTotal(bank);
+      dispatch(calcBet([bank]));
+    }
   };
 
   useEffect(() => {
@@ -58,11 +68,12 @@ const BettingScreen = ({ setShowBettingScreen }) => {
         <StyledChipBox>{chipsArrStyled}</StyledChipBox>
         <StyledBetBox>
           <h1>${betTotal}</h1>
-          <BtnDeal
-            click={toggle}
-            setBtnClicked={setBtnClicked}
-            btnIsClicked={btnIsClicked}
-          ></BtnDeal>
+          <BtnDeal click={toggle} betTotal={betTotal}></BtnDeal>
+          <BetAllBtn onClick={betAll}>
+            {betTotal === bank ? "all out..." : "ALL IN!"}
+            <div className="btnBG1" />
+            <div className="btnBG2" />
+          </BetAllBtn>
         </StyledBetBox>
       </StyledBettingScreen>
     </StyledBackDrop>
@@ -70,6 +81,68 @@ const BettingScreen = ({ setShowBettingScreen }) => {
 };
 
 export default React.memo(BettingScreen);
+
+const BetAllBtn = styled(motion.button)`
+  position: relative;
+  margin-top: 2rem;
+  padding: 0.5rem 2rem;
+  border-radius: 10rem;
+  background-color: transparent;
+
+  border: 3px solid ${(props) => props.theme.gold};
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.3);
+    color: black;
+    filter: brightness(115%);
+
+    .btnBG1 {
+      transform: skew(0.6rad) translateX(0);
+    }
+
+    .btnBG2 {
+      transform: skew(0.6rad) translateX(0);
+    }
+  }
+
+  &:active {
+    filter: brightness(80%) hue-rotate(-10deg);
+    transform: translateY(2px);
+  }
+
+  .btnBG1 {
+    position: absolute;
+    width: 120%;
+    height: 100%;
+    top: 0;
+    left: -1rem;
+    background: rgba(255, 174, 0, 0.664);
+    z-index: -1;
+
+    transform: skew(0.6rad) translateX(-17rem);
+
+    transition: all 0.6s;
+  }
+
+  .btnBG2 {
+    position: absolute;
+    width: 120%;
+    height: 100%;
+    top: 0;
+    left: -1rem;
+    background: ${(props) => props.theme.gold};
+    z-index: -1;
+
+    transform: skew(0.6rad) translateX(-30rem);
+
+    transition: all 0.6s;
+  }
+`;
 
 const StyledChipContainer = styled(motion.div)`
   display: flex;
