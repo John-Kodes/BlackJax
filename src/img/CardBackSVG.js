@@ -1,5 +1,111 @@
 import React from "react";
 
+export const CardBackSVG2 = (vb = "0 0 176 235") => {
+  return (
+    <svg
+      width="176"
+      height="235"
+      viewBox={vb}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M175.948 222.533C175.948 229.16 170.576 234.533 163.948 234.533H155.914L60.3008 202.039L175.948 167.012V222.533Z"
+        fill="url(#paint0_linear)"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M175.948 31.6899L60.3078 202.038L175.948 167.082L175.948 31.6899Z"
+        fill="url(#paint1_linear)"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M155.917 234.533L60.3078 202.038L44.1449 234.533H155.917Z"
+        fill="#949494"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0.377777 174.459L60.3079 202.038L175.948 31.69V12.5242C175.948 5.89677 170.576 0.524185 163.948 0.524185L99.8528 0.524178L0.377792 42.0148L0.377777 174.459Z"
+        fill="url(#paint2_linear)"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M99.8527 0.524178L12.3778 0.52417C5.75038 0.52417 0.377792 5.89673 0.377792 12.5241V42.0148L99.8527 0.524178Z"
+        fill="url(#paint3_linear)"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M44.1449 234.533L60.3078 202.039L0.377777 174.459V222.533C0.377777 229.16 5.75034 234.533 12.3778 234.533H44.1449Z"
+        fill="url(#paint4_linear)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear"
+          x1="255.459"
+          y1="121.879"
+          x2="236.661"
+          y2="254.407"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#C4C4C4" />
+          <stop offset="1" stopColor="#D1D1D1" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear"
+          x1="255.459"
+          y1="98.7881"
+          x2="47.54"
+          y2="138.105"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#B1B1B1" />
+          <stop offset="1" stopColor="#939393" />
+        </linearGradient>
+        <linearGradient
+          id="paint2_linear"
+          x1="-9.05423"
+          y1="32.7079"
+          x2="60.8499"
+          y2="201.969"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#DBDBDB" />
+          <stop offset="1" stopColor="#C9C9C9" />
+        </linearGradient>
+        <linearGradient
+          id="paint3_linear"
+          x1="-150.403"
+          y1="68.5639"
+          x2="56.7728"
+          y2="23.0679"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#9B9B9B" />
+          <stop offset="1" stopColor="#C4C4C4" />
+        </linearGradient>
+        <linearGradient
+          id="paint4_linear"
+          x1="-104.661"
+          y1="81.3294"
+          x2="12.5639"
+          y2="285.999"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#848484" />
+          <stop offset="1" stopColor="#9D9D9D" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
 const CardBackSVG = (vb = "41 35  237 264") => {
   return (
     <svg

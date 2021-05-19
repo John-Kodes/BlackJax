@@ -9,7 +9,7 @@ import {
   KingFace,
   QueenFace,
 } from "../img/SvgCardArt";
-import CardBackSvg from "../img/CardBackSVG";
+import { CardBackSVG2 } from "../img/CardBackSVG";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -96,7 +96,7 @@ const Card = ({ suit, value, index }) => {
         </StyledCard>
       </StyledCardBorder>
       <StyledCardBorder className={`back ${hideBool ? "back--animate" : ""}`}>
-        <Cardback>{CardBackSvg("41 38  243 264")}</Cardback>
+        <Cardback>{CardBackSVG2("2 0 176 241")}</Cardback>
       </StyledCardBorder>
     </CardContainer>
   );
@@ -105,8 +105,10 @@ const Cardback = styled(motion.div)`
   height: 23rem;
   width: 17.15rem;
   overflow: hidden;
+  /* background-color: #f0f; */
+  filter: hue-rotate(200deg) saturate(50%) contrast(160%);
   svg {
-    filter: contrast(120%) brightness(90%) hue-rotate(20deg);
+    filter: brightness(35%) sepia(100%);
   }
 `;
 

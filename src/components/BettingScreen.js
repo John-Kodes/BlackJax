@@ -61,9 +61,53 @@ const BettingScreen = ({ setShowBettingScreen }) => {
     dispatch(calcBet(betArr));
   }, [dispatch, betArr]);
 
+  const bettingScreenAnim = {
+    initial: {
+      y: -400,
+      x: -500,
+      opacity: 0,
+    },
+    animate: {
+      y: -300,
+      x: -500,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        delay: 0.3,
+      },
+    },
+    exit: {
+      y: -400,
+      x: -500,
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeIn",
+      },
+    },
+  };
+
+  const backDropAnim = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { duration: 0.5 } },
+    exit: { opacity: 0, transition: { duration: 0.7, delay: 0 } },
+  };
+
   return (
-    <StyledBackDrop>
-      <StyledBettingScreen>
+    <>
+      <StyledBackDrop
+        variants={backDropAnim}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      />
+      <StyledBettingScreen
+        variants={bettingScreenAnim}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
         <StyledBank>Bank: ${tempBank}</StyledBank>
         <StyledChipBox>{chipsArrStyled}</StyledChipBox>
         <StyledBetBox>
@@ -76,7 +120,7 @@ const BettingScreen = ({ setShowBettingScreen }) => {
           </BetAllBtn>
         </StyledBetBox>
       </StyledBettingScreen>
-    </StyledBackDrop>
+    </>
   );
 };
 

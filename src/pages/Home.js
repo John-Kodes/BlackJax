@@ -2,32 +2,28 @@ import React, { useState } from "react";
 // Components
 import Board from "../components/Board";
 import BGSVG from "../img/BGSVG.svg";
+import BettingScreen from "../components/BettingScreen";
 // Styling
 import styled from "styled-components";
 // Animation
+import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
-import BettingScreen from "../components/BettingScreen";
 
 function Home() {
   const [showBettingScreen, setShowBettingScreen] = useState(true);
 
-  const BettingScreenAnim = {
-    initial: { y: 400 },
-    animate: { y: 0, transition: { duration: 1 } },
-  };
-
   return (
     <StyledHome>
-      {showBettingScreen ? (
-        <BettingScreen
-          variants={BettingScreenAnim}
-          initial="initial"
-          animate="animate"
-          setShowBettingScreen={setShowBettingScreen}
-        />
-      ) : (
-        ""
-      )}
+      <AnimatePresence>
+        {showBettingScreen ? (
+          <BettingScreen
+            key="modal"
+            setShowBettingScreen={setShowBettingScreen}
+          />
+        ) : (
+          ""
+        )}
+      </AnimatePresence>
       <Board
         setShowBettingScreen={setShowBettingScreen}
         showBettingScreen={showBettingScreen}
@@ -39,7 +35,7 @@ function Home() {
   );
 }
 
-// Temp
+// Temp;
 const TestButton = styled(motion.button)`
   position: absolute;
   right: 5px;
