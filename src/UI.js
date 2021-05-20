@@ -12,16 +12,16 @@ import { motion } from "framer-motion";
 
 const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   //// STATES
-  const deckNum = useSelector((store) => store.cards.deckOfCards).length;
+  const deckNum = useSelector((store) => store.game.deckOfCards).length;
 
   const { bet } = useSelector((store) => store.game);
   const { tempBank } = useSelector((store) => store.game);
 
   const playerHandTotal = useSelector(
-    (store) => store.cards.totalHandValue.playerHand
+    (store) => store.game.totalHandValue.playerHand
   );
   const dealerHandTotal = useSelector(
-    (store) => store.cards.totalHandValue.dealerHand
+    (store) => store.game.totalHandValue.dealerHand
   );
 
   return (

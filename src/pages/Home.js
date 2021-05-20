@@ -10,7 +10,7 @@ import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
 function Home() {
-  const [showBettingScreen, setShowBettingScreen] = useState(true);
+  const [showBettingScreen, setShowBettingScreen] = useState(false);
 
   return (
     <StyledHome>

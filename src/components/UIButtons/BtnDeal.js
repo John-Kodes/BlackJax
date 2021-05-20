@@ -15,27 +15,29 @@ const BtnDeal = ({ click, betTotal }) => {
 const StyledBtnDeal = styled(PlayingBtn)`
   background-color: #f2ce30;
   color: black;
-  border: 1px solid transparent;
+  border: 4px solid transparent;
   font-size: 5rem;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1.5rem;
 
   transition: all 0.2s;
   &:hover {
     background-color: #f1ce30;
     color: black;
-    border: 1px solid transparent;
+    border: 4px solid transparent;
     filter: brightness(115%);
   }
 
   &:active {
     background-color: #f1ce30;
     color: black;
-    border: 1px solid transparent;
+    border: 4px solid transparent;
     filter: brightness(80%) hue-rotate(-10deg);
   }
 
   &:disabled {
-    filter: brightness(80%) saturate(0%);
+    background-color: transparent;
+    color: white;
+    border: 4px solid #ffffff;
   }
 `;
 

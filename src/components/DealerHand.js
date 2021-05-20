@@ -9,10 +9,18 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const DealerHand = () => {
-  const dealerHand = useSelector((store) => store.cards.dealerHand);
+  const dealerHand = useSelector((store) => store.game.dealerHand);
+
   const cards = dealerHand.map((card, index) => {
     return (
-      <Card suit={card.suit} value={card.value} index={index} key={uuidv4()} />
+      <Card
+        suit={card.suit}
+        value={card.value}
+        index={index}
+        handLength={dealerHand.length}
+        hide={card.hide}
+        key={uuidv4()}
+      />
     );
   });
 
@@ -20,7 +28,8 @@ const DealerHand = () => {
     <StyledHand
       style={{
         width: `${14.5 + 4 * (cards.length - 1)}rem`,
-        transition: "all 0.5s",
+        transition: "all 0.5s cubic-bezier(0.47, 0.03, 0.45, 0.99)",
+        transitionDelay: "0.2s",
       }}
     >
       {cards

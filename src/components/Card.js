@@ -16,11 +16,15 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
-const Card = ({ suit, value, index }) => {
-  const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
-  let hideBool = false;
+const Card = ({ suit, value, index, handLength, hide }) => {
+  // const [hideBool, setHideBool] = useState(false);
 
-  if (index === 0 && !dealersTurn) hideBool = true;
+  // const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
+  const results = useSelector((state) => state.game.winnerResult);
+
+  const toggle = () => {
+    // setHideBool(!hideBool);
+  };
 
   const symbol = (s) => {
     switch (s) {
@@ -37,7 +41,22 @@ const Card = ({ suit, value, index }) => {
     }
   };
 
-  const cardArt = (v, color) => {
+  const symbolCardArt = (s) => {
+    switch (s) {
+      case "D":
+        return "♦";
+      case "H":
+        return "♥";
+      case "C":
+        return "♣";
+      case "S":
+        return "♠";
+      default:
+        return "err";
+    }
+  };
+
+  const cardArt = (v, color, suit) => {
     switch (v) {
       case "J":
         return JackFace(color, "-10 -25 160 183");
@@ -46,13 +65,84 @@ const Card = ({ suit, value, index }) => {
       case "Q":
         return QueenFace(color, "-15 -15 125 250");
       default:
-        return ":)";
+        return symbolCardArt(suit);
     }
   };
 
+  const flipTransition = {
+    transition: {
+      duration: 0.5,
+      times: [0, 0.5, 1],
+    },
+  };
+
+  const cardBackAnim = {
+    initial: {
+      rotateY: -180,
+    },
+    front: {
+      rotateY: -180,
+      ...flipTransition,
+    },
+    back: {
+      rotateY: 0,
+      ...flipTransition,
+    },
+  };
+
+  const cardFrontAnim = {
+    initial: {},
+    front: {
+      rotateY: 0,
+      ...flipTransition,
+    },
+    back: {
+      rotateY: 180,
+      ...flipTransition,
+    },
+  };
+
+  const cardAnim = {
+    initial: {
+      y: -300,
+    },
+    animate: {
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+    hover: {
+      y: -10,
+    },
+  };
+
+  const animIf = () => {
+    if (results === "none" && index === handLength - 1) {
+      return "initial";
+    } else return "animate";
+  };
+
+  // useEffect(() => {
+  //   if (index === 0 && !dealersTurn) setHideBool(true);
+  // }, [index, dealersTurn]);
+
   return (
-    <CardContainer>
-      <StyledCardBorder className={`front ${hideBool ? "front--animate" : ""}`}>
+    <CardContainer
+      className="card cont"
+      variants={cardAnim}
+      initial={animIf()}
+      animate="animate"
+      whileHover="hover"
+      onClick={toggle}
+    >
+      <StyledCardBorder
+        variants={cardFrontAnim}
+        initial="initial"
+        animate={hide ? "back" : "front"}
+        className="front"
+      >
         <StyledCard>
           <StyledCardContent>
             <StyledCardID>
@@ -89,13 +179,19 @@ const Card = ({ suit, value, index }) => {
                 value,
                 `${
                   suit === "D" ? "#f2ce30" : suit === "H" ? "#f2ce30" : "#ddd"
-                }`
+                }`,
+                suit
               )}
             </StyledCardArt>
           </StyledCardContent>
         </StyledCard>
       </StyledCardBorder>
-      <StyledCardBorder className={`back ${hideBool ? "back--animate" : ""}`}>
+      <StyledCardBorder
+        variants={cardBackAnim}
+        initial="initial"
+        animate={hide ? "back" : "front"}
+        className="back"
+      >
         <Cardback>{CardBackSVG2("2 0 176 241")}</Cardback>
       </StyledCardBorder>
     </CardContainer>
@@ -119,26 +215,12 @@ const CardContainer = styled(motion.div)`
   width: 15rem;
   transform: perspective(40rem);
 
-  transition: all 0.4s cubic-bezier(0.41, -0.39, 0.68, 1.35);
-
-  &:hover {
-    transform: translateY(-1rem);
-  }
-
   & > .front {
-    transform: perspective(40rem) rotateY(0deg);
     backface-visibility: hidden;
-  }
-  & > .front--animate {
-    transform: perspective(40rem) rotateY(180deg);
   }
 
   & > .back {
-    transform: perspective(40rem) rotateY(-180deg);
     backface-visibility: hidden;
-  }
-  & > .back--animate {
-    transform: perspective(40rem) rotateY(0deg);
   }
 `;
 

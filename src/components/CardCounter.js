@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 import { btnHover, btnTap } from "../animations";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { countCounter } from "./cardsSlice";
+import { countCounter } from "./gameSlice";
 
 const CardCounter = () => {
   const dispatch = useDispatch();
-  const count = useSelector((state) => state.cards.count);
+  const count = useSelector((state) => state.game.count);
 
   const incrementCount = () => {
     dispatch(countCounter(1));

@@ -3,18 +3,16 @@ import React, { useEffect } from "react";
 import { PlayingBtn } from "../../Globals/GlobalStyles";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { playerDrawsCard } from "../cardsSlice";
-import { dealersTurn } from "../gameSlice";
+import { dealersTurn, playerDrawsCard } from "../gameSlice";
 
 const BtnHit = React.memo(() => {
   const dispatch = useDispatch();
 
-  const deck = useSelector((store) => store.cards.deckOfCards);
+  const deck = useSelector((store) => store.game.deckOfCards);
   const playerHandTotal = useSelector(
-    (store) => store.cards.totalHandValue.playerHand
+    (store) => store.game.totalHandValue.playerHand
   );
-  const playerHandLength = useSelector((store) => store.cards.playerHand)
-    .length;
+  const playerHandLength = useSelector((store) => store.game.playerHand).length;
 
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
 

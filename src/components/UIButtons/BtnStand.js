@@ -4,8 +4,15 @@ import { PlayingBtn } from "../../Globals/GlobalStyles";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { dealerDrawsCard, resetCards, distributeCards } from "../cardsSlice";
-import { dealersTurn, outputResults, resetGame } from "../gameSlice";
+import {
+  dealerDrawsCard,
+  resetCards,
+  distributeCards,
+  dealersTurn,
+  outputResults,
+  resetGame,
+  // updateDealerHandTotal,
+} from "../gameSlice";
 
 // Currently, most or if not, all the dealer logic is in this component.
 // It also automatically moves to the next round. I should have it automatically bring up the
@@ -17,16 +24,18 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   // STATES
   const [buttonClicked, setButtonClicked] = useState(false);
   const [dealerLoopBool, setDealerLoopBool] = useState(false);
+  const [hiddenCardShown, setHiddenCardShown] = useState(false);
 
-  const deck = useSelector((store) => store.cards.deckOfCards);
+  if (false) console.log(hiddenCardShown);
+
+  const deck = useSelector((store) => store.game.deckOfCards);
   const dealerHandTotal = useSelector(
-    (state) => state.cards.totalHandValue.dealerHand
+    (state) => state.game.totalHandValue.dealerHand
   );
   const playerHandTotal = useSelector(
-    (state) => state.cards.totalHandValue.playerHand
+    (state) => state.game.totalHandValue.playerHand
   );
-  const playerHandLength = useSelector((state) => state.cards.playerHand)
-    .length;
+  const playerHandLength = useSelector((state) => state.game.playerHand).length;
   const results = useSelector((state) => state.game.winnerResult);
   const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
 
@@ -54,21 +63,20 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
         setShowBettingScreen(true);
         dispatch(resetCards());
         dispatch(resetGame());
-        //// I think this can happen in the resetCards()
-        // if LOST: CLEAR bet. Bet from bank has already been subtracted.
-        // if WIN: (bet * 2) + bank
-        // if PUSH: bet + bank
       }, time * 1000);
     },
     [dispatch, setShowBettingScreen]
   );
 
   // START NEXT ROUND
-  const dealCards = (time = 5) => {
-    setTimeout(() => {
-      dispatch(distributeCards(deck));
-    }, time * 1000);
-  };
+  const dealCards = useCallback(
+    (time = 5) => {
+      setTimeout(() => {
+        dispatch(distributeCards(deck));
+      }, time * 1000);
+    },
+    [dispatch, deck]
+  );
 
   // SHOWING RESULTS POPUP
   const dipatchResults = useCallback(
@@ -77,6 +85,7 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
         dispatch(outputResults(playerHandTotal, dealerHandTotal));
         setButtonClicked(false);
       }, time * 1000);
+      setHiddenCardShown(false);
       resetRound(4);
     },
     [playerHandTotal, resetRound, dealerHandTotal, dispatch]

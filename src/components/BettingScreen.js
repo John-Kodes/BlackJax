@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
-import { calcBet, updateBank } from "./gameSlice";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
 // Animation
 import { motion } from "framer-motion";
 // Redux
+import { calcBet, updateBank } from "./gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const BettingScreen = ({ setShowBettingScreen }) => {
@@ -284,7 +284,6 @@ const StyledBettingScreen = styled(motion.div)`
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
   z-index: 100;
   overflow: hidden;
 `;
@@ -293,7 +292,7 @@ const StyledBackDrop = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.4);
   height: 100vh;
   width: 100%;
-  backdrop-filter: blur(3px) opacity(80%);
+  backdrop-filter: blur(3px);
 
   position: absolute;
   left: 50%;

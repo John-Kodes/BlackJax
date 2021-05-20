@@ -1,8 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import deckOfCards from "../data/deckOfCards";
 
-// this slice will contain everything related to the game state like money, win/lose
+const newDeck = [...deckOfCards];
 
 const initialState = {
+  deckOfCards,
+  playerHand: [],
+  dealerHand: [],
+  totalHandValue: {
+    dealerHand: 0,
+    playerHand: 0,
+  },
+  count: 0,
   bank: 1000,
   tempBank: 1000,
   bet: 0,
@@ -15,6 +24,170 @@ const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
+    distributeCards: {
+      reducer(state, action) {
+        const deck = state.deckOfCards;
+        const dealerHand = state.dealerHand;
+        const playerHand = state.playerHand;
+
+        const { index } = action.payload;
+
+        // DEALER LOGIC
+        if (dealerHand.length < 2) {
+          // adding card to hand
+          dealerHand.push(deck[index]);
+
+          // removing card from hand
+          deck.splice(index, 1);
+
+          // Checking for Ace cards
+          const check = dealerHand.some((card) => card.value === "A");
+
+          // calculating hand total
+          const reducer = (acc, cur, index) => {
+            if (index === 0) return acc;
+
+            return acc + cur.rv;
+          };
+
+          let dealerTotalValue = dealerHand.reduce(reducer, 0);
+
+          // Calculating Ace card value
+          if (check && dealerTotalValue < 12) {
+            dealerTotalValue += 10;
+          }
+
+          state.totalHandValue.dealerHand = dealerTotalValue;
+
+          // PLAYER LOGIC
+        } else if (playerHand.length < 2) {
+          playerHand.push(deck[index]);
+          deck.splice(index, 1);
+
+          let playerTotalValue = playerHand.reduce(
+            (acc, cur) => acc + cur.rv,
+            0
+          );
+          const check = playerHand.some((card) => card.value === "A"); // undefined OR card details
+
+          if (check && playerTotalValue < 12) {
+            playerTotalValue += 10;
+          }
+
+          state.totalHandValue.playerHand = playerTotalValue;
+        }
+      },
+
+      prepare(deck) {
+        const index = Math.trunc(Math.random() * deck.length);
+        // console.log(index, deck.length);
+        return {
+          payload: {
+            index,
+          },
+        };
+      },
+    },
+    updateDealerHandTotal(state) {
+      const dealerHand = state.dealerHand;
+
+      let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
+      // Checking for Ace cards
+      const check = dealerHand.some((card) => card.value === "A");
+
+      // Calculating Ace card value
+      if (check && dealerTotalValue < 12) {
+        dealerTotalValue += 10;
+      }
+
+      state.totalHandValue.dealerHand = dealerTotalValue;
+    },
+    playerDrawsCard: {
+      reducer(state, action) {
+        const deck = state.deckOfCards;
+        const playerHand = state.playerHand;
+        const index = action.payload.index;
+
+        playerHand.push(deck[index]);
+        deck.splice(index, 1);
+
+        let playerTotalValue = playerHand.reduce((acc, cur) => acc + cur.rv, 0);
+        const check = playerHand.some((card) => card.value === "A"); // undefined OR card details
+
+        if (check && playerTotalValue < 12) {
+          playerTotalValue += 10;
+        }
+
+        state.totalHandValue.playerHand = playerTotalValue;
+      },
+
+      prepare(deck) {
+        const index = Math.trunc(Math.random() * deck.length);
+        // console.log(index, deck.length);
+
+        return {
+          payload: {
+            index,
+          },
+        };
+      },
+    },
+
+    dealerDrawsCard: {
+      reducer(state, action) {
+        const deck = state.deckOfCards;
+        const dealerHand = state.dealerHand;
+        const index = action.payload.index;
+
+        dealerHand.push(deck[index]);
+        deck.splice(index, 1);
+
+        let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
+        const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
+
+        if (check && dealerTotalValue < 12) {
+          dealerTotalValue += 10;
+        }
+
+        state.totalHandValue.dealerHand = dealerTotalValue;
+      },
+      prepare(deck) {
+        const index = Math.trunc(Math.random() * deck.length);
+        // console.log(index, deck.length);
+
+        return {
+          payload: {
+            index,
+          },
+        };
+      },
+    },
+    countCounter: {
+      reducer(state, action) {
+        const change = action.payload.change;
+
+        state.count += change;
+      },
+
+      prepare(change) {
+        return {
+          payload: {
+            change,
+          },
+        };
+      },
+    },
+    resetCards(state) {
+      state.dealerHand = [];
+      state.playerHand = [];
+      state.totalHandValue = {
+        dealerHand: 0,
+        playerHand: 0,
+      };
+    },
+    shuffleCards(state) {
+      state.deckOfCards = newDeck;
+    },
     dealersTurn(state) {
       state.dealerWillPlay = true;
     },
@@ -108,6 +281,13 @@ const gameSlice = createSlice({
 });
 
 export const {
+  distributeCards,
+  updateDealerHandTotal,
+  playerDrawsCard,
+  dealerDrawsCard,
+  countCounter,
+  resetCards,
+  shuffleCards,
   dealersTurn,
   outputResults,
   calcBet,
