@@ -6,11 +6,10 @@ import { PlayingBtn } from "../../Globals/GlobalStyles";
 import { useDispatch, useSelector } from "react-redux";
 import {
   dealerDrawsCard,
-  resetCards,
   distributeCards,
   dealersTurn,
   outputResults,
-  resetGame,
+  concludeGame,
   // updateDealerHandTotal,
 } from "../gameSlice";
 
@@ -61,8 +60,7 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
       setTimeout(() => {
         setDealerLoopBool(false);
         setShowBettingScreen(true);
-        dispatch(resetCards());
-        dispatch(resetGame());
+        dispatch(concludeGame());
       }, time * 1000);
     },
     [dispatch, setShowBettingScreen]

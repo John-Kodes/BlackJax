@@ -34,30 +34,20 @@ const gameSlice = createSlice({
 
         // DEALER LOGIC
         if (dealerHand.length < 2) {
-          // adding card to hand
           dealerHand.push(deck[index]);
-
-          // removing card from hand
           deck.splice(index, 1);
 
-          // Checking for Ace cards
-          const check = dealerHand.some((card) => card.value === "A");
+          let playerTotalValue = dealerHand.reduce(
+            (acc, cur) => acc + cur.rv,
+            0
+          );
+          const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
 
-          // calculating hand total
-          const reducer = (acc, cur, index) => {
-            if (index === 0) return acc;
-
-            return acc + cur.rv;
-          };
-
-          let dealerTotalValue = dealerHand.reduce(reducer, 0);
-
-          // Calculating Ace card value
-          if (check && dealerTotalValue < 12) {
-            dealerTotalValue += 10;
+          if (check && playerTotalValue < 12) {
+            playerTotalValue += 10;
           }
 
-          state.totalHandValue.dealerHand = dealerTotalValue;
+          state.totalHandValue.dealerHand = playerTotalValue;
 
           // PLAYER LOGIC
         } else if (playerHand.length < 2) {
@@ -177,53 +167,31 @@ const gameSlice = createSlice({
         };
       },
     },
-    resetCards(state) {
-      state.dealerHand = [];
-      state.playerHand = [];
-      state.totalHandValue = {
-        dealerHand: 0,
-        playerHand: 0,
-      };
-    },
     shuffleCards(state) {
       state.deckOfCards = newDeck;
     },
     dealersTurn(state) {
       state.dealerWillPlay = true;
     },
-    outputResults: {
-      reducer(state, action) {
-        const { playerTotal } = action.payload;
-        const { dealerTotal } = action.payload;
+    outputResults(state) {
+      const { playerTotal, dealerTotal } = state.totalHandValue;
 
-        if (
-          (playerTotal <= 21 && playerTotal > dealerTotal) ||
-          (dealerTotal > 21 && playerTotal <= 22)
-        )
-          state.winnerResult = "player";
+      if (
+        (playerTotal <= 21 && playerTotal > dealerTotal) ||
+        (dealerTotal > 21 && playerTotal <= 22)
+      )
+        state.winnerResult = "player";
 
-        if (
-          (dealerTotal <= 21 && dealerTotal > playerTotal) ||
-          (playerTotal > 21 && dealerTotal <= 22)
-        )
-          state.winnerResult = "dealer";
+      if (
+        (dealerTotal <= 21 && dealerTotal > playerTotal) ||
+        (playerTotal > 21 && dealerTotal <= 22)
+      )
+        state.winnerResult = "dealer";
 
-        if (
-          (dealerTotal > 21 && playerTotal > 21) ||
-          dealerTotal === playerTotal
-        )
-          state.winnerResult = "push";
-        // console.log("err", playerTotal, dealerTotal, state.winnerResult);
-      },
-      prepare(playerTotal, dealerTotal) {
-        return {
-          payload: {
-            playerTotal,
-            dealerTotal,
-          },
-        };
-      },
+      if ((dealerTotal > 21 && playerTotal > 21) || dealerTotal === playerTotal)
+        state.winnerResult = "push";
     },
+
     calcBet: {
       reducer(state, action) {
         const betArr = action.payload.betArr;
@@ -252,8 +220,15 @@ const gameSlice = createSlice({
         };
       },
     },
-    resetGame: {
+    concludeGame: {
       reducer(state) {
+        state.dealerHand = [];
+        state.playerHand = [];
+        state.totalHandValue = {
+          dealerHand: 0,
+          playerHand: 0,
+        };
+
         state.dealerWillPlay = false;
 
         const results = state.winnerResult;
@@ -271,11 +246,6 @@ const gameSlice = createSlice({
         // if WIN: (bet * 2) + bank
         // if PUSH: bet + bank
       },
-      prepare() {
-        return {
-          payload: {},
-        };
-      },
     },
   },
 });
@@ -285,14 +255,15 @@ export const {
   updateDealerHandTotal,
   playerDrawsCard,
   dealerDrawsCard,
-  countCounter,
-  resetCards,
   shuffleCards,
+
+  countCounter,
+
   dealersTurn,
   outputResults,
   calcBet,
   updateBank,
-  resetGame,
+  concludeGame,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
