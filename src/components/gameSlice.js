@@ -187,8 +187,6 @@ const gameSlice = createSlice({
     outputResults(state) {
       const { playerHand, dealerHand } = state.totalHandValue;
 
-      console.log(playerHand, dealerHand);
-
       if (
         (playerHand <= 21 && playerHand > dealerHand) ||
         (dealerHand > 21 && playerHand <= 22)

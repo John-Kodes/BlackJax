@@ -16,15 +16,11 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
-const Card = ({ suit, value, index, handLength }) => {
+const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
   const [hideBool, setHideBool] = useState(false);
 
   const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
   const results = useSelector((state) => state.game.winnerResult);
-
-  const toggle = () => {
-    setHideBool(!hideBool);
-  };
 
   const symbol = (s) => {
     switch (s) {
@@ -104,7 +100,7 @@ const Card = ({ suit, value, index, handLength }) => {
 
   const cardAnim = {
     initial: {
-      y: -300,
+      y: !isPlayersHand ? -300 : 300,
     },
     animate: {
       y: 0,
@@ -127,8 +123,8 @@ const Card = ({ suit, value, index, handLength }) => {
 
   useEffect(() => {
     if (dealersTurn && index === 0) setHideBool(false);
-    if (!dealersTurn && index === 0) setHideBool(true);
-  }, [dealersTurn, index]);
+    if (!dealersTurn && index === 0 && !isPlayersHand) setHideBool(true);
+  }, [dealersTurn, index, isPlayersHand]);
 
   return (
     <CardContainer
@@ -137,12 +133,13 @@ const Card = ({ suit, value, index, handLength }) => {
       initial={animIf()}
       animate="animate"
       whileHover="hover"
-      onClick={toggle}
     >
       <StyledCardBorder
         variants={cardFrontAnim}
-        initial={index === 0 && !dealersTurn ? "back" : "initial"}
-        animate={hideBool ? "back" : "front"}
+        initial={
+          index === 0 && !dealersTurn && !isPlayersHand ? "back" : "initial"
+        }
+        animate={hideBool && !isPlayersHand ? "back" : "front"}
         className="front"
       >
         <StyledCard>
@@ -190,8 +187,10 @@ const Card = ({ suit, value, index, handLength }) => {
       </StyledCardBorder>
       <StyledCardBorder
         variants={cardBackAnim}
-        initial={index === 0 && !dealersTurn ? "back" : "initial"}
-        animate={hideBool ? "back" : "front"}
+        initial={
+          index === 0 && !dealersTurn && !isPlayersHand ? "back" : "initial"
+        }
+        animate={hideBool && !isPlayersHand ? "back" : "front"}
         className="back"
       >
         <Cardback>{CardBackSVG2("2 0 176 241")}</Cardback>

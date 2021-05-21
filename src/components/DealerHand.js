@@ -19,6 +19,7 @@ const DealerHand = () => {
         index={index}
         handLength={dealerHand.length}
         key={uuidv4()}
+        isPlayersHand={false}
       />
     );
   });

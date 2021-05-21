@@ -10,7 +10,7 @@ import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
 function Home() {
-  const [showBettingScreen, setShowBettingScreen] = useState(false);
+  const [showBettingScreen, setShowBettingScreen] = useState(true);
 
   return (
     <StyledHome>
@@ -28,32 +28,32 @@ function Home() {
         setShowBettingScreen={setShowBettingScreen}
         showBettingScreen={showBettingScreen}
       />
-      <TestButton onClick={() => setShowBettingScreen(!showBettingScreen)}>
+      {/* <TestButton onClick={() => setShowBettingScreen(!showBettingScreen)}>
         butt
-      </TestButton>
+      </TestButton> */}
     </StyledHome>
   );
 }
 
-// Temp;
-const TestButton = styled(motion.button)`
-  position: absolute;
-  right: 5px;
-  background-color: #34353f;
+// // Temp;
+// const TestButton = styled(motion.button)`
+//   position: absolute;
+//   right: 5px;
+//   background-color: #34353f;
 
-  z-index: 99999999999999999999999999999999999999999999999;
+//   z-index: 99999999999999999999999999999999999999999999999;
 
-  transition: all 0.2s;
-  &:hover {
-    transform: translateY(-5px);
-    filter: brightness(150%);
-  }
+//   transition: all 0.2s;
+//   &:hover {
+//     transform: translateY(-5px);
+//     filter: brightness(150%);
+//   }
 
-  &:active {
-    transform: translateY(2px);
-    filter: brightness(100%);
-  }
-`;
+//   &:active {
+//     transform: translateY(2px);
+//     filter: brightness(100%);
+//   }
+// `;
 
 const StyledHome = styled(motion.div)`
   display: flexbox;

@@ -10,8 +10,16 @@ import { motion } from "framer-motion";
 
 const PlayerHand = () => {
   const playerHand = useSelector((store) => store.game.playerHand);
-  const cards = playerHand.map((card) => {
-    return <Card suit={card.suit} value={card.value} key={uuidv4()} />;
+  const cards = playerHand.map((card, index) => {
+    return (
+      <Card
+        suit={card.suit}
+        value={card.value}
+        key={uuidv4()}
+        index={index}
+        handLength={playerHand.length}
+      />
+    );
   });
 
   return (
