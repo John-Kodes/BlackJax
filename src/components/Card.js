@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // Components
 import {
   ClubSmall,
@@ -16,14 +16,14 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
-const Card = ({ suit, value, index, handLength, hide }) => {
-  // const [hideBool, setHideBool] = useState(false);
+const Card = ({ suit, value, index, handLength }) => {
+  const [hideBool, setHideBool] = useState(false);
 
-  // const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
+  const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
   const results = useSelector((state) => state.game.winnerResult);
 
   const toggle = () => {
-    // setHideBool(!hideBool);
+    setHideBool(!hideBool);
   };
 
   const symbol = (s) => {
@@ -118,15 +118,17 @@ const Card = ({ suit, value, index, handLength, hide }) => {
     },
   };
 
+  // Makes sure the last card is only animated before the round concludes
   const animIf = () => {
     if (results === "none" && index === handLength - 1) {
       return "initial";
     } else return "animate";
   };
 
-  // useEffect(() => {
-  //   if (index === 0 && !dealersTurn) setHideBool(true);
-  // }, [index, dealersTurn]);
+  useEffect(() => {
+    if (dealersTurn && index === 0) setHideBool(false);
+    if (!dealersTurn && index === 0) setHideBool(true);
+  }, [dealersTurn, index]);
 
   return (
     <CardContainer
@@ -139,8 +141,8 @@ const Card = ({ suit, value, index, handLength, hide }) => {
     >
       <StyledCardBorder
         variants={cardFrontAnim}
-        initial="initial"
-        animate={hide ? "back" : "front"}
+        initial={index === 0 && !dealersTurn ? "back" : "initial"}
+        animate={hideBool ? "back" : "front"}
         className="front"
       >
         <StyledCard>
@@ -188,8 +190,8 @@ const Card = ({ suit, value, index, handLength, hide }) => {
       </StyledCardBorder>
       <StyledCardBorder
         variants={cardBackAnim}
-        initial="initial"
-        animate={hide ? "back" : "front"}
+        initial={index === 0 && !dealersTurn ? "back" : "initial"}
+        animate={hideBool ? "back" : "front"}
         className="back"
       >
         <Cardback>{CardBackSVG2("2 0 176 241")}</Cardback>
@@ -223,9 +225,6 @@ const CardContainer = styled(motion.div)`
     backface-visibility: hidden;
   }
 `;
-
-// So what i wanna do here is if have an active class that will be flipped if the element has the class.
-// The front and back elements are the ones that are actually doing the animation.
 
 const StyledCard = styled(motion.div)`
   display: flex;

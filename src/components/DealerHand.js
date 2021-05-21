@@ -18,7 +18,6 @@ const DealerHand = () => {
         value={card.value}
         index={index}
         handLength={dealerHand.length}
-        hide={card.hide}
         key={uuidv4()}
       />
     );

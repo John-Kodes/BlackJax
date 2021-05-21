@@ -32,24 +32,25 @@ const gameSlice = createSlice({
 
         const { index } = action.payload;
 
-        // DEALER LOGIC
+        // DEALER LOGIC______________________________________________________
         if (dealerHand.length < 2) {
+          // adding card to dealerHand and removing same card from deck
           dealerHand.push(deck[index]);
           deck.splice(index, 1);
 
-          let playerTotalValue = dealerHand.reduce(
-            (acc, cur) => acc + cur.rv,
-            0
-          );
+          // calculating dealerHandtotal
+          if (!dealerHand[1]) return;
+          let playerTotalValue = dealerHand[1].rv;
           const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
 
+          // should be done after hiding card
           if (check && playerTotalValue < 12) {
             playerTotalValue += 10;
           }
 
           state.totalHandValue.dealerHand = playerTotalValue;
 
-          // PLAYER LOGIC
+          // PLAYER LOGIC______________________________________________________
         } else if (playerHand.length < 2) {
           playerHand.push(deck[index]);
           deck.splice(index, 1);
@@ -171,24 +172,36 @@ const gameSlice = createSlice({
       state.deckOfCards = newDeck;
     },
     dealersTurn(state) {
+      const dealerHand = state.dealerHand;
+      let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
+      const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
+
+      if (check && dealerTotalValue < 12) {
+        dealerTotalValue += 10;
+      }
+
+      state.totalHandValue.dealerHand = dealerTotalValue;
+
       state.dealerWillPlay = true;
     },
     outputResults(state) {
-      const { playerTotal, dealerTotal } = state.totalHandValue;
+      const { playerHand, dealerHand } = state.totalHandValue;
+
+      console.log(playerHand, dealerHand);
 
       if (
-        (playerTotal <= 21 && playerTotal > dealerTotal) ||
-        (dealerTotal > 21 && playerTotal <= 22)
+        (playerHand <= 21 && playerHand > dealerHand) ||
+        (dealerHand > 21 && playerHand <= 22)
       )
         state.winnerResult = "player";
 
       if (
-        (dealerTotal <= 21 && dealerTotal > playerTotal) ||
-        (playerTotal > 21 && dealerTotal <= 22)
+        (dealerHand <= 21 && dealerHand > playerHand) ||
+        (playerHand > 21 && dealerHand <= 22)
       )
         state.winnerResult = "dealer";
 
-      if ((dealerTotal > 21 && playerTotal > 21) || dealerTotal === playerTotal)
+      if ((dealerHand > 21 && playerHand > 21) || dealerHand === playerHand)
         state.winnerResult = "push";
     },
 
