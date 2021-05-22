@@ -284,7 +284,7 @@ const StyledBettingScreen = styled(motion.div)`
   position: absolute;
   left: 50%;
   top: 50%;
-  z-index: 100;
+  z-index: 150;
   overflow: hidden;
 `;
 

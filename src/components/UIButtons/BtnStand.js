@@ -10,7 +10,7 @@ import {
   dealersTurn,
   outputResults,
   concludeGame,
-  // updateDealerHandTotal,
+  shuffleCards,
 } from "../gameSlice";
 
 // Currently, most or if not, all the dealer logic is in this component.
@@ -23,9 +23,6 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   // STATES
   const [buttonClicked, setButtonClicked] = useState(false);
   const [dealerLoopBool, setDealerLoopBool] = useState(false);
-  const [hiddenCardShown, setHiddenCardShown] = useState(false);
-
-  if (false) console.log(hiddenCardShown);
 
   const deck = useSelector((store) => store.game.deckOfCards);
   const dealerHandTotal = useSelector(
@@ -83,7 +80,6 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
         dispatch(outputResults(playerHandTotal, dealerHandTotal));
         setButtonClicked(false);
       }, time * 1000);
-      setHiddenCardShown(false);
       resetRound(4);
     },
     [playerHandTotal, resetRound, dealerHandTotal, dispatch]
@@ -97,7 +93,8 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
 
   // Dealer loop logic
   useEffect(() => {
-    if (playerHandLength < 2 && !showBettingScreen) {
+    if (deck.length < 60 && results !== "none") dispatch(shuffleCards());
+    else if (playerHandLength < 2 && !showBettingScreen) {
       dealCards(0.5);
     } else if (
       (dealerHandTotal < 17 && buttonClicked && !dealerLoopBool) ||

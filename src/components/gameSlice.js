@@ -18,6 +18,7 @@ const initialState = {
   betArr: [0],
   dealerWillPlay: false,
   winnerResult: "none", // dealer/player/push/none
+  cardsShuffled: false,
 };
 
 const gameSlice = createSlice({
@@ -208,6 +209,10 @@ const gameSlice = createSlice({
     },
     shuffleCards(state) {
       state.deckOfCards = newDeck;
+      state.cardsShuffled = true;
+    },
+    cardsShuffled(state) {
+      state.cardsShuffled = false;
     },
     dealersTurn(state) {
       const dealerHand = state.dealerHand;
@@ -307,6 +312,7 @@ export const {
   playerDoubleDown,
   dealerDrawsCard,
   shuffleCards,
+  cardsShuffled,
 
   countCounter,
 
