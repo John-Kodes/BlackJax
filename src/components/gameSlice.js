@@ -123,6 +123,44 @@ const gameSlice = createSlice({
         };
       },
     },
+    playerDoubleDown: {
+      reducer(state, action) {
+        const deck = state.deckOfCards;
+        const playerHand = state.playerHand;
+        const index = action.payload.index;
+        const bet = state.bet;
+        const bank = state.tempBank;
+
+        playerHand.push(deck[index]);
+        deck.splice(index, 1);
+
+        let playerTotalValue = playerHand.reduce((acc, cur) => acc + cur.rv, 0);
+        const check = playerHand.some((card) => card.value === "A"); // undefined OR card details
+
+        if (check && playerTotalValue < 12) {
+          playerTotalValue += 10;
+        }
+
+        state.totalHandValue.playerHand = playerTotalValue;
+        state.dealerWillPlay = true;
+
+        // 100 > 200
+        state.bet = bet * 2;
+
+        // bank 900 > 800
+        state.tempBank = bank - bet;
+      },
+
+      prepare(deck) {
+        const index = Math.trunc(Math.random() * deck.length);
+
+        return {
+          payload: {
+            index,
+          },
+        };
+      },
+    },
 
     dealerDrawsCard: {
       reducer(state, action) {
@@ -246,13 +284,14 @@ const gameSlice = createSlice({
         const bet = state.bet;
         const bank = state.tempBank;
 
-        if (results === "dealer") state.bet = 0;
-        if (results === "player") state.bank = bet * 2 + bank;
-        if (results === "push") state.bank = bet + bank;
+        if (results === "dealer") state.tempBank = bank;
+        if (results === "player") state.tempBank = bet * 2 + bank;
+        if (results === "push") state.tempBank = bet + bank;
 
+        // Reseting
         state.winnerResult = "none";
         state.bet = 0;
-        state.tempBank = state.bank;
+        state.bank = state.tempBank;
         // if LOST: CLEAR bet. Bet from bank has already been subtracted.
         // if WIN: (bet * 2) + bank
         // if PUSH: bet + bank
@@ -265,6 +304,7 @@ export const {
   distributeCards,
   updateDealerHandTotal,
   playerDrawsCard,
+  playerDoubleDown,
   dealerDrawsCard,
   shuffleCards,
 

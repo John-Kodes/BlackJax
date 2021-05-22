@@ -4,15 +4,20 @@ import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
 import CardCounter from "./components/CardCounter";
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { playerDoubleDown } from "./components/gameSlice";
 // Styling
+import { PlayingBtn } from "./Globals/GlobalStyles";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
 
 const UI = ({ setShowBettingScreen, showBettingScreen }) => {
+  const dispatch = useDispatch();
+
   //// STATES
-  const deckNum = useSelector((store) => store.game.deckOfCards).length;
+  const deck = useSelector((store) => store.game.deckOfCards);
+  const deckNum = deck.length;
 
   const { bet } = useSelector((store) => store.game);
   const { tempBank } = useSelector((store) => store.game);
@@ -23,6 +28,10 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   const dealerHandTotal = useSelector(
     (store) => store.game.totalHandValue.dealerHand
   );
+
+  const doubleDown = () => {
+    dispatch(playerDoubleDown(deck));
+  };
 
   return (
     <Canvas>
@@ -46,6 +55,12 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
             showBettingScreen={showBettingScreen}
           />
           <BtnHit />
+          <BtnDoubleDown
+            onClick={doubleDown}
+            disabled={bet > tempBank / 2 ? true : false}
+          >
+            🃏 DOUBLE
+          </BtnDoubleDown>
         </BtnsBox>
         <CounterContainer>
           <CardCounter />
@@ -54,6 +69,19 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
     </Canvas>
   );
 };
+
+const BtnDoubleDown = styled(PlayingBtn)`
+  font-size: 2rem;
+  padding: 1rem;
+  &:disabled {
+    filter: brightness(40%);
+    &:hover {
+      background-color: #13131b;
+      transform: none;
+      border: 1px solid transparent;
+    }
+  }
+`;
 
 const Canvas = styled(motion.div)`
   display: flex;
@@ -144,7 +172,7 @@ const BtnsBox = styled(motion.div)`
   flex-direction: column;
   justify-content: space-between;
 
-  height: 10rem;
+  height: 15rem;
   margin-top: -3rem;
 `;
 
