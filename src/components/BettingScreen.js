@@ -68,7 +68,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const bettingScreenAnim = {
     initial: {
-      y: -700,
+      y: -800,
       opacity: 1,
     },
     animate: {
@@ -81,7 +81,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       },
     },
     exit: {
-      y: -700,
+      y: -800,
       opacity: 1,
       transition: {
         duration: 0.5,
@@ -134,9 +134,9 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
             <BtnDeal
               click={btnDealHandler}
               betTotal={betTotal}
-              disabled={showBettingScreen}
+              disabled={!showBettingScreen}
             ></BtnDeal>
-            <BetAllBtn onClick={betAll} disabled={showBettingScreen}>
+            <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
               {betTotal === bank ? "all out..." : "ALL IN!"}
               <div className="btnBG1" />
               <div className="btnBG2" />
@@ -166,7 +166,6 @@ const RestartScreen = styled(motion.div)`
   width: 100rem;
   border-radius: 4px;
   border: 1px solid #979075;
-  padding: 2rem;
 
   p {
     font-size: 2.4rem;

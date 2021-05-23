@@ -1,131 +1,140 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // Components
-import Board from "../components/Board";
-import BGSVG from "../img/BGSVG.svg";
-import BettingScreen from "../components/BettingScreen";
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { cardsShuffled } from "../components/gameSlice";
+// import { useDispatch, useSelector } from "react-redux";
 // Styling
 import styled from "styled-components";
 // Animation
-import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+// Routing
+import { Link } from "react-router-dom";
 
-function Home() {
-  const [showBettingScreen, setShowBettingScreen] = useState(true);
-
-  const cardsShuffledBool = useSelector((state) => state.game.cardsShuffled);
-
-  const dispatch = useDispatch();
-
-  const messageAnim = {
+const Home = () => {
+  const pageAnimation = {
     initial: {
-      y: -60,
-      opacity: 0,
-    },
-    animate: {
-      y: 0,
       opacity: 1,
+    },
+    exit: {
+      opacity: 0,
       transition: {
-        ease: "easeInOut",
+        duration: 0.5,
       },
     },
   };
 
-  useEffect(() => {
-    if (cardsShuffledBool) {
-      setTimeout(() => {
-        dispatch(cardsShuffled());
-      }, 3000);
-    }
-  });
+  const btnAnimation = {
+    initial: {
+      opacity: 0,
+      border: "2px solid transparent",
+      background: "rgba(0,0,0,0)",
+    },
+    animate: {
+      opacity: 1,
+    },
+    hover: {
+      y: -5,
+      border: "2px solid white",
+      background: "#04002452",
+    },
+    active: {
+      y: 2,
+    },
+  };
+
+  const titleAnim = {
+    initial: {
+      x: -30,
+      opacity: 0,
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
+  const titleTextHover = {
+    y: -10,
+    transition: {
+      duration: 0.15,
+    },
+  };
 
   return (
-    <StyledHome>
-      <AnimatePresence>
-        {showBettingScreen ? (
-          <BettingScreen
-            key="modal"
-            setShowBettingScreen={setShowBettingScreen}
-            showBettingScreen={showBettingScreen}
-          />
-        ) : (
-          ""
-        )}
-        <Board
-          setShowBettingScreen={setShowBettingScreen}
-          showBettingScreen={showBettingScreen}
-        />
-        {/* <TestButton onClick={() => setShowBettingScreen(!showBettingScreen)}>
-        butt
-      </TestButton> */}
-        {cardsShuffledBool ? (
-          <Message
-            variants={messageAnim}
-            initial="initial"
-            animate="animate"
-            exit="initial"
-            key="message"
-          >
-            🃏 The cards has been shuffled!
-          </Message>
-        ) : (
-          ""
-        )}
-      </AnimatePresence>
+    <StyledHome variants={pageAnimation} initial="initial" exit="exit">
+      <Title variants={titleAnim} initial="initial" animate="animate">
+        <motion.div whileHover={titleTextHover}>B</motion.div>
+        <motion.div whileHover={titleTextHover}>l</motion.div>
+        <motion.div whileHover={titleTextHover}>a</motion.div>
+        <motion.div whileHover={titleTextHover}>c</motion.div>
+        <motion.div whileHover={titleTextHover}>k</motion.div>
+        <motion.div whileHover={titleTextHover}>&nbsp;</motion.div>
+        <motion.div whileHover={titleTextHover}>J</motion.div>
+        <motion.div whileHover={titleTextHover}>a</motion.div>
+        <motion.div whileHover={titleTextHover}>x</motion.div>
+      </Title>
+      <Link to="/gamin">
+        <Play
+          variants={btnAnimation}
+          initial="initial"
+          animate="animate"
+          whileHover="hover"
+          whileTap="active"
+        >
+          Play
+        </Play>
+      </Link>
+      <Link to="/credits">
+        <Credits
+          variants={btnAnimation}
+          initial="initial"
+          animate="animate"
+          whileHover="hover"
+          whileTap="active"
+        >
+          Credits
+        </Credits>
+      </Link>
     </StyledHome>
   );
-}
+};
 
-// // Temp;
-// const TestButton = styled(motion.button)`
-//   position: absolute;
-//   right: 5px;
-//   background-color: #34353f;
+const Play = styled(motion.button)`
+  font-weight: 400;
+  padding: 0.5rem 4.2rem;
+  margin-bottom: 2rem;
+`;
 
-//   z-index: 99999999999999999999999999999999999999999999999;
+const Credits = styled(Play)`
+  padding: 0.5rem 2.5rem;
+`;
 
-//   transition: all 0.2s;
-//   &:hover {
-//     transform: translateY(-5px);
-//     filter: brightness(150%);
-//   }
-
-//   &:active {
-//     transform: translateY(2px);
-//     filter: brightness(100%);
-//   }
-// `;
-
-const Message = styled(motion.div)`
-  position: absolute;
-  top: 2rem;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #8b4f00;
-
-  padding: 0.5rem 1.5rem;
-  background-image: ${(props) => props.theme.borderGold};
-  border: 3px solid #b38300;
-  border-radius: 0.4rem;
-  z-index: 100;
+const Title = styled(motion.div)`
+  display: flex;
+  position: relative;
+  font-size: 8rem;
+  font-weight: 300;
+  margin-bottom: 15rem;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #ffffff;
+  }
 `;
 
 const StyledHome = styled(motion.div)`
-  display: flexbox;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100%;
-  padding: 3rem;
-  z-index: -9999999999999999999999;
 
-  background-image: url(${BGSVG}),
-    linear-gradient(185deg, rgba(0, 0, 0, 0.9), rgba(3, 0, 8, 0.9));
-  background-blend-mode: overlay;
-  background-size: cover;
-  background-position: center center;
+  height: 100vh;
 `;
 
 export default Home;

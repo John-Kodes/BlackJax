@@ -15,8 +15,22 @@ import { useSelector } from "react-redux";
 const Board = ({ setShowBettingScreen, showBettingScreen }) => {
   const results = useSelector((state) => state.game.results);
 
+  const BoardAnim = {
+    initial: {
+      y: -800,
+    },
+    animate: {
+      y: 0,
+      transition: {
+        duration: 0.8,
+        delay: 0.6,
+        ease: [0.48, 0.32, 0.57, 1.02],
+      },
+    },
+  };
+
   return (
-    <StyledBoardOut>
+    <StyledBoardOut variants={BoardAnim} initial="initial" animate="animate">
       <StyledBoardBorder>
         <StyledBoardIn>
           {results !== "none" ? <RoundResults /> : ""}
