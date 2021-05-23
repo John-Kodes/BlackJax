@@ -8,16 +8,18 @@ import BtnDeal from "./UIButtons/BtnDeal";
 // Animation
 import { motion } from "framer-motion";
 // Redux
-import { calcBet, updateBank } from "./gameSlice";
+import { calcBet, updateBank, startOver } from "./gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const BettingScreen = ({ setShowBettingScreen }) => {
+const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   const [betArr, setBetArr] = useState([]);
   const [betTotal, setBetTotal] = useState(0);
 
   const { tempBank, bank } = useSelector((state) => state.game);
 
   const dispatch = useDispatch();
+
+  // NOTE: disable AllInBtn when deal is set
 
   // click a chip to push it to an array. all the values in that array will be dispatched
   const betAmount = (amount) => {
@@ -37,7 +39,7 @@ const BettingScreen = ({ setShowBettingScreen }) => {
     );
   });
 
-  const toggle = () => {
+  const btnDealHandler = () => {
     setShowBettingScreen(false);
     dispatch(updateBank());
   };
@@ -51,6 +53,10 @@ const BettingScreen = ({ setShowBettingScreen }) => {
       setBetTotal(bank);
       dispatch(calcBet([bank]));
     }
+  };
+
+  const startOverHandler = () => {
+    dispatch(startOver());
   };
 
   useEffect(() => {
@@ -107,9 +113,12 @@ const BettingScreen = ({ setShowBettingScreen }) => {
         >
           <p>
             Well this is awkward. . . You ran out of money 🤡 <br />
-            To play again, call your bank or parents for a loan 😊
+            <br />
+            To play again, "borrow"
+            <br />
+            some money from the bank 😊
           </p>
-          <CallButton>pfft, i can pay them back</CallButton>
+          <StartOverBtn onClick={startOverHandler}>GOOD IDEA!</StartOverBtn>
         </RestartScreen>
       ) : (
         <StyledBettingScreen
@@ -122,8 +131,12 @@ const BettingScreen = ({ setShowBettingScreen }) => {
           <StyledChipBox>{chipsArrStyled}</StyledChipBox>
           <StyledBetBox>
             <h1>${betTotal}</h1>
-            <BtnDeal click={toggle} betTotal={betTotal}></BtnDeal>
-            <BetAllBtn onClick={betAll}>
+            <BtnDeal
+              click={btnDealHandler}
+              betTotal={betTotal}
+              disabled={showBettingScreen}
+            ></BtnDeal>
+            <BetAllBtn onClick={betAll} disabled={showBettingScreen}>
               {betTotal === bank ? "all out..." : "ALL IN!"}
               <div className="btnBG1" />
               <div className="btnBG2" />
@@ -161,9 +174,19 @@ const RestartScreen = styled(motion.div)`
   }
 `;
 
-const CallButton = styled(motion.button)`
-  font-weight: 400;
-  background-color: rgba(0, 0, 0, 0);
+const StartOverBtn = styled(motion.button)`
+  font-weight: 600;
+  background-color: transparent;
+
+  transition: all 0.2s;
+  &:hover {
+    transform: translateY(-7px);
+    background-color: rgb(0, 180, 105);
+  }
+  &:active {
+    transform: translateY(2px);
+    background-color: rgb(0, 180, 105);
+  }
 `;
 
 const BetAllBtn = styled(motion.button)`

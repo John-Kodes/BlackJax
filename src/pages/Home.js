@@ -48,6 +48,7 @@ function Home() {
           <BettingScreen
             key="modal"
             setShowBettingScreen={setShowBettingScreen}
+            showBettingScreen={showBettingScreen}
           />
         ) : (
           ""

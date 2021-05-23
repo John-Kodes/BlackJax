@@ -301,11 +301,9 @@ const gameSlice = createSlice({
         // if WIN: (bet * 2) + bank
         // if PUSH: bet + bank
       },
-      startOver: {
-        reducer(state) {
-          state.tempBank = state.bank = 1000;
-        },
-      },
+    },
+    startOver(state) {
+      state.tempBank = state.bank = 1000;
     },
   },
 });
