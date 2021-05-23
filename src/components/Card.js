@@ -19,8 +19,9 @@ import { useSelector } from "react-redux";
 const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
   const [hideBool, setHideBool] = useState(false);
 
-  const dealersTurn = useSelector((state) => state.game.dealerWillPlay);
-  const results = useSelector((state) => state.game.winnerResult);
+  const { results, dealerWillPlay: dealersTurn } = useSelector(
+    (state) => state.game
+  );
 
   const symbol = (s) => {
     switch (s) {

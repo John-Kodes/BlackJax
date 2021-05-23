@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const RoundResults = () => {
-  const results = useSelector((state) => state.game.winnerResult);
+  const results = useSelector((state) => state.game.results);
   let text = "";
   switch (results) {
     case "push":

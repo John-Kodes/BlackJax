@@ -38,6 +38,12 @@ const StyledBtnDeal = styled(PlayingBtn)`
     background-color: transparent;
     color: white;
     border: 4px solid #ffffff;
+    filter: none;
+    &:hover {
+      background-color: transparent;
+      color: white;
+      border: 4px solid #ffffff;
+    }
   }
 `;
 

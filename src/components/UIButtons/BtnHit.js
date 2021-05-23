@@ -8,13 +8,13 @@ import { dealersTurn, playerDrawsCard } from "../gameSlice";
 const BtnHit = React.memo(() => {
   const dispatch = useDispatch();
 
-  const deck = useSelector((store) => store.game.deckOfCards);
-  const playerHandTotal = useSelector(
-    (store) => store.game.totalHandValue.playerHand
-  );
-  const playerHandLength = useSelector((store) => store.game.playerHand).length;
+  const {
+    dealerWillPlay,
+    deckOfCards: deck,
+    totalHandValue: { playerHand: playerHandTotal },
+  } = useSelector((store) => store.game);
 
-  const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
+  const playerHandLength = useSelector((store) => store.game.playerHand).length;
 
   const drawCardHandler = () => {
     dispatch(playerDrawsCard(deck));

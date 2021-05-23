@@ -16,18 +16,21 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   const dispatch = useDispatch();
 
   //// STATES
-  const deck = useSelector((store) => store.game.deckOfCards);
+
+  const {
+    bet,
+    tempBank,
+    playerHand,
+    results,
+    dealerWillPlay,
+    deckOfCards: deck,
+    totalHandValue: {
+      playerHand: playerHandTotal,
+      dealerHand: dealerHandTotal,
+    },
+  } = useSelector((state) => state.game);
+
   const deckNum = deck.length;
-
-  const { bet } = useSelector((store) => store.game);
-  const { tempBank } = useSelector((store) => store.game);
-
-  const playerHandTotal = useSelector(
-    (store) => store.game.totalHandValue.playerHand
-  );
-  const dealerHandTotal = useSelector(
-    (store) => store.game.totalHandValue.dealerHand
-  );
 
   const doubleDown = () => {
     dispatch(playerDoubleDown(deck));
@@ -57,7 +60,13 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           <BtnHit />
           <BtnDoubleDown
             onClick={doubleDown}
-            disabled={bet > tempBank / 2 ? true : false}
+            disabled={
+              playerHand.length < 1 ||
+              playerHand.length > 2 ||
+              bet > tempBank ||
+              results !== "none" ||
+              dealerWillPlay
+            }
           >
             🃏 DOUBLE
           </BtnDoubleDown>
@@ -73,14 +82,6 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
 const BtnDoubleDown = styled(PlayingBtn)`
   font-size: 2rem;
   padding: 1rem;
-  &:disabled {
-    filter: brightness(40%);
-    &:hover {
-      background-color: #13131b;
-      transform: none;
-      border: 1px solid transparent;
-    }
-  }
 `;
 
 const Canvas = styled(motion.div)`

@@ -12,12 +12,12 @@ const initialState = {
     playerHand: 0,
   },
   count: 0,
-  bank: 1000,
+  bank: 1000, // There is 2 to avoid weird calculations. I know it's weird but trust me
   tempBank: 1000,
   bet: 0,
   betArr: [0],
   dealerWillPlay: false,
-  winnerResult: "none", // dealer/player/push/none
+  results: "none", // dealer/player/push/none
   cardsShuffled: false,
 };
 
@@ -234,16 +234,16 @@ const gameSlice = createSlice({
         (playerHand <= 21 && playerHand > dealerHand) ||
         (dealerHand > 21 && playerHand <= 22)
       )
-        state.winnerResult = "player";
+        state.results = "player";
 
       if (
         (dealerHand <= 21 && dealerHand > playerHand) ||
         (playerHand > 21 && dealerHand <= 22)
       )
-        state.winnerResult = "dealer";
+        state.results = "dealer";
 
       if ((dealerHand > 21 && playerHand > 21) || dealerHand === playerHand)
-        state.winnerResult = "push";
+        state.results = "push";
     },
 
     calcBet: {
@@ -285,7 +285,7 @@ const gameSlice = createSlice({
 
         state.dealerWillPlay = false;
 
-        const results = state.winnerResult;
+        const results = state.results;
         const bet = state.bet;
         const bank = state.tempBank;
 
@@ -294,12 +294,17 @@ const gameSlice = createSlice({
         if (results === "push") state.tempBank = bet + bank;
 
         // Reseting
-        state.winnerResult = "none";
+        state.results = "none";
         state.bet = 0;
         state.bank = state.tempBank;
         // if LOST: CLEAR bet. Bet from bank has already been subtracted.
         // if WIN: (bet * 2) + bank
         // if PUSH: bet + bank
+      },
+      startOver: {
+        reducer(state) {
+          state.tempBank = state.bank = 1000;
+        },
       },
     },
   },
@@ -321,6 +326,7 @@ export const {
   calcBet,
   updateBank,
   concludeGame,
+  startOver,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

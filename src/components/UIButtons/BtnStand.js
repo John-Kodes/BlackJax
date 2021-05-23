@@ -24,16 +24,17 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [dealerLoopBool, setDealerLoopBool] = useState(false);
 
-  const deck = useSelector((store) => store.game.deckOfCards);
-  const dealerHandTotal = useSelector(
-    (state) => state.game.totalHandValue.dealerHand
-  );
-  const playerHandTotal = useSelector(
-    (state) => state.game.totalHandValue.playerHand
-  );
+  const {
+    results,
+    dealerWillPlay,
+    deckOfCards: deck,
+    totalHandValue: {
+      dealerHand: dealerHandTotal,
+      playerHand: playerHandTotal,
+    },
+  } = useSelector((store) => store.game);
+
   const playerHandLength = useSelector((state) => state.game.playerHand).length;
-  const results = useSelector((state) => state.game.winnerResult);
-  const dealerWillPlay = useSelector((store) => store.game.dealerWillPlay);
 
   //////////////////////// FUNCTIONS
 
@@ -93,6 +94,7 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
 
   // Dealer loop logic
   useEffect(() => {
+    // Step by step game logic
     if (deck.length < 60 && results !== "none") dispatch(shuffleCards());
     else if (playerHandLength < 2 && !showBettingScreen) {
       dealCards(0.5);
@@ -114,7 +116,13 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   return (
     <PlayingBtn
       onClick={toggle}
-      disabled={buttonClicked || playerHandTotal < 1 || playerHandTotal > 20}
+      disabled={
+        playerHandLength < 2 ||
+        buttonClicked ||
+        playerHandTotal < 1 ||
+        playerHandTotal > 20 ||
+        results !== "none"
+      }
     >
       <span>✋</span> STAND
     </PlayingBtn>

@@ -12,11 +12,10 @@ import { calcBet, updateBank } from "./gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const BettingScreen = ({ setShowBettingScreen }) => {
-  const tempBank = useSelector((state) => state.game.tempBank);
-  const bank = useSelector((state) => state.game.bank);
-
   const [betArr, setBetArr] = useState([]);
   const [betTotal, setBetTotal] = useState(0);
+
+  const { tempBank, bank } = useSelector((state) => state.game);
 
   const dispatch = useDispatch();
 
@@ -63,24 +62,21 @@ const BettingScreen = ({ setShowBettingScreen }) => {
 
   const bettingScreenAnim = {
     initial: {
-      y: -400,
-      x: -500,
-      opacity: 0,
+      y: -700,
+      opacity: 1,
     },
     animate: {
-      y: -300,
-      x: -500,
+      y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5,
-        ease: "easeOut",
         delay: 0.3,
+        duration: 0.5,
+        ease: [0.26, 0.44, 0.52, 1.17],
       },
     },
     exit: {
-      y: -400,
-      x: -500,
-      opacity: 0,
+      y: -700,
+      opacity: 1,
       transition: {
         duration: 0.5,
         ease: "easeIn",
@@ -102,29 +98,73 @@ const BettingScreen = ({ setShowBettingScreen }) => {
         animate="animate"
         exit="exit"
       />
-      <StyledBettingScreen
-        variants={bettingScreenAnim}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        <StyledBank>Bank: ${tempBank}</StyledBank>
-        <StyledChipBox>{chipsArrStyled}</StyledChipBox>
-        <StyledBetBox>
-          <h1>${betTotal}</h1>
-          <BtnDeal click={toggle} betTotal={betTotal}></BtnDeal>
-          <BetAllBtn onClick={betAll}>
-            {betTotal === bank ? "all out..." : "ALL IN!"}
-            <div className="btnBG1" />
-            <div className="btnBG2" />
-          </BetAllBtn>
-        </StyledBetBox>
-      </StyledBettingScreen>
+      {tempBank < 1 && betArr.length < 1 && betTotal < 1 ? (
+        <RestartScreen
+          variants={bettingScreenAnim}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          <p>
+            Well this is awkward. . . You ran out of money 🤡 <br />
+            To play again, call your bank or parents for a loan 😊
+          </p>
+          <CallButton>pfft, i can pay them back</CallButton>
+        </RestartScreen>
+      ) : (
+        <StyledBettingScreen
+          variants={bettingScreenAnim}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          <StyledBank>Bank: ${tempBank}</StyledBank>
+          <StyledChipBox>{chipsArrStyled}</StyledChipBox>
+          <StyledBetBox>
+            <h1>${betTotal}</h1>
+            <BtnDeal click={toggle} betTotal={betTotal}></BtnDeal>
+            <BetAllBtn onClick={betAll}>
+              {betTotal === bank ? "all out..." : "ALL IN!"}
+              <div className="btnBG1" />
+              <div className="btnBG2" />
+            </BetAllBtn>
+          </StyledBetBox>
+        </StyledBettingScreen>
+      )}
     </>
   );
 };
 
 export default React.memo(BettingScreen);
+
+const RestartScreen = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  position: absolute;
+  z-index: 150;
+  overflow: hidden;
+
+  background-color: rgba(24, 20, 16, 0.6);
+  height: 60rem;
+  width: 100rem;
+  border-radius: 4px;
+  border: 1px solid #979075;
+  padding: 2rem;
+
+  p {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+  }
+`;
+
+const CallButton = styled(motion.button)`
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0);
+`;
 
 const BetAllBtn = styled(motion.button)`
   position: relative;
@@ -274,7 +314,7 @@ const StyledBettingScreen = styled(motion.div)`
   display: flex;
   align-items: center;
 
-  background-color: rgba(139, 128, 105, 0.178);
+  background-color: rgba(139, 128, 105, 0.2);
   height: 60rem;
   width: 100rem;
   border-radius: 4px;
@@ -282,8 +322,6 @@ const StyledBettingScreen = styled(motion.div)`
   padding: 2rem;
 
   position: absolute;
-  left: 50%;
-  top: 50%;
   z-index: 150;
   overflow: hidden;
 `;

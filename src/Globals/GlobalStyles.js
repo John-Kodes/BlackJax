@@ -33,10 +33,6 @@ const GlobalStyles = createGlobalStyle`
         cursor: pointer;
     }
 
-    ::selection{
-        background-color: #f2ce30;
-        color: black;
-    }
 `;
 
 export const PlayingBtn = styled(motion.button)`
@@ -57,6 +53,16 @@ export const PlayingBtn = styled(motion.button)`
     background-color: #13131b;
 
     border: 1px solid #ffdc43;
+  }
+
+  &:disabled {
+    filter: brightness(40%);
+
+    &:hover {
+      background-color: #13131b;
+      transform: none;
+      border: 1px solid transparent;
+    }
   }
 `;
 
