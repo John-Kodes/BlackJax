@@ -15,11 +15,9 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   const [betArr, setBetArr] = useState([]);
   const [betTotal, setBetTotal] = useState(0);
 
-  const { tempBank, bank } = useSelector((state) => state.game);
+  const { tempBank, bank, dealerHand } = useSelector((state) => state.game);
 
   const dispatch = useDispatch();
-
-  // NOTE: disable AllInBtn when deal is set
 
   // click a chip to push it to an array. all the values in that array will be dispatched
   const betAmount = (amount) => {
@@ -81,7 +79,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       },
     },
     exit: {
-      y: -800,
+      y: -1300,
       opacity: 1,
       transition: {
         duration: 0.5,
@@ -96,56 +94,62 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     exit: { opacity: 0, transition: { duration: 0.7, delay: 0 } },
   };
 
-  return (
-    <>
-      <StyledBackDrop
-        variants={backDropAnim}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      />
-      {tempBank < 1 && betArr.length < 1 && betTotal < 1 ? (
-        <RestartScreen
-          variants={bettingScreenAnim}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          <p>
-            Well this is awkward. . . You ran out of money 🤡 <br />
-            <br />
-            To play again, "borrow"
-            <br />
-            some money from the bank 😊
-          </p>
-          <StartOverBtn onClick={startOverHandler}>GOOD IDEA!</StartOverBtn>
-        </RestartScreen>
-      ) : (
-        <StyledBettingScreen
-          variants={bettingScreenAnim}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          <StyledBank>Bank: ${tempBank}</StyledBank>
-          <StyledChipBox>{chipsArrStyled}</StyledChipBox>
-          <StyledBetBox>
-            <h1>${betTotal}</h1>
-            <BtnDeal
-              click={btnDealHandler}
-              betTotal={betTotal}
-              disabled={!showBettingScreen}
-            ></BtnDeal>
-            <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
-              {betTotal === bank ? "all out..." : "ALL IN!"}
-              <div className="btnBG1" />
-              <div className="btnBG2" />
-            </BetAllBtn>
-          </StyledBetBox>
-        </StyledBettingScreen>
-      )}
-    </>
-  );
+  const showBettingCard = () => {
+    if (!dealerHand.length > 0) {
+      return (
+        <>
+          <StyledBackDrop
+            variants={backDropAnim}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          />
+          {tempBank < 1 && betArr.length < 1 && betTotal < 1 ? (
+            <RestartScreen
+              variants={bettingScreenAnim}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <p>
+                Well this is awkward. . . You ran out of money 🤡 <br />
+                <br />
+                To play again, "borrow"
+                <br />
+                some money from the bank 😊
+              </p>
+              <StartOverBtn onClick={startOverHandler}>GOOD IDEA!</StartOverBtn>
+            </RestartScreen>
+          ) : (
+            <StyledBettingScreen
+              variants={bettingScreenAnim}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <StyledBank>Bank: ${tempBank}</StyledBank>
+              <StyledChipBox>{chipsArrStyled}</StyledChipBox>
+              <StyledBetBox>
+                <h1>${betTotal}</h1>
+                <BtnDeal
+                  click={btnDealHandler}
+                  betTotal={betTotal}
+                  disabled={!showBettingScreen}
+                ></BtnDeal>
+                <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
+                  {betTotal === bank ? "all out..." : "ALL IN!"}
+                  <div className="btnBG1" />
+                  <div className="btnBG2" />
+                </BetAllBtn>
+              </StyledBetBox>
+            </StyledBettingScreen>
+          )}
+        </>
+      );
+    }
+  };
+
+  return <>{showBettingCard()}</>;
 };
 
 export default React.memo(BettingScreen);
