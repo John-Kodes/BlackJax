@@ -66,4 +66,8 @@ export const PlayingBtn = styled(motion.button)`
   }
 `;
 
+export const PageContainer = styled(motion.div)`
+  overflow: hidden;
+`;
+
 export default GlobalStyles;

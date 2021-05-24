@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 // Components
 import Board from "../components/Board";
 import BettingScreen from "../components/BettingScreen";
+import GoBackBtn from "../components/UIButtons/BtnGoBack";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { cardsShuffled } from "../components/gameSlice";
+import { PageContainer } from "../Globals/GlobalStyles";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -17,6 +19,24 @@ function Gamin() {
   const cardsShuffledBool = useSelector((state) => state.game.cardsShuffled);
 
   const dispatch = useDispatch();
+
+  const gaminPageAnimation = {
+    initial: {
+      x: 1300,
+    },
+    animate: {
+      x: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
 
   const messageAnim = {
     initial: {
@@ -41,36 +61,44 @@ function Gamin() {
   });
 
   return (
-    <StyledGamin>
-      <AnimatePresence>
-        {showBettingScreen ? (
-          <BettingScreen
-            key="modal"
+    <PageContainer>
+      <StyledGamin
+        variants={gaminPageAnimation}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <GoBackBtn />
+        <AnimatePresence>
+          {showBettingScreen ? (
+            <BettingScreen
+              key="modal"
+              setShowBettingScreen={setShowBettingScreen}
+              showBettingScreen={showBettingScreen}
+            />
+          ) : (
+            ""
+          )}
+          <Board
             setShowBettingScreen={setShowBettingScreen}
             showBettingScreen={showBettingScreen}
           />
-        ) : (
-          ""
-        )}
-        <Board
-          setShowBettingScreen={setShowBettingScreen}
-          showBettingScreen={showBettingScreen}
-        />
-        {cardsShuffledBool ? (
-          <Message
-            variants={messageAnim}
-            initial="initial"
-            animate="animate"
-            exit="initial"
-            key="message"
-          >
-            🃏 The cards has been shuffled!
-          </Message>
-        ) : (
-          ""
-        )}
-      </AnimatePresence>
-    </StyledGamin>
+          {cardsShuffledBool ? (
+            <Message
+              variants={messageAnim}
+              initial="initial"
+              animate="animate"
+              exit="initial"
+              key="message"
+            >
+              🃏 The cards has been shuffled!
+            </Message>
+          ) : (
+            ""
+          )}
+        </AnimatePresence>
+      </StyledGamin>
+    </PageContainer>
   );
 }
 
@@ -94,7 +122,6 @@ const StyledGamin = styled(motion.div)`
   align-items: center;
   height: 100vh;
   width: 100%;
-  padding: 3rem;
 `;
 
 export default Gamin;

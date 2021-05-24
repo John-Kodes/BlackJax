@@ -4,24 +4,14 @@ import React from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // Styling
 import styled from "styled-components";
+import { PageContainer } from "../Globals/GlobalStyles";
 // Animation
 import { motion } from "framer-motion";
+import { pageAnimation } from "../animations";
 // Routing
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const pageAnimation = {
-    initial: {
-      opacity: 1,
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   const btnAnimation = {
     initial: {
       opacity: 0,
@@ -63,41 +53,48 @@ const Home = () => {
   };
 
   return (
-    <StyledHome variants={pageAnimation} initial="initial" exit="exit">
-      <Title variants={titleAnim} initial="initial" animate="animate">
-        <motion.div whileHover={titleTextHover}>B</motion.div>
-        <motion.div whileHover={titleTextHover}>l</motion.div>
-        <motion.div whileHover={titleTextHover}>a</motion.div>
-        <motion.div whileHover={titleTextHover}>c</motion.div>
-        <motion.div whileHover={titleTextHover}>k</motion.div>
-        <motion.div whileHover={titleTextHover}>&nbsp;</motion.div>
-        <motion.div whileHover={titleTextHover}>J</motion.div>
-        <motion.div whileHover={titleTextHover}>a</motion.div>
-        <motion.div whileHover={titleTextHover}>x</motion.div>
-      </Title>
-      <Link to="/gamin">
-        <Play
-          variants={btnAnimation}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          whileTap="active"
-        >
-          Play
-        </Play>
-      </Link>
-      <Link to="/credits">
-        <Credits
-          variants={btnAnimation}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          whileTap="active"
-        >
-          Credits
-        </Credits>
-      </Link>
-    </StyledHome>
+    <PageContainer>
+      <StyledHome
+        variants={pageAnimation}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <Title variants={titleAnim} initial="initial" animate="animate">
+          <motion.div whileHover={titleTextHover}>B</motion.div>
+          <motion.div whileHover={titleTextHover}>l</motion.div>
+          <motion.div whileHover={titleTextHover}>a</motion.div>
+          <motion.div whileHover={titleTextHover}>c</motion.div>
+          <motion.div whileHover={titleTextHover}>k</motion.div>
+          <motion.div whileHover={titleTextHover}>&nbsp;</motion.div>
+          <motion.div whileHover={titleTextHover}>J</motion.div>
+          <motion.div whileHover={titleTextHover}>a</motion.div>
+          <motion.div whileHover={titleTextHover}>x</motion.div>
+        </Title>
+        <Link to="/gamin">
+          <Play
+            variants={btnAnimation}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            whileTap="active"
+          >
+            Play
+          </Play>
+        </Link>
+        <Link to="/credits">
+          <Credits
+            variants={btnAnimation}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            whileTap="active"
+          >
+            Credits
+          </Credits>
+        </Link>
+      </StyledHome>
+    </PageContainer>
   );
 };
 

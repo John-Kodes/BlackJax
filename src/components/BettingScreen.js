@@ -68,14 +68,14 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const bettingScreenAnim = {
     initial: {
-      y: -800,
+      y: -1300,
       opacity: 1,
     },
     animate: {
-      y: 0,
+      y: -300,
       opacity: 1,
       transition: {
-        delay: 0.3,
+        delay: 0.8,
         duration: 0.5,
         ease: [0.26, 0.44, 0.52, 1.17],
       },
@@ -92,7 +92,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const backDropAnim = {
     initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.5 } },
+    animate: { opacity: 1, transition: { duration: 0.5, delay: 0.5 } },
     exit: { opacity: 0, transition: { duration: 0.7, delay: 0 } },
   };
 

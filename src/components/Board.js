@@ -17,13 +17,13 @@ const Board = ({ setShowBettingScreen, showBettingScreen }) => {
 
   const BoardAnim = {
     initial: {
-      y: -800,
+      x: 1300,
     },
     animate: {
-      y: 0,
+      x: 0,
       transition: {
         duration: 0.8,
-        delay: 0.6,
+        delay: 1,
         ease: [0.48, 0.32, 0.57, 1.02],
       },
     },
