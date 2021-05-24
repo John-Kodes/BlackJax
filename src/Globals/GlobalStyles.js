@@ -9,6 +9,11 @@ const GlobalStyles = createGlobalStyle`
     }
     html{
         font-size: 62.5%; // 1 rem = 10px
+
+        @media only screen and (max-width: 26.25em){
+        font-size: 50%; // 1 rem = 10px
+
+        }
     }
     body{
         font-family:'Montserrat', sans-serif;

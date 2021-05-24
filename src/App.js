@@ -3,7 +3,7 @@ import React from "react";
 import GlobalTheme from "./Globals/GlobalTheme";
 import Gamin from "./pages/Gamin";
 import Home from "./pages/Home";
-import Credits from "./pages/Credits";
+import About from "./pages/About";
 import BGSVG from "./img/BGSVG.svg";
 // Styling
 import styled from "styled-components";
@@ -24,7 +24,7 @@ function App() {
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" component={Home} />
           <Route exact path="/gamin" component={Gamin} />
-          <Route exact path="/credits" component={Credits} />
+          <Route exact path="/about" component={About} />
         </Switch>
       </AnimatePresence>
       <BgSvgContainer />

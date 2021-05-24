@@ -82,16 +82,16 @@ const Home = () => {
             Play
           </Play>
         </Link>
-        <Link to="/credits">
-          <Credits
+        <Link to="/about">
+          <About
             variants={btnAnimation}
             initial="initial"
             animate="animate"
             whileHover="hover"
             whileTap="active"
           >
-            Credits
-          </Credits>
+            About
+          </About>
         </Link>
       </StyledHome>
     </PageContainer>
@@ -104,7 +104,7 @@ const Play = styled(motion.button)`
   margin-bottom: 2rem;
 `;
 
-const Credits = styled(Play)`
+const About = styled(Play)`
   padding: 0.5rem 2.5rem;
 `;
 
@@ -114,6 +114,11 @@ const Title = styled(motion.div)`
   font-size: 8rem;
   font-weight: 300;
   margin-bottom: 15rem;
+
+  @media only screen and (max-width: 21.875em) {
+    font-size: 7rem;
+  }
+
   &::after {
     content: "";
     position: absolute;

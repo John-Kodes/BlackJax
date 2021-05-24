@@ -8,10 +8,10 @@ import GoBackBtn from "../components/UIButtons/BtnGoBack";
 import { pageAnimation } from "../animations";
 import { motion } from "framer-motion";
 
-const Credits = () => {
+const About = () => {
   return (
     <PageContainer>
-      <StyledCredits
+      <StyledAbout
         variants={pageAnimation}
         initial="initial"
         animate="animate"
@@ -34,7 +34,7 @@ const Credits = () => {
             money 🍀
           </p>
         </MessageBox>
-      </StyledCredits>
+      </StyledAbout>
     </PageContainer>
   );
 };
@@ -45,16 +45,37 @@ const MessageBox = styled(motion.div)`
   align-items: center;
   flex-direction: column;
 
+  height: 100%;
+  max-width: 100rem;
+  width: 100%;
   background-color: rgba(18, 16, 24, 0.6);
-  height: 60rem;
-  width: 100rem;
+  padding: 2rem;
+
   border-radius: 4px;
   border: 1px solid #7f7597;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+
+    &-thumb {
+      background-color: rgba(127, 117, 151, 0.2);
+      outline: 1px solid #7f7597;
+    }
+
+    &-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &-corner {
+      visibility: hidden;
+    }
+  }
 
   h1 {
     font-size: 6rem;
     font-weight: 300;
-    margin: 8rem 0 3rem;
+    margin: 3rem 0;
   }
   p {
     display: flex;
@@ -62,18 +83,20 @@ const MessageBox = styled(motion.div)`
     align-items: center;
     flex-direction: column;
     font-size: 1.6rem;
-    width: 65ch;
+    max-width: 65ch;
+    width: 100%;
     line-height: 2;
     word-spacing: 2px;
     text-align: justify;
   }
 `;
 
-const StyledCredits = styled(motion.div)`
+const StyledAbout = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 2rem;
 `;
 
-export default Credits;
+export default About;
