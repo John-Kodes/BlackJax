@@ -30,23 +30,37 @@ const Board = ({ setShowBettingScreen, showBettingScreen }) => {
   };
 
   return (
-    <StyledBoardOut variants={BoardAnim} initial="initial" animate="animate">
-      <StyledBoardBorder>
-        <StyledBoardIn>
-          {results !== "none" ? <RoundResults /> : ""}
-          <UI
-            setShowBettingScreen={setShowBettingScreen}
-            showBettingScreen={showBettingScreen}
-          />
-          <DealerHand />
-          <PlayerHand />
-        </StyledBoardIn>
-      </StyledBoardBorder>
-    </StyledBoardOut>
+    <Container>
+      <StyledBoardOut variants={BoardAnim} initial="initial" animate="animate">
+        <StyledBoardBorder>
+          <StyledBoardIn>
+            {results !== "none" ? <RoundResults /> : ""}
+            <UI
+              setShowBettingScreen={setShowBettingScreen}
+              showBettingScreen={showBettingScreen}
+            />
+            <DealerHand />
+            <PlayerHand />
+          </StyledBoardIn>
+        </StyledBoardBorder>
+      </StyledBoardOut>
+    </Container>
   );
 };
 
+const Container = styled(motion.div)`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+`;
+
 const StyledBoardOut = styled(motion.div)`
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

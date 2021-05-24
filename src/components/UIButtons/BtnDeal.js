@@ -19,6 +19,11 @@ const StyledBtnDeal = styled(PlayingBtn)`
   padding: 0.5rem 1.5rem;
 
   transition: all 0.2s;
+
+  @media only screen and (max-width: 33.875em) {
+    font-size: 3rem;
+  }
+
   &:hover {
     background-color: #f1ce30;
     color: black;

@@ -24,10 +24,28 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     setBetArr([...betArr, amount]);
   };
 
+  const chipAnim = {
+    hover: {
+      y: -8,
+      transition: {
+        duration: 0.1,
+      },
+    },
+    tap: {
+      y: 2,
+      transition: {
+        duration: 0.1,
+      },
+    },
+  };
+
   const chipsArrFiltered = chipsArr.filter((chip) => chip.value <= tempBank);
   const chipsArrStyled = chipsArrFiltered.map((chip) => {
     return (
       <StyledChipContainer
+        variants={chipAnim}
+        whileHover="hover"
+        whileTap="tap"
         key={chip.value}
         onClick={() => betAmount(chip.value)}
       >
@@ -66,11 +84,11 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const bettingScreenAnim = {
     initial: {
-      y: -1300,
+      y: -800,
       opacity: 1,
     },
     animate: {
-      y: -300,
+      y: 0,
       opacity: 1,
       transition: {
         delay: 0.8,
@@ -79,7 +97,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       },
     },
     exit: {
-      y: -1300,
+      y: -800,
       opacity: 1,
       transition: {
         duration: 0.5,
@@ -149,10 +167,19 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     }
   };
 
-  return <>{showBettingCard()}</>;
+  return <Container>{showBettingCard()}</Container>;
 };
 
 export default React.memo(BettingScreen);
+
+const Container = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+`;
 
 const RestartScreen = styled(motion.div)`
   display: flex;
@@ -195,7 +222,7 @@ const StartOverBtn = styled(motion.button)`
 const BetAllBtn = styled(motion.button)`
   position: relative;
   margin-top: 2rem;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 10rem;
   background-color: transparent;
 
@@ -258,22 +285,17 @@ const StyledChipContainer = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 11rem;
-  width: 11rem;
+  height: 9rem;
+  width: 9rem;
   position: relative;
+
+  @media only screen and (max-width: 33.875em) {
+    height: 6rem;
+    width: 6rem;
+  }
 
   svg {
     filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.699));
-  }
-
-  transition: all 0.2s;
-
-  &:hover {
-    transform: translateY(-8px);
-  }
-
-  &:active {
-    transform: translateY(2px);
   }
 `;
 
@@ -287,6 +309,10 @@ const StyledChip = styled(motion.div)`
   width: 10rem;
   font-size: 3rem;
   font-weight: 600;
+
+  @media only screen and (max-width: 33.875em) {
+    font-size: 2rem;
+  }
 
   filter: drop-shadow(0 0 0.4rem rgb(0, 0, 0));
 `;
@@ -302,12 +328,14 @@ const StyledChipBox = styled(motion.div)`
   border-radius: 4px;
   background-color: rgba(145, 145, 145, 0.192);
 
+  /* overflow: scroll; */
+
   flex-wrap: wrap;
   gap: 1.5rem;
 `;
 
 const StyledBetBox = styled(motion.div)`
-  flex: 0 0 35rem;
+  flex: 0 0 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -315,7 +343,7 @@ const StyledBetBox = styled(motion.div)`
   height: 30rem;
   clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
 
-  font-size: 2rem;
+  font-size: 1.6rem;
   background-color: rgba(119, 103, 85, 0.349);
   border-radius: 4px;
   h1 {
@@ -341,26 +369,35 @@ const StyledBettingScreen = styled(motion.div)`
   align-items: center;
 
   background-color: rgba(139, 128, 105, 0.2);
-  height: 60rem;
-  width: 100rem;
+  max-height: 60rem;
+  height: 100%;
+  max-width: 100rem;
+  width: 100%;
   border-radius: 4px;
   border: 1px solid #f2ce30;
   padding: 2rem;
 
   position: absolute;
   z-index: 150;
-  overflow: hidden;
+
+  @media only screen and (max-width: 64.375em) {
+    max-height: 100%;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    border-radius: 0px;
+    border: 1px solid #f2ce30;
+  }
 `;
 
 const StyledBackDrop = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.4);
-  height: 100vh;
+  height: 100%;
   width: 100%;
   backdrop-filter: blur(3px);
 
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
   z-index: 99;
 `;

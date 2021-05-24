@@ -71,6 +71,10 @@ function Gamin() {
         <GoBackBtn />
         <BtnHelp />
         <AnimatePresence>
+          <Board
+            setShowBettingScreen={setShowBettingScreen}
+            showBettingScreen={showBettingScreen}
+          />
           {showBettingScreen ? (
             <BettingScreen
               key="modal"
@@ -80,10 +84,6 @@ function Gamin() {
           ) : (
             ""
           )}
-          <Board
-            setShowBettingScreen={setShowBettingScreen}
-            showBettingScreen={showBettingScreen}
-          />
           {cardsShuffledBool ? (
             <Message
               variants={messageAnim}
@@ -118,11 +118,12 @@ const Message = styled(motion.div)`
 `;
 
 const StyledGamin = styled(motion.div)`
-  display: flexbox;
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100%;
+  overflow: hidden;
 `;
 
 export default Gamin;
