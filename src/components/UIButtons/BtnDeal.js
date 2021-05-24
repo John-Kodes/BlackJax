@@ -1,5 +1,4 @@
 import React from "react";
-// Components
 // style
 import styled from "styled-components";
 import { PlayingBtn } from "../../Globals/GlobalStyles";

@@ -178,6 +178,7 @@ const BtnsBox = styled(motion.div)`
 `;
 
 const CounterContainer = styled(motion.div)`
+  visibility: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;

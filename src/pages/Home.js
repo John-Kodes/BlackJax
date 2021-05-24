@@ -118,10 +118,20 @@ const Title = styled(motion.div)`
     content: "";
     position: absolute;
     bottom: -1rem;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     height: 2px;
-    width: 100%;
     background-color: #ffffff;
+    animation: lineAnim 0.5s ease-out 0.6s forwards;
+
+    @keyframes lineAnim {
+      0% {
+        width: 0%;
+      }
+      100% {
+        width: 60%;
+      }
+    }
   }
 `;
 

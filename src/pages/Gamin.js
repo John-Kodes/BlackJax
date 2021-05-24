@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Board from "../components/Board";
 import BettingScreen from "../components/BettingScreen";
 import GoBackBtn from "../components/UIButtons/BtnGoBack";
+import BtnHelp from "../components/UIButtons/BtnHelp";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { cardsShuffled } from "../components/gameSlice";
@@ -10,8 +11,7 @@ import { PageContainer } from "../Globals/GlobalStyles";
 // Styling
 import styled from "styled-components";
 // Animation
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Gamin() {
   const [showBettingScreen, setShowBettingScreen] = useState(true);
@@ -69,6 +69,7 @@ function Gamin() {
         exit="exit"
       >
         <GoBackBtn />
+        <BtnHelp />
         <AnimatePresence>
           {showBettingScreen ? (
             <BettingScreen
