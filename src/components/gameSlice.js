@@ -150,6 +150,16 @@ const gameSlice = createSlice({
 
         // bank 900 > 800
         state.tempBank = bank - bet;
+
+        const dealerHand = state.dealerHand;
+        let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
+        const dealerCheck = dealerHand.some((card) => card.value === "A"); // undefined OR card details
+
+        if (dealerCheck && dealerTotalValue < 12) {
+          dealerTotalValue += 10;
+        }
+
+        state.totalHandValue.dealerHand = dealerTotalValue;
       },
 
       prepare(deck) {
