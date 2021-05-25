@@ -62,7 +62,7 @@ const ContainerHands = styled(motion.div)`
 
   @media only screen and (max-width: 40em) {
     width: 100%;
-    height: 60%;
+    height: 69%;
   }
 `;
 
