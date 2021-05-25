@@ -38,7 +38,7 @@ const BtnHelp = () => {
             <br />
             All face cards have a value of 10 but Ace cards can either be 1 OR
             11.
-            <br />
+            {/* <br />
             <br />
             The "True Count" is a strategy used by advanced players to
             calculated their odds to see if it's in their favor or not. Normally
@@ -49,7 +49,7 @@ const BtnHelp = () => {
             If the True Count is postive, the next card is more likely to be a
             10 or higher.
             <br />
-            If its negative, the next card is more likely to be 6 or less.
+            If its negative, the next card is more likely to be 6 or less. */}
           </p>
         </Instructions>
       ) : (
@@ -65,14 +65,8 @@ const Instructions = styled(motion.div)`
   line-height: 1.6;
   text-align: justify;
   color: white;
-  width: 40ch;
+  width: 30ch;
 
-  @media only screen and (max-width: 32em) {
-    font-size: 1.4rem;
-  }
-  @media only screen and (max-width: 22.6em) {
-    width: 35ch;
-  }
   h2 {
     position: relative;
     text-align: center;

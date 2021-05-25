@@ -1,6 +1,6 @@
 <svg width="1536" height="763" viewBox="0 0 1536 763" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1205.5 -48.5H1572V314.5L1552 321L1205.5 -48.5Z" fill="#999999"/>
-<path d="M804 548L1572 314.5V810L804 548Z" fill="url(#paint0_linear)"/>
+<path d="M800 548L1572 314.5V810L800 548Z" fill="url(#paint0_linear)"/>
 <path d="M1552 321L800 548L1205.5 -48.5L1552 321Z" fill="url(#paint1_linear)"/>
 <path d="M1577.87 812L800 548L668.5 812H1577.87Z" fill="#949494"/>
 <path d="M1205.5 -48.5L800 548L237.5 289.5L1049 -48.5H1205.5Z" fill="url(#paint2_linear)"/>
@@ -43,7 +43,7 @@
 <stop stop-color="#BBBBBB"/>
 <stop offset="1" stop-color="#E3E3E3"/>
 </linearGradient>
-<linearGradient id="paint8_linear" x1="124" y1="329" x2="-80.5" y2="-3.5" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint8_linear" x1="124" y1="329" x2="-80.5" y2="-3.49998" gradientUnits="userSpaceOnUse">
 <stop stop-color="#828282"/>
 <stop offset="1" stop-color="#BEBEBE"/>
 </linearGradient>
