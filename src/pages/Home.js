@@ -1,7 +1,4 @@
 import React from "react";
-// Components
-// Redux
-// import { useDispatch, useSelector } from "react-redux";
 // Styling
 import styled from "styled-components";
 import { PageContainer } from "../Globals/GlobalStyles";

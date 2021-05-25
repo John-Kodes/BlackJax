@@ -16,6 +16,7 @@ const GoBackBtn = () => {
         animate="animate"
         whileHover="hover"
         whileTap="tap"
+        className="go_back--btn"
       >
         &larr; Back
       </StyledGoBackBtn>
@@ -41,13 +42,6 @@ const StyledGoBackBtn = styled(motion.div)`
   font-size: 1.6rem;
 
   transition: color 0.5s;
-
-  @media only screen and (max-width: 69.62em) {
-    top: 3.5rem;
-  }
-  @media only screen and (max-width: 58.75em) {
-    top: 2rem;
-  }
 
   &:hover {
     color: white;

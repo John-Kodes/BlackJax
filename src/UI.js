@@ -2,6 +2,8 @@ import React from "react";
 // Components
 import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
+import GoBackBtn from "./components/UIButtons/BtnGoBack";
+import BtnHelp from "./components/UIButtons/BtnHelp";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { playerDoubleDown } from "./components/gameSlice";
@@ -40,7 +42,11 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
       <CardsLeft>
         <h4>🃏{deckNum ? deckNum : "err"}</h4>
       </CardsLeft>
+      <ContainerHelp>
+        <BtnHelp />
+      </ContainerHelp>
       <DealerTag>
+        <GoBackBtn />
         <h3>
           <span>{dealerHandTotal}</span>
           Dealer
@@ -86,6 +92,18 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
     </Canvas>
   );
 };
+
+const ContainerHelp = styled(motion.div)`
+  & .help--btn {
+    display: none;
+    top: 3.5rem;
+    right: 0.5rem;
+
+    @media only screen and (max-width: 67em) {
+      display: inline;
+    }
+  }
+`;
 
 const BtnDoubleDown = styled(PlayingBtn)`
   font-size: 2rem;
@@ -146,14 +164,25 @@ const DealerTag = styled(motion.div)`
   clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
 
   @media only screen and (max-width: 67em) {
-    padding-left: 11.5rem;
+    padding-left: 11rem;
   }
 
   @media only screen and (max-width: 60em) {
     padding: 1.2rem 5rem 1.2rem 11.5rem;
   }
+
   span {
     margin-right: 1rem;
+  }
+
+  & .go_back--btn {
+    display: none;
+    top: 0.6rem;
+    left: 0.6rem;
+
+    @media only screen and (max-width: 67em) {
+      display: inline;
+    }
   }
 `;
 

@@ -26,6 +26,7 @@ const BtnHelp = () => {
       whileHover="hover"
       whileTap="tap"
       onClick={toggle}
+      className="help--btn"
     >
       {showHelp ? (
         <Instructions>
@@ -100,13 +101,6 @@ const StyledBtnHelp = styled(motion.button)`
   backdrop-filter: blur(1.5px) brightness(50%);
 
   transition: color 0.3s;
-
-  @media only screen and (max-width: 71.5em) {
-    top: 6rem;
-  }
-  @media only screen and (max-width: 58.5em) {
-    top: 5rem;
-  }
 
   &:hover {
     color: white;

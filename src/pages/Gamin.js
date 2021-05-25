@@ -14,7 +14,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 
 function Gamin() {
-  const [showBettingScreen, setShowBettingScreen] = useState(true);
+  const [showBettingScreen, setShowBettingScreen] = useState(false);
 
   const cardsShuffledBool = useSelector((state) => state.game.cardsShuffled);
 
@@ -68,8 +68,11 @@ function Gamin() {
         animate="animate"
         exit="exit"
       >
-        <GoBackBtn />
-        <BtnHelp />
+        <ContainerOutOfBoundsBtns>
+          <GoBackBtn />
+          <BtnHelp />
+        </ContainerOutOfBoundsBtns>
+
         <AnimatePresence>
           <Board
             setShowBettingScreen={setShowBettingScreen}
@@ -102,6 +105,12 @@ function Gamin() {
     </PageContainer>
   );
 }
+
+const ContainerOutOfBoundsBtns = styled(motion.div)`
+  @media only screen and (max-width: 67em) {
+    display: none;
+  }
+`;
 
 const Message = styled(motion.div)`
   position: absolute;
