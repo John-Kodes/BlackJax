@@ -8,7 +8,12 @@ import BtnDeal from "./UIButtons/BtnDeal";
 // Animation
 import { motion } from "framer-motion";
 // Redux
-import { calcBet, updateBank, startOver } from "./gameSlice";
+import {
+  calcBet,
+  updateBank,
+  startOver,
+  loadInBettingScreen,
+} from "./gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
@@ -76,11 +81,15 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   };
 
   useEffect(() => {
-    if (betArr.length < 1) return;
-    const total = betArr.reduce((acc, cur) => acc + cur);
-    setBetTotal(total);
-    dispatch(calcBet(betArr));
-  }, [dispatch, betArr]);
+    if (betArr.length < 1 && dealerHand.length < 1) {
+      dispatch(loadInBettingScreen());
+    }
+    if (betArr.length > 0) {
+      const total = betArr.reduce((acc, cur) => acc + cur);
+      setBetTotal(total);
+      dispatch(calcBet(betArr));
+    }
+  }, [dispatch, betArr, dealerHand]);
 
   const bettingScreenAnim = {
     initial: {
@@ -122,7 +131,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
             animate="animate"
             exit="exit"
           />
-          {tempBank < 1 && betArr.length < 1 && betTotal < 1 ? (
+          {bank < 1 && betArr.length < 1 && betTotal < 1 ? (
             <RestartScreen
               variants={bettingScreenAnim}
               initial="initial"

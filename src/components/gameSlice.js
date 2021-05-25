@@ -224,6 +224,10 @@ const gameSlice = createSlice({
     cardsShuffled(state) {
       state.cardsShuffled = false;
     },
+    loadInBettingScreen(state) {
+      state.tempBank = state.bank;
+      state.bet = 0;
+    },
     dealersTurn(state) {
       const dealerHand = state.dealerHand;
       let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
@@ -261,7 +265,7 @@ const gameSlice = createSlice({
         const betArr = action.payload.betArr;
 
         state.betArr = betArr;
-        state.bet = betArr.reduce((acc, cur) => acc + cur);
+        state.bet = state.betArr.reduce((acc, cur) => acc + cur);
         state.tempBank = state.bank - state.bet;
       },
       prepare(betArr) {
@@ -329,6 +333,7 @@ export const {
 
   countCounter,
 
+  loadInBettingScreen,
   dealersTurn,
   outputResults,
   calcBet,
