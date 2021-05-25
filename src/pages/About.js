@@ -41,7 +41,7 @@ const About = () => {
 
 const MessageBox = styled(motion.div)`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
 
@@ -54,6 +54,13 @@ const MessageBox = styled(motion.div)`
   border-radius: 4px;
   border: 1px solid #7f7597;
   overflow: scroll;
+
+  @media only screen and (max-width: 31em) {
+    padding-top: 10rem;
+  }
+  @media only screen and (max-width: 28em) {
+    padding-top: 0rem;
+  }
 
   &::-webkit-scrollbar {
     width: 6px;

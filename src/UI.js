@@ -96,8 +96,8 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
 const ContainerHelp = styled(motion.div)`
   & .help--btn {
     display: none;
-    top: 3.5rem;
-    right: 0.5rem;
+    top: 5.6rem;
+    left: 0.5rem;
 
     @media only screen and (max-width: 67em) {
       display: inline;
@@ -108,12 +108,6 @@ const ContainerHelp = styled(motion.div)`
 const BtnDoubleDown = styled(PlayingBtn)`
   font-size: 2rem;
   padding: 1rem;
-  @media only screen and (max-width: 39em) {
-    font-size: 1.4rem;
-  }
-  @media only screen and (max-width: 28em) {
-    font-size: 2rem;
-  }
 `;
 
 const Canvas = styled(motion.div)`
@@ -243,13 +237,6 @@ const BtnsBox = styled(motion.div)`
   justify-content: space-between;
 
   height: 15rem;
-
-  @media only screen and (max-width: 39em) {
-    height: 12rem;
-  }
-  @media only screen and (max-width: 28em) {
-    height: 14rem;
-  }
 `;
 
 export default React.memo(UI);

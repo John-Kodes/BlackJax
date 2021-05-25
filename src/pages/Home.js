@@ -98,11 +98,12 @@ const Home = () => {
 const Play = styled(motion.button)`
   font-weight: 400;
   padding: 0.5rem 4.2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 `;
 
 const About = styled(Play)`
   padding: 0.5rem 2.5rem;
+  margin-bottom: 0rem;
 `;
 
 const Title = styled(motion.div)`

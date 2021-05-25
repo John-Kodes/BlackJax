@@ -77,13 +77,6 @@ export const PlayingBtn = styled(motion.button)`
   border: 1px solid transparent;
   transition: all 0.3s;
 
-  @media only screen and (max-width: 39em) {
-    font-size: 1.5rem;
-  }
-
-  @media only screen and (max-width: 28em) {
-    font-size: 2rem;
-  }
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 1.3rem 2.2rem rgba(0, 0, 0, 0.3);
