@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 const RoundResults = () => {
   const results = useSelector((state) => state.game.results);
+
   let text = "";
   switch (results) {
     case "push":
@@ -46,14 +47,16 @@ const StyledRoundResults = styled(motion.div)`
 
   font-size: 10rem;
   padding: 1rem 2rem;
-  border: 1px solid yellow;
+  border: 1px solid ${(props) => props.theme.gold};
   border-radius: 8px;
-  background-color: ${(props) => props.theme.primaryColor}aa;
   box-shadow: 0 2rem 4rem rgba(3, 0, 17, 0.404);
   z-index: 9999;
 
-  backdrop-filter: blur(2px) brightness(180%) invert(90%) opacity(90%)
-    drop-shadow(0px 4px 10px rgb(0, 0, 0));
+  backdrop-filter: blur(4px) brightness(140%) opacity(100%);
+
+  @media only screen and (max-width: 22.5em) {
+    font-size: 8rem;
+  }
 `;
 
 export default React.memo(RoundResults);

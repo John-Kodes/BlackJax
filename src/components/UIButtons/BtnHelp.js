@@ -65,7 +65,14 @@ const Instructions = styled(motion.div)`
   line-height: 1.6;
   text-align: justify;
   color: white;
-  width: 30ch;
+  width: 40ch;
+
+  @media only screen and (max-width: 32em) {
+    font-size: 1.4rem;
+  }
+  @media only screen and (max-width: 22.6em) {
+    width: 35ch;
+  }
   h2 {
     position: relative;
     text-align: center;
@@ -99,6 +106,14 @@ const StyledBtnHelp = styled(motion.button)`
   backdrop-filter: blur(1.5px) brightness(50%);
 
   transition: color 0.3s;
+
+  @media only screen and (max-width: 71.5em) {
+    top: 6rem;
+  }
+  @media only screen and (max-width: 58.5em) {
+    top: 5rem;
+  }
+
   &:hover {
     color: white;
   }

@@ -3,10 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 // Components
 import Card from "./Card";
+import { StyledHand } from "../Globals/GlobalStyles";
+
 // Styling
 import styled from "styled-components";
 // Animation
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 const DealerHand = () => {
   const dealerHand = useSelector((store) => store.game.dealerHand);
@@ -45,17 +47,10 @@ const DealerHand = () => {
   );
 };
 
-const StyledHand = styled(motion.div)`
-  height: 23.4rem;
-  width: 40%;
-  position: relative;
-
-  margin-right: 30%;
-`;
-
 const Card1 = styled.div`
   position: absolute;
   left: 0;
   z-index: 10;
 `;
+
 export default DealerHand;

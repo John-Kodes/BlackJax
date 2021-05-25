@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
     html{
         font-size: 62.5%; // 1 rem = 10px
 
-        @media only screen and (max-width: 26.25em){
+        @media only screen and (max-width: 28em){
         font-size: 50%; // 1 rem = 10px
 
         }
@@ -24,6 +24,20 @@ const GlobalStyles = createGlobalStyle`
     h1{
         font-weight: 400;
     }
+    h3{
+      font-weight: 400;
+      font-size: 3rem;
+
+      @media only screen and (max-width: 60em) {
+        font-size: 2rem;
+      }
+    }
+    h4{
+      font-weight: 400;
+      font-size: 2rem;
+
+
+    }
     button {
         box-sizing: content-box;
         font-family:'Montserrat', sans-serif;
@@ -36,8 +50,29 @@ const GlobalStyles = createGlobalStyle`
         border-radius: 4px;
         border: none;
         cursor: pointer;
+
+        
     }
 
+`;
+
+export const StyledHand = styled(motion.div)`
+  height: 20rem;
+
+  position: relative;
+
+  @media only screen and (max-width: 45em) {
+    transform: scale(0.9);
+  }
+  @media only screen and (max-width: 36.5em) {
+    transform: scale(0.8);
+  }
+  @media only screen and (max-width: 31em) {
+    transform: scale(0.62);
+  }
+  @media only screen and (max-width: 28em) {
+    transform: scale(1);
+  }
 `;
 
 export const PlayingBtn = styled(motion.button)`
@@ -45,6 +80,13 @@ export const PlayingBtn = styled(motion.button)`
   border: 1px solid transparent;
   transition: all 0.3s;
 
+  @media only screen and (max-width: 39em) {
+    font-size: 1.5rem;
+  }
+
+  @media only screen and (max-width: 28em) {
+    font-size: 2rem;
+  }
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 1.3rem 2.2rem rgba(0, 0, 0, 0.3);

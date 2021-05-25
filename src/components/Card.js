@@ -101,13 +101,15 @@ const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
 
   const cardAnim = {
     initial: {
-      y: !isPlayersHand ? -300 : 300,
+      opacity: 0,
+      y: !isPlayersHand ? -300 : 200,
     },
     animate: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: "easeInOut",
       },
     },
     hover: {
@@ -194,27 +196,19 @@ const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
         animate={hideBool && !isPlayersHand ? "back" : "front"}
         className="back"
       >
-        <Cardback>{CardBackSVG2("2 0 176 241")}</Cardback>
+        <StyledCardBack>
+          <Cardback>{CardBackSVG2("2 0 176 241")}</Cardback>
+        </StyledCardBack>
       </StyledCardBorder>
     </CardContainer>
   );
 };
-const Cardback = styled(motion.div)`
-  height: 23rem;
-  width: 17.15rem;
-  overflow: hidden;
-  /* background-color: #f0f; */
-  filter: hue-rotate(200deg) saturate(50%) contrast(160%);
-  svg {
-    filter: brightness(35%) sepia(100%);
-  }
-`;
 
 const CardContainer = styled(motion.div)`
   position: relative;
 
-  height: 20.5rem;
-  width: 15rem;
+  height: 23.2rem;
+  width: 17.35rem;
   transform: perspective(40rem);
 
   & > .front {
@@ -226,19 +220,40 @@ const CardContainer = styled(motion.div)`
   }
 `;
 
+const Cardback = styled(motion.div)`
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  filter: hue-rotate(200deg) saturate(50%) contrast(160%);
+  svg {
+    overflow: hidden;
+    filter: brightness(35%) sepia(100%);
+
+    @media only screen and (max-width: 28em) {
+      transform: scale(0.75) translate(-40px, -50px);
+    }
+  }
+`;
+
 const StyledCard = styled(motion.div)`
+  overflow: hidden;
+
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 200;
 
-  height: 23rem;
-  width: 17.15rem;
+  height: 20rem;
+  width: 14.91rem;
   padding: 1rem;
   background-image: linear-gradient(to top right, #050608, #171a1f);
   color: black;
   border-radius: 1rem;
   box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.3);
+`;
+
+const StyledCardBack = styled(StyledCard)`
+  padding: 0;
 `;
 
 const StyledCardBorder = styled(motion.div)`

@@ -39,14 +39,31 @@ const Board = ({ setShowBettingScreen, showBettingScreen }) => {
               setShowBettingScreen={setShowBettingScreen}
               showBettingScreen={showBettingScreen}
             />
-            <DealerHand />
-            <PlayerHand />
+            <ContainerHands>
+              <DealerHand />
+              <PlayerHand />
+            </ContainerHands>
           </StyledBoardIn>
         </StyledBoardBorder>
       </StyledBoardOut>
     </Container>
   );
 };
+
+const ContainerHands = styled(motion.div)`
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 70%;
+  height: 100%;
+  @media only screen and (max-width: 28em) {
+    width: 100%;
+    height: 70%;
+  }
+`;
 
 const Container = styled(motion.div)`
   position: absolute;
@@ -73,6 +90,11 @@ const StyledBoardOut = styled(motion.div)`
   width: 100%;
   padding: 2.8rem;
   box-shadow: 0 3rem 8rem rgba(0, 0, 0, 0.7);
+  @media only screen and (max-width: 58.75em) {
+    padding: 1rem;
+    max-height: 100%;
+    max-width: 100%;
+  }
 `;
 
 const StyledBoardIn = styled(motion.div)`
@@ -85,7 +107,7 @@ const StyledBoardIn = styled(motion.div)`
   background: ${(props) => props.theme.primaryColor};
   height: 100%;
   width: 100%;
-  padding: 4rem;
+  padding: 7rem 2rem;
   overflow: hidden;
 
   background-clip: padding-box;

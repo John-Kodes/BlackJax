@@ -12,8 +12,8 @@ const initialState = {
     playerHand: 0,
   },
   count: 0,
-  bank: 1000000, // There is 2 to avoid weird calculations. I know it's weird but trust me
-  tempBank: 1000000,
+  bank: 1000, // There is 2 to avoid weird calculations. I know it's weird but trust me
+  tempBank: 1000,
   bet: 0,
   betArr: [0],
   dealerWillPlay: false,

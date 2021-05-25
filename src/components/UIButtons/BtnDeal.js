@@ -20,7 +20,7 @@ const StyledBtnDeal = styled(PlayingBtn)`
 
   transition: all 0.2s;
 
-  @media only screen and (max-width: 33.875em) {
+  @media only screen and (max-width: 34em) {
     font-size: 3rem;
   }
 

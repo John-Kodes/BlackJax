@@ -2,7 +2,6 @@ import React from "react";
 // Components
 import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
-import CardCounter from "./components/CardCounter";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { playerDoubleDown } from "./components/gameSlice";
@@ -38,16 +37,25 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
 
   return (
     <Canvas>
-      <CardsLeft>🃏{deckNum ? deckNum : "err"}</CardsLeft>
+      <CardsLeft>
+        <h4>🃏{deckNum ? deckNum : "err"}</h4>
+      </CardsLeft>
       <DealerTag>
-        <span>{dealerHandTotal}</span>
-        Dealer
+        <h3>
+          <span>{dealerHandTotal}</span>
+          Dealer
+        </h3>
       </DealerTag>
       <PlayerTag>
-        <span>{playerHandTotal}</span>
-        Player
+        <h3>
+          <span>{playerHandTotal}</span>
+          Player
+        </h3>
       </PlayerTag>
-      <Bank>Bank: ${tempBank}</Bank>
+      <Bank>
+        <h4>Bank: ${tempBank}</h4>
+      </Bank>
+
       <BtnsContainer>
         <BetNum>
           <span>BET</span>${bet}
@@ -71,9 +79,9 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
             🃏 DOUBLE
           </BtnDoubleDown>
         </BtnsBox>
-        <CounterContainer>
+        {/* <CounterContainer>
           <CardCounter />
-        </CounterContainer>
+        </CounterContainer> */}
       </BtnsContainer>
     </Canvas>
   );
@@ -82,6 +90,12 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
 const BtnDoubleDown = styled(PlayingBtn)`
   font-size: 2rem;
   padding: 1rem;
+  @media only screen and (max-width: 39em) {
+    font-size: 1.4rem;
+  }
+  @media only screen and (max-width: 28em) {
+    font-size: 2rem;
+  }
 `;
 
 const Canvas = styled(motion.div)`
@@ -130,27 +144,50 @@ const DealerTag = styled(motion.div)`
   padding: 0.5rem 5rem 0.5rem 1.5rem;
   background: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+
+  @media only screen and (max-width: 67em) {
+    padding-left: 11.5rem;
+  }
+
+  @media only screen and (max-width: 60em) {
+    padding: 1.2rem 5rem 1.2rem 11.5rem;
+  }
   span {
     margin-right: 1rem;
   }
 `;
 
 const PlayerTag = styled(DealerTag)`
+  padding-left: 1.5rem;
+  padding-right: 5rem;
   bottom: 0;
   top: auto;
   clip-path: none;
   clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
+
+  @media only screen and (max-width: 67em) {
+    padding-right: 3.5rem;
+  }
 `;
 
 const BtnsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+  flex: 0 0 40%;
 
-  width: 40%;
   height: 100%;
+
+  @media only screen and (max-width: 28em) {
+    flex-direction: row;
+    justify-content: space-around;
+    align-self: flex-end;
+    flex: 0 0 100%;
+
+    height: 30%;
+  }
 `;
 
 const BetNum = styled(motion.div)`
@@ -158,13 +195,16 @@ const BetNum = styled(motion.div)`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 4rem;
-  font-size: 8rem;
+  font-size: 6rem;
   font-weight: 200;
 
   span {
     font-size: 2rem;
     font-weight: 400;
+  }
+
+  @media only screen and (max-width: 39em) {
+    font-size: 4rem;
   }
 `;
 
@@ -174,14 +214,20 @@ const BtnsBox = styled(motion.div)`
   justify-content: space-between;
 
   height: 15rem;
-  margin-top: -3rem;
+
+  @media only screen and (max-width: 39em) {
+    height: 12rem;
+  }
+  @media only screen and (max-width: 28em) {
+    height: 14rem;
+  }
 `;
 
-const CounterContainer = styled(motion.div)`
-  visibility: hidden;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+// const CounterContainer = styled(motion.div)`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   border: 1px solid red;
+// `;
 
 export default React.memo(UI);

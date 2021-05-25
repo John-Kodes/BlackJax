@@ -42,6 +42,13 @@ const StyledGoBackBtn = styled(motion.div)`
 
   transition: color 0.5s;
 
+  @media only screen and (max-width: 69.62em) {
+    top: 3.5rem;
+  }
+  @media only screen and (max-width: 58.75em) {
+    top: 2rem;
+  }
+
   &:hover {
     color: white;
   }

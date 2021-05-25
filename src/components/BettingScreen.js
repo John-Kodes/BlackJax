@@ -149,16 +149,18 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
               <StyledChipBox>{chipsArrStyled}</StyledChipBox>
               <StyledBetBox>
                 <h1>${betTotal}</h1>
-                <BtnDeal
-                  click={btnDealHandler}
-                  betTotal={betTotal}
-                  disabled={!showBettingScreen}
-                ></BtnDeal>
-                <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
-                  {betTotal === bank ? "all out..." : "ALL IN!"}
-                  <div className="btnBG1" />
-                  <div className="btnBG2" />
-                </BetAllBtn>
+                <BtnBox>
+                  <BtnDeal
+                    click={btnDealHandler}
+                    betTotal={betTotal}
+                    disabled={!showBettingScreen}
+                  ></BtnDeal>
+                  <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
+                    {betTotal === bank ? "all out..." : "ALL IN!"}
+                    <div className="btnBG1" />
+                    <div className="btnBG2" />
+                  </BetAllBtn>
+                </BtnBox>
               </StyledBetBox>
             </StyledBettingScreen>
           )}
@@ -179,6 +181,7 @@ const Container = styled(motion.div)`
   position: relative;
   height: 100vh;
   width: 100%;
+  padding: 1rem;
 `;
 
 const RestartScreen = styled(motion.div)`
@@ -193,10 +196,19 @@ const RestartScreen = styled(motion.div)`
   overflow: hidden;
 
   background-color: rgba(24, 20, 16, 0.6);
-  height: 60rem;
-  width: 100rem;
-  border-radius: 4px;
+  max-height: 60rem;
+  height: 100%;
+  max-width: 100rem;
+  width: 100%;
   border: 1px solid #979075;
+  border-radius: 4px;
+  padding: 2rem;
+
+  @media only screen and (max-width: 64.12em) {
+    max-height: 100%;
+    max-width: 100%;
+    border: none;
+  }
 
   p {
     font-size: 2.4rem;
@@ -239,11 +251,11 @@ const BetAllBtn = styled(motion.button)`
     filter: brightness(115%);
 
     .btnBG1 {
-      transform: skew(0.6rad) translateX(0);
+      transform: skew(0.6rad) translateX(4rem);
     }
 
     .btnBG2 {
-      transform: skew(0.6rad) translateX(0);
+      transform: skew(0.6rad) translateX(4rem);
     }
   }
 
@@ -257,7 +269,7 @@ const BetAllBtn = styled(motion.button)`
     width: 120%;
     height: 100%;
     top: 0;
-    left: -1rem;
+    left: -5rem;
     background: rgba(255, 174, 0, 0.664);
     z-index: -1;
 
@@ -271,7 +283,7 @@ const BetAllBtn = styled(motion.button)`
     width: 120%;
     height: 100%;
     top: 0;
-    left: -1rem;
+    left: -5rem;
     background: ${(props) => props.theme.gold};
     z-index: -1;
 
@@ -349,6 +361,24 @@ const StyledBetBox = styled(motion.div)`
   h1 {
     margin-bottom: 2rem;
   }
+
+  @media only screen and (max-width: 40em) {
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    width: 100%;
+    margin-top: 2rem;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+
+    h1 {
+      margin-bottom: 0rem;
+    }
+  }
+`;
+
+const BtnBox = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledBank = styled(motion.div)`
@@ -359,6 +389,8 @@ const StyledBank = styled(motion.div)`
   font-weight: 600;
   padding: 0.2rem 1rem 0.2rem 3rem;
   color: #775100;
+
+  z-index: 10;
 
   background-color: #f2ce30;
   clip-path: polygon(2.5rem 0, 110% 0, 110% 110%, 0% 100%);
@@ -380,13 +412,17 @@ const StyledBettingScreen = styled(motion.div)`
   position: absolute;
   z-index: 150;
 
-  @media only screen and (max-width: 64.375em) {
+  @media only screen and (max-width: 64.12em) {
     max-height: 100%;
     height: 100%;
     max-width: 100%;
     width: 100%;
     border-radius: 0px;
     border: 1px solid #f2ce30;
+  }
+
+  @media only screen and (max-width: 40em) {
+    flex-direction: column;
   }
 `;
 

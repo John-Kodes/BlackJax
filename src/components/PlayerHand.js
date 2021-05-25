@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 // Components
 import Card from "./Card";
+import { StyledHand } from "../Globals/GlobalStyles";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -44,14 +45,7 @@ const PlayerHand = () => {
   );
 };
 
-const StyledHand = styled(motion.div)`
-  height: 23.4rem;
-
-  position: relative;
-  margin-right: 30%;
-`;
-
-const Card1 = styled.div`
+const Card1 = styled(motion.div)`
   position: absolute;
   left: 0;
   z-index: 10;
