@@ -84,23 +84,23 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const bettingScreenAnim = {
     initial: {
-      y: -800,
-      opacity: 0,
+      y: -850,
+      opacity: 1,
     },
     animate: {
       y: 0,
       opacity: 1,
       transition: {
-        delay: 0.8,
+        delay: 1.4,
         duration: 0.5,
-        ease: [0.26, 0.44, 0.52, 1.17],
+        ease: [0.22, 0.01, 0.54, 1],
       },
     },
     exit: {
-      y: -800,
+      y: -850,
       opacity: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: "easeIn",
       },
     },
@@ -108,7 +108,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const backDropAnim = {
     initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.5, delay: 0.5 } },
+    animate: { opacity: 1, transition: { duration: 0.5, delay: 0.8 } },
     exit: { opacity: 0, transition: { duration: 0.7, delay: 0 } },
   };
 
@@ -207,7 +207,7 @@ const RestartScreen = styled(motion.div)`
   @media only screen and (max-width: 64.12em) {
     max-height: 100%;
     max-width: 100%;
-    border: none;
+    border-radius: 0px;
   }
 
   p {
@@ -219,15 +219,18 @@ const RestartScreen = styled(motion.div)`
 const StartOverBtn = styled(motion.button)`
   font-weight: 600;
   background-color: transparent;
+  border: 3px solid #ffffff83;
 
   transition: all 0.2s;
   &:hover {
     transform: translateY(-7px);
     background-color: rgb(0, 180, 105);
+    border: 3px solid transparent;
   }
   &:active {
     transform: translateY(2px);
     background-color: rgb(0, 180, 105);
+    border: 3px solid transparent;
   }
 `;
 
@@ -238,7 +241,7 @@ const BetAllBtn = styled(motion.button)`
   border-radius: 10rem;
   background-color: transparent;
 
-  border: 3px solid ${(props) => props.theme.gold};
+  border: 4px solid ${(props) => props.theme.gold};
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
   overflow: hidden;
 
@@ -251,11 +254,11 @@ const BetAllBtn = styled(motion.button)`
     filter: brightness(115%);
 
     .btnBG1 {
-      transform: skew(0.6rad) translateX(4rem);
+      transform: skew(0.6rad) translateX(4rem) scale(2);
     }
 
     .btnBG2 {
-      transform: skew(0.6rad) translateX(4rem);
+      transform: skew(0.6rad) translateX(4rem) scale(2);
     }
   }
 
@@ -435,5 +438,5 @@ const StyledBackDrop = styled(motion.div)`
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 99;
+  z-index: 100;
 `;

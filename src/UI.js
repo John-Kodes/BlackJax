@@ -75,7 +75,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           <BtnDoubleDown
             onClick={doubleDown}
             disabled={
-              playerHand.length < 1 ||
+              playerHand.length < 2 ||
               playerHand.length > 2 ||
               bet > tempBank ||
               results !== "none" ||
@@ -97,7 +97,7 @@ const ContainerHelp = styled(motion.div)`
   & .help--btn {
     display: none;
     top: 5.6rem;
-    left: 0.5rem;
+    left: 0.8rem;
 
     @media only screen and (max-width: 67em) {
       display: inline;
@@ -156,6 +156,7 @@ const DealerTag = styled(motion.div)`
   padding: 0.5rem 5rem 0.5rem 1.5rem;
   background: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+  z-index: 100;
 
   @media only screen and (max-width: 67em) {
     padding-left: 11rem;
@@ -171,8 +172,8 @@ const DealerTag = styled(motion.div)`
 
   & .go_back--btn {
     display: none;
-    top: 0.6rem;
-    left: 0.6rem;
+    top: 0.8rem;
+    left: 0.8rem;
 
     @media only screen and (max-width: 67em) {
       display: inline;
@@ -237,6 +238,7 @@ const BtnsBox = styled(motion.div)`
   justify-content: space-between;
 
   height: 15rem;
+  z-index: 80;
 `;
 
 export default React.memo(UI);

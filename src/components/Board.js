@@ -23,7 +23,6 @@ const Board = ({ setShowBettingScreen, showBettingScreen }) => {
       x: 0,
       transition: {
         duration: 0.8,
-        delay: 1,
         ease: [0.48, 0.32, 0.57, 1.02],
       },
     },
