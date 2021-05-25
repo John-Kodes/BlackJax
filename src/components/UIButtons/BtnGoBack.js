@@ -35,7 +35,7 @@ const StyledGoBackBtn = styled(motion.div)`
   z-index: 200;
 
   border-radius: 4px;
-  background-color: rgba(18, 16, 24, 0.6);
+  background-color: rgba(18, 16, 24, 1);
   border: 1px solid #7f7597;
   color: #7f7597;
   font-size: 1.6rem;

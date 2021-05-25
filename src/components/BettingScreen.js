@@ -85,7 +85,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   const bettingScreenAnim = {
     initial: {
       y: -800,
-      opacity: 1,
+      opacity: 0,
     },
     animate: {
       y: 0,

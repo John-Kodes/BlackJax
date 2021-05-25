@@ -207,8 +207,8 @@ const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
 const CardContainer = styled(motion.div)`
   position: relative;
 
-  height: 23.2rem;
-  width: 17.35rem;
+  height: 20rem;
+  width: 14.91rem;
   transform: perspective(40rem);
 
   & > .front {

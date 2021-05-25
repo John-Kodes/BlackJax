@@ -59,9 +59,10 @@ const ContainerHands = styled(motion.div)`
 
   width: 70%;
   height: 100%;
-  @media only screen and (max-width: 28em) {
+
+  @media only screen and (max-width: 40em) {
     width: 100%;
-    height: 70%;
+    height: 60%;
   }
 `;
 
@@ -107,7 +108,7 @@ const StyledBoardIn = styled(motion.div)`
   background: ${(props) => props.theme.primaryColor};
   height: 100%;
   width: 100%;
-  padding: 7rem 2rem;
+  padding: 9rem 2rem;
   overflow: hidden;
 
   background-clip: padding-box;

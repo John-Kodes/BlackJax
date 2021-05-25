@@ -180,13 +180,13 @@ const BtnsContainer = styled(motion.div)`
 
   height: 100%;
 
-  @media only screen and (max-width: 28em) {
+  @media only screen and (max-width: 40em) {
     flex-direction: row;
     justify-content: space-around;
     align-self: flex-end;
     flex: 0 0 100%;
 
-    height: 30%;
+    height: 40%;
   }
 `;
 
@@ -222,12 +222,5 @@ const BtnsBox = styled(motion.div)`
     height: 14rem;
   }
 `;
-
-// const CounterContainer = styled(motion.div)`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   border: 1px solid red;
-// `;
 
 export default React.memo(UI);

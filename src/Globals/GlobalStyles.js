@@ -61,17 +61,14 @@ export const StyledHand = styled(motion.div)`
 
   position: relative;
 
-  @media only screen and (max-width: 45em) {
-    transform: scale(0.9);
-  }
-  @media only screen and (max-width: 36.5em) {
+  @media only screen and (max-width: 36.5em) and (orientation: landscape) {
     transform: scale(0.8);
   }
-  @media only screen and (max-width: 31em) {
+  @media only screen and (max-width: 31em) and (orientation: landscape) {
     transform: scale(0.62);
   }
-  @media only screen and (max-width: 28em) {
-    transform: scale(1);
+  @media only screen and (max-width: 28em) and (orientation: landscape) {
+    transform: scale(1.3);
   }
 `;
 
