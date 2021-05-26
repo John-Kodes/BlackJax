@@ -58,6 +58,8 @@ function Gamin() {
         dispatch(cardsShuffled());
       }, 3000);
     }
+
+    return () => {};
   });
 
   return (

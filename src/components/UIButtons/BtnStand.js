@@ -23,6 +23,7 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   // STATES
   const [buttonClicked, setButtonClicked] = useState(false);
   const [dealerLoopBool, setDealerLoopBool] = useState(false);
+  const [pause, setPause] = useState(false);
 
   const {
     results,
@@ -95,6 +96,7 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   // Dealer loop logic
   useEffect(() => {
     // Step by step game logic
+    if (pause) return;
     if (deck.length < 60 && results !== "none") dispatch(shuffleCards());
     else if (playerHandLength < 2 && !showBettingScreen) {
       dealCards(0.5);
@@ -111,7 +113,17 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
     else if (dealerHandTotal > 0 && dealerWillPlay && results === "none") {
       dipatchResults(1.5);
     }
+    // return () => {
+    //   const nothing = 'just to remove the warning';
+    // };
   });
+
+  useEffect(() => {
+    setPause(false);
+    return () => {
+      setPause(true);
+    };
+  }, [setPause]);
 
   return (
     <PlayingBtn

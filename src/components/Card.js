@@ -127,6 +127,8 @@ const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
   useEffect(() => {
     if (dealersTurn && index === 0) setHideBool(false);
     if (!dealersTurn && index === 0 && !isPlayersHand) setHideBool(true);
+
+    return () => {};
   }, [dealersTurn, index, isPlayersHand]);
 
   return (

@@ -241,6 +241,7 @@ const gameSlice = createSlice({
 
       state.dealerWillPlay = true;
     },
+
     outputResults(state) {
       const { playerHand, dealerHand } = state.totalHandValue;
 

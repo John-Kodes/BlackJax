@@ -81,14 +81,18 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   };
 
   useEffect(() => {
+    // loads in loading screen with last bank amount
     if (betArr.length < 1 && dealerHand.length < 1) {
       dispatch(loadInBettingScreen());
     }
-    if (betArr.length > 0) {
+    // auto updates the UI bank
+    if (betArr.length > 0 && dealerHand.length < 1) {
       const total = betArr.reduce((acc, cur) => acc + cur);
       setBetTotal(total);
       dispatch(calcBet(betArr));
     }
+
+    // return () => console.log("bettingScreen clean up");
   }, [dispatch, betArr, dealerHand]);
 
   const bettingScreenAnim = {
