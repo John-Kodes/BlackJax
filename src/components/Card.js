@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 // Components
+import { JackFace, KingFace, QueenFace } from "../img/SvgCardArt";
 import {
-  ClubSmall,
-  DiamondSmall,
-  HeartSmall,
-  SpadeSmall,
-  JackFace,
-  KingFace,
-  QueenFace,
-} from "../img/SvgCardArt";
+  ClubsSm,
+  DiamondsSm,
+  HeartsSm,
+  SpadesSm,
+  ClubsBig,
+  DiamondsBig,
+  HeartsBig,
+  SpadesBig,
+} from "../img/suitsIcons";
 import { CardBackSVG2 } from "../img/CardBackSVG";
 // Styling
 import styled from "styled-components";
@@ -25,14 +27,14 @@ const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
 
   const symbol = (s) => {
     switch (s) {
-      case "D":
-        return DiamondSmall();
-      case "H":
-        return HeartSmall();
       case "C":
-        return ClubSmall();
+        return ClubsSm();
+      case "D":
+        return DiamondsSm();
+      case "H":
+        return HeartsSm();
       case "S":
-        return SpadeSmall();
+        return SpadesSm();
       default:
         return "err";
     }
@@ -40,14 +42,14 @@ const Card = ({ suit, value, index, handLength, isPlayersHand = true }) => {
 
   const symbolCardArt = (s) => {
     switch (s) {
-      case "D":
-        return "♦";
-      case "H":
-        return "♥";
       case "C":
-        return "♣";
+        return ClubsBig("-55 -70 200 200");
+      case "D":
+        return DiamondsBig("-55 -70 200 200");
+      case "H":
+        return HeartsBig("-55 -70 200 200");
       case "S":
-        return "♠";
+        return SpadesBig("-55 -70 200 200");
       default:
         return "err";
     }
@@ -243,7 +245,7 @@ const StyledCard = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 200;
+  font-weight: 400;
 
   height: 20rem;
   width: 14.91rem;
