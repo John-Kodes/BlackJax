@@ -98,7 +98,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     }
 
     // return () => console.log("bettingScreen clean up");
-  }, [dispatch, betArr, dealerHand]);
+  }, [dispatch, betArr, betArr.length, dealerHand.length]);
 
   const bettingScreenAnim = {
     initial: {
