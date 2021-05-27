@@ -14,7 +14,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 
 function Gamin() {
-  const [showBettingScreen, setShowBettingScreen] = useState(false);
+  const [showBettingScreen, setShowBettingScreen] = useState(true);
 
   const cardsShuffledBool = useSelector((state) => state.game.cardsShuffled);
 
