@@ -120,14 +120,14 @@ export const ClubsBig = (vb = "0 0 81 81") => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M52.7935 80.2519L41.0223 68.5089L29.2511 80.2519L52.7935 80.2519Z"
         fill="#A9A9A9"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M61.3201 20.7038C61.3201 24.4644 60.3051 27.9878 58.5343 31.0153C59.154 30.9587 59.7817 30.9298 60.4162 30.9298C71.7115 30.9298 80.8681 40.0865 80.8681 51.3818C80.8681 62.6771 71.7115 71.8337 60.4162 71.8337C51.2203 71.8337 43.4419 65.7645 40.8681 57.4132C38.2944 65.7645 30.516 71.8337 21.3201 71.8337C10.0248 71.8337 0.868164 62.6771 0.868164 51.3818C0.868164 40.0865 10.0248 30.9298 21.3201 30.9298C21.9546 30.9298 22.5823 30.9587 23.202 31.0152C21.4311 27.9878 20.4162 24.4644 20.4162 20.7038C20.4162 9.40855 29.5728 0.251907 40.8681 0.251907C52.1634 0.251907 61.3201 9.40855 61.3201 20.7038Z"
         fill="#E9E9E9"
       />
@@ -145,8 +145,8 @@ export const DiamondsBig = (vb = "0 0 81 81") => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M80.1603 0.251923H0.160339V80.2519H80.1603V0.251923ZM77.2892 3.12303H3.03144V77.3808H77.2892V3.12303Z"
         fill="#FFD000"
       />
@@ -180,8 +180,8 @@ export const HeartsBig = (vb = "0 0 81 81") => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M40.87 34.3748L29.1633 46.0945L12.5962 46.1037L0.874919 34.3954L0.865723 17.8283L12.574 6.10703L29.1411 6.09784L40.8615 17.8052L52.5682 6.08552L69.1353 6.07633L80.8566 17.7846L80.8657 34.3517L69.1575 46.073L52.5904 46.0822L40.87 34.3748Z"
         fill="#E29A0F"
       />
@@ -207,14 +207,14 @@ export const SpadesBig = (vb = "0 0 81 81") => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M52.5787 80.2519L40.8075 68.5089L29.0363 80.2519L52.5787 80.2519Z"
         fill="#A9A9A9"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M40.8032 40.2576L52.5099 28.5379L69.0771 28.5287L80.7983 40.2369L80.8075 56.804L69.0993 68.5253L52.5321 68.5345L40.8117 56.8271L29.105 68.5468L12.5379 68.556L0.816675 56.8477L0.807481 40.2806L12.5157 28.5594L29.0828 28.5502L40.8032 40.2576Z"
         fill="#A9A9A9"
       />

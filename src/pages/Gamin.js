@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 function Gamin() {
   const [showBettingScreen, setShowBettingScreen] = useState(true);
 
-  const cardsShuffledBool = useSelector((state) => state.game.cardsShuffled);
+  const { cardsShuffledBool } = useSelector((state) => state.game);
 
   const dispatch = useDispatch();
 
@@ -60,7 +60,7 @@ function Gamin() {
     }
 
     return () => {};
-  });
+  }, [dispatch, cardsShuffledBool]);
 
   return (
     <PageContainer>

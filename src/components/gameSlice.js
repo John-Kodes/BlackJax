@@ -3,6 +3,7 @@ import deckOfCards from "../data/deckOfCards";
 
 const newDeck = [...deckOfCards];
 
+// BUG: while distributing cards, it adds 10 when the first card is hidden and an ace
 const initialState = {
   deckOfCards,
   playerHand: [],
@@ -11,9 +12,8 @@ const initialState = {
     dealerHand: 0,
     playerHand: 0,
   },
-  count: 0,
-  bank: 1000, // There is 2 to avoid weird calculations. I know it's weird but trust me
-  tempBank: 1000,
+  bank: 0, // There is 2 to avoid weird calculations. I know it's weird but trust me
+  tempBank: 0,
   bet: 0,
   betArr: [0],
   dealerWillPlay: false,
@@ -39,12 +39,12 @@ const gameSlice = createSlice({
           dealerHand.push(deck[index]);
           deck.splice(index, 1);
 
-          // calculating dealerHandtotal
           if (!dealerHand[1]) return;
-          let playerTotalValue = dealerHand[1].rv;
-          const check = dealerHand.some((card) => card.value === "A"); // undefined OR card details
 
-          // should be done after hiding card
+          // calculating dealerHandtotal but only the 2nd card
+          let playerTotalValue = dealerHand[1].rv;
+          const check = dealerHand[1].value === "A"; // undefined OR card details
+
           if (check && playerTotalValue < 12) {
             playerTotalValue += 10;
           }
@@ -202,27 +202,24 @@ const gameSlice = createSlice({
         };
       },
     },
-    countCounter: {
-      reducer(state, action) {
-        const change = action.payload.change;
 
-        state.count += change;
-      },
-
-      prepare(change) {
-        return {
-          payload: {
-            change,
-          },
-        };
-      },
-    },
     shuffleCards(state) {
       state.deckOfCards = newDeck;
       state.cardsShuffled = true;
     },
     cardsShuffled(state) {
       state.cardsShuffled = false;
+    },
+    getLastSave: {
+      reducer(state, action) {
+        state.bank = action.payload.bank;
+        state.tempBank = action.payload.bank;
+      },
+      prepare(bank) {
+        return {
+          payload: { bank },
+        };
+      },
     },
     loadInBettingScreen(state) {
       state.tempBank = state.bank;
@@ -332,8 +329,7 @@ export const {
   shuffleCards,
   cardsShuffled,
 
-  countCounter,
-
+  getLastSave,
   loadInBettingScreen,
   dealersTurn,
   outputResults,

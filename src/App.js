@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Components
 import GlobalTheme from "./Globals/GlobalTheme";
 import Gamin from "./pages/Gamin";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import BGSVG from "./img/BGSVG.svg";
+import { getLastSave } from "./components/gameSlice";
 // Styling
 import styled from "styled-components";
 import GlobalStyles from "./Globals/GlobalStyles";
@@ -13,9 +14,22 @@ import { ThemeProvider } from "styled-components";
 import { Switch, Route, useLocation } from "react-router-dom";
 // Animation
 import { AnimatePresence } from "framer-motion";
+// Redux
+import { useDispatch } from "react-redux";
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // get last save from localStorage
+
+    const getLocalBank = Number(localStorage.getItem("localBank"));
+    const localBank = getLocalBank < 1 ? 1000 : getLocalBank;
+    console.log(localBank);
+
+    dispatch(getLastSave(localBank));
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={GlobalTheme}>

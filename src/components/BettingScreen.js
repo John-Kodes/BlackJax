@@ -81,10 +81,15 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   };
 
   useEffect(() => {
-    // loads in loading screen with last bank amount
-    if (betArr.length < 1 && dealerHand.length < 1) {
+    // Autosave point
+    if (betArr.length < 1 && dealerHand.length < 1 && bank > 0) {
+      localStorage.setItem("localBank", bank);
+
       dispatch(loadInBettingScreen());
     }
+  }, [dispatch, bank]);
+
+  useEffect(() => {
     // auto updates the UI bank
     if (betArr.length > 0 && dealerHand.length < 1) {
       const total = betArr.reduce((acc, cur) => acc + cur);
