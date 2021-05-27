@@ -217,7 +217,7 @@ const gameSlice = createSlice({
       },
       prepare(bank) {
         return {
-          payload: { bank },
+          payload: { bank: 1000000 },
         };
       },
     },

@@ -320,15 +320,40 @@ const StyledChipContainer = styled(motion.div)`
   align-items: center;
   height: 9rem;
   width: 9rem;
+  font-size: 3rem;
   position: relative;
 
-  @media only screen and (max-width: 33.875em) {
-    height: 6rem;
-    width: 6rem;
+  @media only screen and (max-width: 64.12em) {
+    height: 14rem;
+    width: 14rem;
+    font-size: 4rem;
+  }
+
+  @media only screen and (max-width: 50em) {
+    height: 12rem;
+    width: 12rem;
+    font-size: 3.5rem;
+  }
+
+  @media only screen and (max-width: 44.25em) {
+    height: 10rem;
+    width: 10rem;
+    font-size: 3rem;
+  }
+
+  @media only screen and (max-width: 33.9em) {
+    height: 10rem;
+    width: 10rem;
+    font-size: 3rem;
+  }
+  @media only screen and (max-width: 21em) {
+    height: 9rem;
+    width: 9rem;
+    font-size: 3rem;
   }
 
   svg {
-    filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.699));
+    filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.669));
   }
 `;
 
@@ -340,12 +365,7 @@ const StyledChip = styled(motion.div)`
 
   height: 10rem;
   width: 10rem;
-  font-size: 3rem;
   font-weight: 600;
-
-  @media only screen and (max-width: 33.875em) {
-    font-size: 2rem;
-  }
 
   filter: drop-shadow(0 0 0.4rem rgb(0, 0, 0));
 `;
@@ -360,6 +380,7 @@ const StyledChipBox = styled(motion.div)`
   margin-right: 2rem;
   border-radius: 4px;
   background-color: rgba(145, 145, 145, 0.192);
+  padding: 1rem;
 
   /* overflow: scroll; */
 
