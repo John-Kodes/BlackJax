@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+// icons
+import { HitIcon } from "../../img/UiBtnIcons";
 // Styling
 import { PlayingBtn } from "../../Globals/GlobalStyles";
 // Redux
@@ -34,7 +36,7 @@ const BtnHit = React.memo(() => {
       onClick={drawCardHandler}
       disabled={playerHandTotal > 20 || dealerWillPlay || playerHandLength < 2}
     >
-      🎯 HIT
+      {HitIcon()} HIT
     </PlayingBtn>
   );
 });

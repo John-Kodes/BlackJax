@@ -26,7 +26,6 @@ function App() {
     // get last save from localStorage
     const getLocalBank = Number(localStorage.getItem("localBank"));
     const localBank = getLocalBank < 1 ? 1000 : getLocalBank;
-    console.log(localBank);
 
     dispatch(getLastSave(localBank));
   }, [dispatch]);

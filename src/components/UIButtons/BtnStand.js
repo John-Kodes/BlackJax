@@ -1,7 +1,8 @@
 import React, { useEffect, useCallback, useState } from "react";
 // Styling
 import { PlayingBtn } from "../../Globals/GlobalStyles";
-
+// Icons
+import { StandIcon } from "../../img/UiBtnIcons";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -132,7 +133,7 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
         results !== "none"
       }
     >
-      <span>✋</span> STAND
+      {StandIcon()} STAND
     </PlayingBtn>
   );
 };

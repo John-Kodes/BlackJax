@@ -4,6 +4,8 @@ import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
 import GoBackBtn from "./components/UIButtons/BtnGoBack";
 import BtnHelp from "./components/UIButtons/BtnHelp";
+// Icons
+import { CardIcon, DoubleIcon } from "./img/UiBtnIcons";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { playerDoubleDown } from "./components/gameSlice";
@@ -40,7 +42,8 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   return (
     <Canvas>
       <CardsLeft>
-        <h4>🃏{deckNum ? deckNum : "err"}</h4>
+        {CardIcon()}
+        <h4>{deckNum ? deckNum : "err"}</h4>
       </CardsLeft>
       <ContainerHelp>
         <BtnHelp />
@@ -82,12 +85,9 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
               dealerWillPlay
             }
           >
-            🃏 DOUBLE
+            {DoubleIcon("3 3 25 25")} DOUBLE
           </BtnDoubleDown>
         </BtnsBox>
-        {/* <CounterContainer>
-          <CardCounter />
-        </CounterContainer> */}
       </BtnsContainer>
     </Canvas>
   );
@@ -106,8 +106,16 @@ const ContainerHelp = styled(motion.div)`
 `;
 
 const BtnDoubleDown = styled(PlayingBtn)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2rem;
   padding: 1rem;
+
+  svg {
+    height: 2.5rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 const Canvas = styled(motion.div)`
@@ -119,19 +127,29 @@ const Canvas = styled(motion.div)`
   width: 100%;
   top: 0;
 
+  border: 1px solid transparent;
+
   padding: 6rem 2rem;
 `;
 
 const CardsLeft = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: absolute;
   top: 0;
   right: 0;
   font-size: 2rem;
-  padding: 0.2rem 1rem 0.2rem 3rem;
+  padding: 0.5rem 1rem 0.5rem 3rem;
   color: #d3d3d3;
 
   background-color: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5rem 100%);
+
+  svg {
+    height: 2.5rem;
+  }
 `;
 
 const Bank = styled(motion.div)`
@@ -237,8 +255,12 @@ const BtnsBox = styled(motion.div)`
   flex-direction: column;
   justify-content: space-between;
 
-  height: 15rem;
+  height: 17rem;
   z-index: 80;
+
+  @media only screen and (max-width: 28em) {
+    height: 19rem;
+  }
 `;
 
 export default React.memo(UI);

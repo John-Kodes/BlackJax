@@ -1,4 +1,6 @@
 import React from "react";
+// Icons
+import { ArrowIcon } from "../../img/UiBtnIcons";
 // Router
 import { Link } from "react-router-dom";
 // Styling
@@ -18,7 +20,7 @@ const GoBackBtn = () => {
         whileTap="tap"
         className="go_back--btn"
       >
-        &larr; Back
+        {ArrowIcon()} Back
       </StyledGoBackBtn>
     </Link>
   );
@@ -32,7 +34,8 @@ const StyledGoBackBtn = styled(motion.div)`
   position: absolute;
   top: 2rem;
   left: 2rem;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1rem;
+  padding-left: 0.5rem;
   z-index: 200;
 
   border-radius: 4px;
@@ -41,10 +44,19 @@ const StyledGoBackBtn = styled(motion.div)`
   color: #7f7597;
   font-size: 1.6rem;
 
-  transition: color 0.5s;
+  transition: border 0.2s;
 
   &:hover {
     color: white;
+
+    border: 1px solid white;
+
+    svg path {
+      fill: white;
+    }
+  }
+  svg {
+    height: 1.6rem;
   }
 `;
 

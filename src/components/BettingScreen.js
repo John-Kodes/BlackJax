@@ -397,16 +397,13 @@ const StyledBetBox = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 30rem;
+  height: 40rem;
   clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
   padding: 1rem;
 
   font-size: 1.6rem;
   background-color: rgba(119, 103, 85, 0.349);
   border-radius: 4px;
-  h1 {
-    margin-bottom: 2rem;
-  }
 
   @media only screen and (max-width: 40em) {
     flex-direction: row;
@@ -419,6 +416,10 @@ const StyledBetBox = styled(motion.div)`
     h1 {
       margin-bottom: 0rem;
     }
+  }
+
+  h1 {
+    margin-bottom: 2rem;
   }
 `;
 

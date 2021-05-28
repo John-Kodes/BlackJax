@@ -43,15 +43,13 @@ const GlobalStyles = createGlobalStyle`
         font-family:'Montserrat', sans-serif;
         color: white;
         font-size: 2.4rem;
-        padding: 0.5rem 1.2rem;
+        padding: 1rem 1.2rem;
 
         font-weight: 600;
         background-color: #13131b;
         border-radius: 4px;
         border: none;
-        cursor: pointer;
-
-        
+        cursor: pointer;   
     }
 
 `;
@@ -60,30 +58,20 @@ export const StyledHand = styled(motion.div)`
   height: 20rem;
 
   position: relative;
-
-  /* border: 1px solid red; */
-
-  /* @media only screen and (max-width: 40em) {
-    height: 20rem;
-
-    transform: scale(0.9);
-  } */
-
-  /* @media only screen and (max-width: 36.5em) and (orientation: landscape) {
-    transform: scale(0.8);
-  }
-  @media only screen and (max-width: 31em) and (orientation: landscape) {
-    transform: scale(0.62);
-  }
-  @media only screen and (max-width: 28em) and (orientation: landscape) {
-    transform: scale(1.3);
-  } */
 `;
 
 export const PlayingBtn = styled(motion.button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3);
   border: 1px solid transparent;
   transition: all 0.3s;
+
+  svg {
+    margin-right: 0.5rem;
+  }
 
   &:hover {
     transform: translateY(-3px);
