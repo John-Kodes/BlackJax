@@ -61,7 +61,15 @@ export const StyledHand = styled(motion.div)`
 
   position: relative;
 
-  @media only screen and (max-width: 36.5em) and (orientation: landscape) {
+  /* border: 1px solid red; */
+
+  /* @media only screen and (max-width: 40em) {
+    height: 20rem;
+
+    transform: scale(0.9);
+  } */
+
+  /* @media only screen and (max-width: 36.5em) and (orientation: landscape) {
     transform: scale(0.8);
   }
   @media only screen and (max-width: 31em) and (orientation: landscape) {
@@ -69,7 +77,7 @@ export const StyledHand = styled(motion.div)`
   }
   @media only screen and (max-width: 28em) and (orientation: landscape) {
     transform: scale(1.3);
-  }
+  } */
 `;
 
 export const PlayingBtn = styled(motion.button)`

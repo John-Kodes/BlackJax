@@ -28,6 +28,7 @@ const DealerHand = () => {
 
   return (
     <StyledHand
+      className="dealerHand"
       style={{
         width: `${14.5 + 4 * (cards.length - 1)}rem`,
         transition: "all 0.5s cubic-bezier(0.47, 0.03, 0.45, 0.99)",

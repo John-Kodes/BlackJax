@@ -61,7 +61,8 @@ const ContainerHands = styled(motion.div)`
 
   @media only screen and (max-width: 40em) {
     width: 100%;
-    height: 60%;
+    height: 70%;
+    /* border: 1px solid red; */
   }
 `;
 
@@ -115,6 +116,10 @@ const StyledBoardIn = styled(motion.div)`
   background-clip: padding-box;
   border: solid 1px transparent;
   border-radius: 0.4rem;
+
+  @media only screen and (max-width: 40em) {
+    padding: 5rem 2rem 9em;
+  }
 `;
 
 const StyledBoardBorder = styled.div`

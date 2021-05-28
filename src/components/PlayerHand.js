@@ -26,6 +26,7 @@ const PlayerHand = () => {
   return (
     <>
       <StyledHand
+        className="playerHand"
         style={{
           width: `${14.5 + 4 * (cards.length - 1)}rem`,
           transition: "all 0.5s",
