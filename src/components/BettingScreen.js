@@ -87,7 +87,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
       dispatch(loadInBettingScreen());
     }
-  }, [dispatch, bank]);
+  }, [dispatch, bank, betArr.length, dealerHand.length]);
 
   useEffect(() => {
     // auto updates the UI bank
@@ -199,7 +199,6 @@ const Container = styled(motion.div)`
   position: relative;
   height: 100vh;
   width: 100%;
-  padding: 1rem;
 `;
 
 const RestartScreen = styled(motion.div)`
@@ -223,9 +222,8 @@ const RestartScreen = styled(motion.div)`
   padding: 2rem;
 
   @media only screen and (max-width: 64.12em) {
-    max-height: 100%;
-    max-width: 100%;
-    border-radius: 0px;
+    max-height: 90vh;
+    max-width: 95%;
   }
 
   p {
@@ -324,14 +322,14 @@ const StyledChipContainer = styled(motion.div)`
   position: relative;
 
   @media only screen and (max-width: 64.12em) {
-    height: 14rem;
-    width: 14rem;
+    height: 13rem;
+    width: 13rem;
     font-size: 4rem;
   }
 
   @media only screen and (max-width: 50em) {
-    height: 12rem;
-    width: 12rem;
+    height: 11.3rem;
+    width: 11.3rem;
     font-size: 3.5rem;
   }
 
@@ -377,25 +375,30 @@ const StyledChipBox = styled(motion.div)`
   align-content: center;
   flex: 1;
   height: 100%;
+  width: 100%;
+
   margin-right: 2rem;
   border-radius: 4px;
   background-color: rgba(145, 145, 145, 0.192);
   padding: 1rem;
 
-  /* overflow: scroll; */
-
   flex-wrap: wrap;
   gap: 1.5rem;
+
+  @media only screen and (max-width: 40em) {
+    margin-right: 0rem;
+  }
 `;
 
 const StyledBetBox = styled(motion.div)`
-  flex: 0 0 35%;
+  flex: 0 0 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 30rem;
   clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
+  padding: 1rem;
 
   font-size: 1.6rem;
   background-color: rgba(119, 103, 85, 0.349);
@@ -455,10 +458,8 @@ const StyledBettingScreen = styled(motion.div)`
   z-index: 150;
 
   @media only screen and (max-width: 64.12em) {
-    max-height: 100%;
-    height: 100%;
-    max-width: 100%;
-    width: 100%;
+    max-height: 90vh;
+    max-width: 95%;
     border-radius: 0px;
     border: 1px solid #f2ce30;
   }

@@ -90,10 +90,11 @@ const StyledBoardOut = styled(motion.div)`
   width: 100%;
   padding: 2.8rem;
   box-shadow: 0 3rem 8rem rgba(0, 0, 0, 0.7);
+
   @media only screen and (max-width: 58.75em) {
     padding: 1rem;
-    max-height: 100%;
-    max-width: 100%;
+    max-height: 90vh;
+    max-width: 95%;
   }
 `;
 
