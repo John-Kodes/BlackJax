@@ -222,8 +222,8 @@ const RestartScreen = styled(motion.div)`
   padding: 2rem;
 
   @media only screen and (max-width: 64.12em) {
-    top: 2rem;
-    max-height: 95vh;
+    top: 0;
+    max-height: 92vh;
     max-width: 95%;
   }
 
@@ -459,8 +459,8 @@ const StyledBettingScreen = styled(motion.div)`
   z-index: 150;
 
   @media only screen and (max-width: 64.12em) {
-    top: 2rem;
-    max-height: 95vh;
+    top: 0;
+    max-height: 92vh;
     max-width: 95%;
     border-radius: 0px;
     border: 1px solid #f2ce30;
