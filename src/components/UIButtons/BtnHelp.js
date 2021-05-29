@@ -38,7 +38,9 @@ const BtnHelp = () => {
             <br />
             <br />
             All face cards have a value of 10 but Ace cards can either be 1 OR
-            11.
+            11. If you are lucky and get a 10 card and an Ace, that is a
+            'BlackJack' which wins you +50% of your original bet if the dealer
+            also doesn't get 21 points.
           </p>
         </Instructions>
       ) : (

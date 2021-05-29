@@ -6,7 +6,7 @@ const newDeck = [...deckOfCards];
 // BUG: while distributing cards, it adds 10 when the first card is hidden and an ace
 const initialState = {
   deckOfCards,
-  playerHand: [],
+  playerHand: [{ suit: "H", value: "A", rv: 1 }],
   dealerHand: [],
   totalHandValue: {
     dealerHand: 0,
@@ -289,11 +289,12 @@ const gameSlice = createSlice({
     concludeGame: {
       reducer(state) {
         const { results, bet, bank, playerHand } = state;
+        console.log(playerHand.length);
 
-        if (results === "player" && playerHand.length === 2)
-          state.tempBank = bet * 2 * 1.5 + bank;
         if (results === "dealer") state.tempBank = bank;
         if (results === "player") state.tempBank = bet * 2 + bank;
+        if (results === "player" && playerHand.length === 2)
+          state.tempBank = bet * 2 + Math.trunc(bet * 1.5) + bank;
         if (results === "push") state.tempBank = bet + bank;
 
         // Reseting
