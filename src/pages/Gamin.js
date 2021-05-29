@@ -6,7 +6,7 @@ import GoBackBtn from "../components/UIButtons/BtnGoBack";
 import BtnHelp from "../components/UIButtons/BtnHelp";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { cardsShuffled } from "../components/gameSlice";
+import { setCardShuffledBoolFalse } from "../components/gameSlice";
 import { PageContainer } from "../Globals/GlobalStyles";
 // Styling
 import styled from "styled-components";
@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 function Gamin() {
   const [showBettingScreen, setShowBettingScreen] = useState(true);
 
-  const { cardsShuffledBool } = useSelector((state) => state.game);
+  const { cardsShuffled } = useSelector((state) => state.game);
 
   const dispatch = useDispatch();
 
@@ -53,14 +53,14 @@ function Gamin() {
   };
 
   useEffect(() => {
-    if (cardsShuffledBool) {
+    if (cardsShuffled) {
       setTimeout(() => {
-        dispatch(cardsShuffled());
+        dispatch(setCardShuffledBoolFalse());
       }, 3000);
     }
 
     return () => {};
-  }, [dispatch, cardsShuffledBool]);
+  }, [dispatch, cardsShuffled]);
 
   return (
     <PageContainer>
@@ -89,7 +89,7 @@ function Gamin() {
           ) : (
             ""
           )}
-          {cardsShuffledBool ? (
+          {cardsShuffled ? (
             <Message
               variants={messageAnim}
               initial="initial"

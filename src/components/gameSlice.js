@@ -207,7 +207,7 @@ const gameSlice = createSlice({
       state.deckOfCards = newDeck;
       state.cardsShuffled = true;
     },
-    cardsShuffled(state) {
+    setCardShuffledBoolFalse(state) {
       state.cardsShuffled = false;
     },
     getLastSave: {
@@ -288,6 +288,18 @@ const gameSlice = createSlice({
     },
     concludeGame: {
       reducer(state) {
+        const { results, bet, bank, playerHand } = state;
+
+        if (results === "player" && playerHand.length === 2)
+          state.tempBank = bet * 2 * 1.5 + bank;
+        if (results === "dealer") state.tempBank = bank;
+        if (results === "player") state.tempBank = bet * 2 + bank;
+        if (results === "push") state.tempBank = bet + bank;
+
+        // Reseting
+        state.results = "none";
+        state.bet = 0;
+        state.bank = state.tempBank;
         state.dealerHand = [];
         state.playerHand = [];
         state.totalHandValue = {
@@ -297,18 +309,6 @@ const gameSlice = createSlice({
 
         state.dealerWillPlay = false;
 
-        const results = state.results;
-        const bet = state.bet;
-        const bank = state.tempBank;
-
-        if (results === "dealer") state.tempBank = bank;
-        if (results === "player") state.tempBank = bet * 2 + bank;
-        if (results === "push") state.tempBank = bet + bank;
-
-        // Reseting
-        state.results = "none";
-        state.bet = 0;
-        state.bank = state.tempBank;
         // if LOST: CLEAR bet. Bet from bank has already been subtracted.
         // if WIN: (bet * 2) + bank
         // if PUSH: bet + bank
@@ -327,7 +327,7 @@ export const {
   playerDoubleDown,
   dealerDrawsCard,
   shuffleCards,
-  cardsShuffled,
+  setCardShuffledBoolFalse,
 
   getLastSave,
   loadInBettingScreen,

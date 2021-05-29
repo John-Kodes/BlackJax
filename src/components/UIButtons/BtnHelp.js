@@ -32,25 +32,13 @@ const BtnHelp = () => {
         <Instructions>
           <h2>How to play</h2>
           <p>
-            The goal of the game is to get your card total (show at the bottom
-            left of the screen) as close as possible to 21 or exactly,
-            otherwise, you lose if you go past it.
+            The goal of the game is to get your card total (shown at the bottom
+            left of the screen) closer to 21 than the dealer's card total. Going
+            over 21 will make you lose the round.
             <br />
             <br />
             All face cards have a value of 10 but Ace cards can either be 1 OR
             11.
-            {/* <br />
-            <br />
-            The "True Count" is a strategy used by advanced players to
-            calculated their odds to see if it's in their favor or not. Normally
-            advanced players calculate it in their head but in this web app, its
-            calculated automatically.
-            <br />
-            <br />
-            If the True Count is postive, the next card is more likely to be a
-            10 or higher.
-            <br />
-            If its negative, the next card is more likely to be 6 or less. */}
           </p>
         </Instructions>
       ) : (
