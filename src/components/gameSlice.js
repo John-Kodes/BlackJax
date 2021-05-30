@@ -6,7 +6,7 @@ const newDeck = [...deckOfCards];
 // BUG: while distributing cards, it adds 10 when the first card is hidden and an ace
 const initialState = {
   deckOfCards,
-  playerHand: [{ suit: "H", value: "A", rv: 1 }],
+  playerHand: [],
   dealerHand: [],
   totalHandValue: {
     dealerHand: 0,
