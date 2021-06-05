@@ -94,7 +94,7 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   useEffect(() => {
     // Step by step game logic
     if (pause) return;
-    if (deck.length < 100 && results !== "none") {
+    if (deck.length < 60 && results !== "none") {
       setTimeout(() => dispatch(shuffleCards()), 4000);
     } else if (playerHandLength < 2 && !showBettingScreen) {
       dealCards(0.5);
