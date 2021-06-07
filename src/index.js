@@ -8,6 +8,11 @@ import { Provider } from "react-redux";
 import store from "./store";
 // Router
 import { BrowserRouter } from "react-router-dom";
+// Google Analytics
+import ReactGA from "react-ga";
+
+const TRACKING_ID = "G-N7LTFMKQDJ";
+ReactGA.initialize(TRACKING_ID);
 
 ReactDOM.render(
   <React.StrictMode>
