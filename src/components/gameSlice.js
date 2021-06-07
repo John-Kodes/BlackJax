@@ -60,6 +60,7 @@ const gameSlice = createSlice({
             (acc, cur) => acc + cur.rv,
             0
           );
+
           const check = playerHand.some((card) => card.value === "A"); // undefined OR card details
 
           if (check && playerTotalValue < 12) {
@@ -289,13 +290,19 @@ const gameSlice = createSlice({
     concludeGame: {
       reducer(state) {
         const { results, bet, bank, playerHand } = state;
-        console.log(playerHand.length);
 
         if (results === "dealer") state.tempBank = bank;
-        if (results === "player") state.tempBank = bet * 2 + bank;
-        if (results === "player" && playerHand.length === 2)
-          state.tempBank = bet * 2 + Math.trunc(bet * 1.5) + bank;
         if (results === "push") state.tempBank = bet + bank;
+
+        if (
+          results === "player" &&
+          playerHand.length === 2 &&
+          state.totalHandValue.playerHand === 21
+        ) {
+          state.tempBank = bet * 2 + Math.trunc(bet * 0.5) + bank;
+        } else if (results === "player") {
+          state.tempBank = bet * 2 + bank;
+        }
 
         // Reseting
         state.results = "none";
