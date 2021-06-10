@@ -53,6 +53,10 @@ const gameSlice = createSlice({
 
           // PLAYER LOGIC______________________________________________________
         } else if (playerHand.length < 2) {
+          //// For testing BlackJack conditions
+          // playerHand.push({ suit: "H", value: "A", rv: 1 });
+          // playerHand.push({ suit: "H", value: "10", rv: 10 });
+
           playerHand.push(deck[index]);
           deck.splice(index, 1);
 
