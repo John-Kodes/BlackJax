@@ -150,7 +150,7 @@ const gameSlice = createSlice({
         state.bet = bet * 2;
 
         // bank 900 > 800
-        state.tempBank = bank - bet;
+        state.bank = state.tempBank = bank - bet;
 
         const dealerHand = state.dealerHand;
         let dealerTotalValue = dealerHand.reduce((acc, cur) => acc + cur.rv, 0);
@@ -293,15 +293,13 @@ const gameSlice = createSlice({
 
         if (results === "dealer") state.tempBank = bank;
         if (results === "push") state.tempBank = bet + bank;
-
+        if (results === "player") state.tempBank = bet * 2 + bank;
         if (
           results === "player" &&
           playerHand.length === 2 &&
           state.totalHandValue.playerHand === 21
         ) {
           state.tempBank = bet * 2 + Math.trunc(bet * 0.5) + bank;
-        } else if (results === "player") {
-          state.tempBank = bet * 2 + bank;
         }
 
         // Reseting
