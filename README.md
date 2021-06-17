@@ -20,6 +20,8 @@ This project also really made me feel more comfortable with using Figma, which h
 
 ## Potential Future Features/Updates
 
+- Create a leaderboard system that shows a list of players and their high scores. But will only be posted when the player "cash out"
+
 - Create an interactive tutorial on how to play the game for first time players.
 
 - Create a "True Count Counter" feature which calculates the true count of the game. True Count in BlackJack tells the player what their advantage is at any point in a multiple deck BlackJack game. The higher the count, the greater the chances the player has to win.
