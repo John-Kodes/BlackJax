@@ -26,8 +26,6 @@ This project also really made me feel more comfortable with using Figma, which h
 
 - Create a "True Count Counter" feature which calculates the true count of the game. True Count in BlackJack tells the player what their advantage is at any point in a multiple deck BlackJack game. The higher the count, the greater the chances the player has to win.
 
-- Currently, the layout is wrong for just Iphones but works perfectly fine in android devices, as far as I know.
-
 ## Deployment
 
 Deployed with [netlify](https://www.netlify.com/)
