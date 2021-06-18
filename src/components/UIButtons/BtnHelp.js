@@ -27,6 +27,7 @@ const BtnHelp = () => {
       whileTap="tap"
       onClick={toggle}
       className="help--btn"
+      style={showHelp ? "" : { width: "1.6rem" }}
     >
       {showHelp ? (
         <Instructions>
@@ -81,7 +82,7 @@ const StyledBtnHelp = styled(motion.button)`
   top: 2rem;
   right: 2rem;
 
-  background-color: transparent;
+  background-color: ${(props) => props.theme.primaryColorDark};
   border: 1px solid #7f7597;
   color: #7f7597;
   border-radius: 4px;

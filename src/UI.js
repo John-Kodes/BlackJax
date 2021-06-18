@@ -41,13 +41,33 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
 
   return (
     <Canvas>
+      <MobileUI>
+        <GoBackBtn />
+        <div className="cards_info">
+          <div className="cards-left">
+            {CardIcon()}
+            <h3>{deckNum ? deckNum : "err"}</h3>
+          </div>
+          <div className="dealer-tag">
+            <h3>{dealerHandTotal}</h3>
+            <h3>Dealer</h3>
+          </div>
+          <div className="player-tag">
+            <h3>{playerHandTotal}</h3>
+            <h3>Player</h3>
+          </div>
+        </div>
+      </MobileUI>
+
       <CardsLeft>
         {CardIcon()}
         <h4>{deckNum ? deckNum : "err"}</h4>
       </CardsLeft>
+
       <ContainerHelp>
         <BtnHelp />
       </ContainerHelp>
+
       <DealerTag>
         <GoBackBtn />
         <h3>
@@ -55,6 +75,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           Dealer
         </h3>
       </DealerTag>
+
       <PlayerTag>
         <h3>
           <span>{playerHandTotal}</span>
@@ -92,6 +113,55 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
     </Canvas>
   );
 };
+const MobileUI = styled.div`
+  display: none;
+  visibility: hidden;
+
+  @media only screen and (max-width: 28em) {
+    display: block;
+    visibility: visible;
+  }
+  .go_back--btn {
+    top: 0.7rem;
+    left: 0.8rem;
+    z-index: 100;
+    padding: 1rem;
+  }
+
+  .cards_info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    background-color: ${(props) => props.theme.primaryColorDark};
+    padding: 1rem;
+    border-bottom-left-radius: 7px;
+    z-index: 100;
+
+    svg {
+      height: 3rem;
+      width: 3rem;
+    }
+
+    > * {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .go_back--btn {
+    }
+
+    .cards-left {
+      align-self: center;
+      gap: 0.5rem;
+    }
+  }
+`;
 
 const ContainerHelp = styled(motion.div)`
   & .help--btn {
@@ -147,6 +217,11 @@ const CardsLeft = styled(motion.div)`
   background-color: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5rem 100%);
 
+  @media only screen and (max-width: 28em) {
+    display: none;
+    visibility: hidden;
+  }
+
   svg {
     height: 2.5rem;
   }
@@ -182,6 +257,11 @@ const DealerTag = styled(motion.div)`
 
   @media only screen and (max-width: 60em) {
     padding: 1.2rem 5rem 1.2rem 11.5rem;
+  }
+
+  @media only screen and (max-width: 28em) {
+    display: none;
+    visibility: hidden;
   }
 
   span {
