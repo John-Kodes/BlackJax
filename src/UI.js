@@ -117,7 +117,7 @@ const MobileUI = styled.div`
   display: none;
   visibility: hidden;
 
-  @media only screen and (max-width: 28em) {
+  @media only screen and (max-width: 34em) {
     display: block;
     visibility: visible;
   }
@@ -217,7 +217,7 @@ const CardsLeft = styled(motion.div)`
   background-color: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5rem 100%);
 
-  @media only screen and (max-width: 28em) {
+  @media only screen and (max-width: 34em) {
     display: none;
     visibility: hidden;
   }
@@ -259,7 +259,7 @@ const DealerTag = styled(motion.div)`
     padding: 1.2rem 5rem 1.2rem 11.5rem;
   }
 
-  @media only screen and (max-width: 28em) {
+  @media only screen and (max-width: 34em) {
     display: none;
     visibility: hidden;
   }

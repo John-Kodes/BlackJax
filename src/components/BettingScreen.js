@@ -340,7 +340,7 @@ const StyledChipContainer = styled(motion.div)`
     font-size: 3rem;
   }
 
-  @media only screen and (max-width: 33.9em) {
+  @media only screen and (max-width: 34em) {
     height: 10rem;
     width: 10rem;
     font-size: 3rem;
