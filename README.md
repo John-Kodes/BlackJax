@@ -1,5 +1,7 @@
 # BlackJax
 
+[Demo](https://blackjax.netlify.app/)
+
 A recreation of the game "BlackJack" in a web browser experience. Made with React.js. I wanted to use my newly gained knowledge of React, Router, Redux, Styled-Components, Framer-Motion and also using the LocalStorage, into practice while also show casing my design and creative skills. I wanted this project to be original and engaging for the user so i decided to create a card game that i, myself enjoy playing.
 
 This was a wonderful opportunity for me to get comfortable with and really hammer down what I learnt, especially Redux.
