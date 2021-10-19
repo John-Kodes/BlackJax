@@ -69,7 +69,7 @@ const Home = () => {
           <motion.div whileHover={titleTextHover}>x</motion.div>
         </Title>
         <Link to="/gamin">
-          <Play
+          <PlayBtn
             variants={btnAnimation}
             initial="initial"
             animate="animate"
@@ -77,10 +77,10 @@ const Home = () => {
             whileTap="active"
           >
             Play
-          </Play>
+          </PlayBtn>
         </Link>
         <Link to="/about">
-          <About
+          <AboutBtn
             variants={btnAnimation}
             initial="initial"
             animate="animate"
@@ -88,20 +88,20 @@ const Home = () => {
             whileTap="active"
           >
             About
-          </About>
+          </AboutBtn>
         </Link>
       </StyledHome>
     </PageContainer>
   );
 };
 
-const Play = styled(motion.button)`
+const PlayBtn = styled(motion.button)`
   font-weight: 400;
   padding: 1rem 4.2rem;
   margin-bottom: 4rem;
 `;
 
-const About = styled(Play)`
+const AboutBtn = styled(PlayBtn)`
   padding: 1rem 2.5rem;
   margin-bottom: 0rem;
 `;

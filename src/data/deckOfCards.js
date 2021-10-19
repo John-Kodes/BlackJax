@@ -3,6 +3,7 @@ const cardsData = {
 
   value: ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"],
 
+  // place holder
   img: [
     "https://media.discordapp.net/attachments/711222589892329516/824924384560283648/Google_marker.png",
   ],

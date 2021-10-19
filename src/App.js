@@ -7,6 +7,7 @@ import About from "./pages/About";
 import BGSVG from "./img/BGSVG.svg";
 import { getLastSave } from "./components/gameSlice";
 import { HeartsSm } from "./img/suitsIcons";
+import NotFound from "./pages/NotFound";
 // Styling
 import styled from "styled-components";
 import GlobalStyles from "./Globals/GlobalStyles";
@@ -42,6 +43,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/gamin" component={Gamin} />
           <Route exact path="/about" component={About} />
+          <Route component={NotFound} />
         </Switch>
       </AnimatePresence>
       <BgSvgContainer />
