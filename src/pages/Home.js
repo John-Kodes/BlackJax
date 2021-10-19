@@ -4,30 +4,12 @@ import styled from "styled-components";
 import { PageContainer } from "../Globals/GlobalStyles";
 // Animation
 import { motion } from "framer-motion";
-import { pageAnimation } from "../animations";
+import { pageAnimation, btnAnimation } from "../animations";
+
 // Routing
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const btnAnimation = {
-    initial: {
-      opacity: 0,
-      border: "2px solid transparent",
-      background: "rgba(0,0,0,0)",
-    },
-    animate: {
-      opacity: 1,
-    },
-    hover: {
-      y: -5,
-      border: "2px solid white",
-      background: "#04002452",
-    },
-    active: {
-      y: 2,
-    },
-  };
-
   const titleAnim = {
     initial: {
       x: -30,
@@ -49,6 +31,14 @@ const Home = () => {
     },
   };
 
+  const createTitle = (title) => {
+    console.log(title.split(""));
+
+    return title
+      .split("")
+      .map((el) => <motion.div whileHover={titleTextHover}>{el}</motion.div>);
+  };
+
   return (
     <PageContainer>
       <StyledHome
@@ -58,15 +48,7 @@ const Home = () => {
         exit="exit"
       >
         <Title variants={titleAnim} initial="initial" animate="animate">
-          <motion.div whileHover={titleTextHover}>B</motion.div>
-          <motion.div whileHover={titleTextHover}>l</motion.div>
-          <motion.div whileHover={titleTextHover}>a</motion.div>
-          <motion.div whileHover={titleTextHover}>c</motion.div>
-          <motion.div whileHover={titleTextHover}>k</motion.div>
-          <motion.div whileHover={titleTextHover}>&nbsp;</motion.div>
-          <motion.div whileHover={titleTextHover}>J</motion.div>
-          <motion.div whileHover={titleTextHover}>a</motion.div>
-          <motion.div whileHover={titleTextHover}>x</motion.div>
+          {createTitle("BlackJax")}
         </Title>
         <Link to="/gamin">
           <PlayBtn
