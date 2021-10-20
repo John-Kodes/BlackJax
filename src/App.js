@@ -1,13 +1,20 @@
 import React, { useEffect } from "react";
-// Components
-import GlobalTheme from "./Globals/GlobalTheme";
+// Pages
+import About from "./pages/About";
+import ForgotPassword from "./pages/ForgotPassword";
 import Gamin from "./pages/Gamin";
 import Home from "./pages/Home";
-import About from "./pages/About";
+import Leaderboard from "./pages/Leaderboard";
+import Login from "./pages/Login";
+import Me from "./pages/Me";
+import NotFound from "./pages/NotFound";
+import ResetPassword from "./pages/ResetPassword";
+import Signup from "./pages/Signup";
+// Components
+import GlobalTheme from "./Globals/GlobalTheme";
 import BGSVG from "./img/BGSVG.svg";
 import { getLastSave } from "./components/gameSlice";
 import { HeartsSm } from "./img/suitsIcons";
-import NotFound from "./pages/NotFound";
 // Styling
 import styled from "styled-components";
 import GlobalStyles from "./Globals/GlobalStyles";
@@ -43,6 +50,12 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/gamin" component={Gamin} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/forgotPassword" component={ForgotPassword} />
+          <Route exact path="/leaderboard" component={Leaderboard} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/me" component={Me} />
+          <Route exact path="/resetPassword" component={ResetPassword} />
+          <Route exact path="/signup" component={Signup} />
           <Route component={NotFound} />
         </Switch>
       </AnimatePresence>

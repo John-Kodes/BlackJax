@@ -5,7 +5,6 @@ import { PageContainer } from "../Globals/GlobalStyles";
 // Animation
 import { motion } from "framer-motion";
 import { pageAnimation, btnAnimation } from "../animations";
-
 // Routing
 import { Link } from "react-router-dom";
 
@@ -38,6 +37,40 @@ const Home = () => {
       .split("")
       .map((el) => <motion.div whileHover={titleTextHover}>{el}</motion.div>);
   };
+  // [{link, label}, ...]
+  const createLinkBtns = () => {
+    const linksArr = [
+      {
+        link: "/login",
+        label: "Login",
+      },
+      {
+        link: "/gamin",
+        label: "Play as guest",
+      },
+      {
+        link: "/leaderboard",
+        label: "Leaderboard",
+      },
+      {
+        link: "/about",
+        label: "About",
+      },
+    ];
+    return linksArr.map((el) => (
+      <Link to={el.link}>
+        <Btn
+          variants={btnAnimation}
+          initial="initial"
+          animate="animate"
+          whileHover="hover"
+          whileTap="active"
+        >
+          {el.label}
+        </Btn>
+      </Link>
+    ));
+  };
 
   return (
     <PageContainer>
@@ -50,42 +83,16 @@ const Home = () => {
         <Title variants={titleAnim} initial="initial" animate="animate">
           {createTitle("BlackJax")}
         </Title>
-        <Link to="/gamin">
-          <PlayBtn
-            variants={btnAnimation}
-            initial="initial"
-            animate="animate"
-            whileHover="hover"
-            whileTap="active"
-          >
-            Play
-          </PlayBtn>
-        </Link>
-        <Link to="/about">
-          <AboutBtn
-            variants={btnAnimation}
-            initial="initial"
-            animate="animate"
-            whileHover="hover"
-            whileTap="active"
-          >
-            About
-          </AboutBtn>
-        </Link>
+        {createLinkBtns()}
       </StyledHome>
     </PageContainer>
   );
 };
 
-const PlayBtn = styled(motion.button)`
+const Btn = styled(motion.button)`
   font-weight: 400;
-  padding: 1rem 4.2rem;
-  margin-bottom: 4rem;
-`;
-
-const AboutBtn = styled(PlayBtn)`
-  padding: 1rem 2.5rem;
-  margin-bottom: 0rem;
+  font-size: 2.2rem;
+  min-width: 20rem;
 `;
 
 const Title = styled(motion.div)`
@@ -93,7 +100,7 @@ const Title = styled(motion.div)`
   position: relative;
   font-size: 8rem;
   font-weight: 300;
-  margin-bottom: 15rem;
+  margin-bottom: 12rem;
 
   @media only screen and (max-width: 21.875em) {
     font-size: 7rem;
@@ -125,6 +132,7 @@ const StyledHome = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 
   height: 100vh;
 `;
