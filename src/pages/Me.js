@@ -1,7 +1,8 @@
 import React from "react";
+// Components
+import { BasePage } from "../util/BasePage";
 // Styling
 import styled from "styled-components";
-import { PageContainer } from "../Globals/GlobalStyles";
 // Animation
 import { motion } from "framer-motion";
 import { pageAnimation, btnAnimation } from "../animations";

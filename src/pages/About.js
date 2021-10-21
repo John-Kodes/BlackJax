@@ -1,41 +1,33 @@
 import React from "react";
-
 // Styling
 import styled from "styled-components";
-import { PageContainer } from "../Globals/GlobalStyles";
 import GoBackBtn from "../components/UIButtons/BtnGoBack";
 // Animation
 import { pageAnimation } from "../animations";
 import { motion } from "framer-motion";
+// Util
+import { BasePage } from "../util/BasePage";
 
 const About = () => {
   return (
-    <PageContainer>
-      <StyledAbout
-        variants={pageAnimation}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        <GoBackBtn />
-        <MessageBox>
-          <h1>About</h1>
-          <p>
-            BlackJax is a recreation of the card game "BlackJack", made with the
-            React framework. This project helped so much in enforcing and
-            practicing everything I've learned about React and libraries,
-            especially Redux. This was a tough and more complex challenge than I
-            initially thought but I had fun and what came out of it was a fun
-            little game that people can enjoy including myself 😊 <br />
-            <br />I also chose to recreate BlackJack because I enjoy the
-            strategy aspect behind it like "card counting". I DO NOT endorse
-            gambling. Just to make things clear. To learn how difficult
-            BlackJack really is, try to get $20 000 without losing all your
-            money 🍀
-          </p>
-        </MessageBox>
-      </StyledAbout>
-    </PageContainer>
+    <BasePage>
+      <GoBackBtn />
+      <MessageBox>
+        <h1>About</h1>
+        <p>
+          BlackJax is a recreation of the card game "BlackJack", made with the
+          React framework. This project helped so much in enforcing and
+          practicing everything I've learned about React and libraries,
+          especially Redux. This was a tough and more complex challenge than I
+          initially thought but I had fun and what came out of it was a fun
+          little game that people can enjoy including myself 😊 <br />
+          <br />I also chose to recreate BlackJack because I enjoy the strategy
+          aspect behind it like "card counting". I DO NOT endorse gambling. Just
+          to make things clear. To learn how difficult BlackJack really is, try
+          to get $20 000 without losing all your money 🍀
+        </p>
+      </MessageBox>
+    </BasePage>
   );
 };
 

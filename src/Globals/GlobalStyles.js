@@ -2,17 +2,16 @@ import styled, { createGlobalStyle } from "styled-components";
 import { motion } from "framer-motion";
 
 const GlobalStyles = createGlobalStyle`
-    *{
+    * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
-    html{
+    html {
         font-size: 62.5%; // 1 rem = 10px
 
         @media only screen and (max-width: 28em){
         font-size: 50%; // 1 rem = 10px
-
         }
     }
     body{
@@ -97,10 +96,6 @@ export const PlayingBtn = styled(motion.button)`
       border: 1px solid transparent;
     }
   }
-`;
-
-export const PageContainer = styled(motion.div)`
-  overflow: hidden;
 `;
 
 export default GlobalStyles;

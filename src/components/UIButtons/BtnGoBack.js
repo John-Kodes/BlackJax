@@ -20,7 +20,7 @@ const GoBackBtn = () => {
         whileTap="tap"
         className="go_back--btn"
       >
-        {ArrowIcon()} Back
+        {ArrowIcon()} Home
       </StyledGoBackBtn>
     </Link>
   );

@@ -1,12 +1,13 @@
 import React from "react";
 // Styling
 import styled from "styled-components";
-import { PageContainer } from "../Globals/GlobalStyles";
 // Animation
 import { motion } from "framer-motion";
 import { pageAnimation, btnAnimation } from "../animations";
 // Routing
 import { Link } from "react-router-dom";
+// Util
+import { BasePage } from "../util/BasePage";
 
 const Home = () => {
   const titleAnim = {
@@ -31,8 +32,6 @@ const Home = () => {
   };
 
   const createTitle = (title) => {
-    console.log(title.split(""));
-
     return title
       .split("")
       .map((el) => <motion.div whileHover={titleTextHover}>{el}</motion.div>);
@@ -73,19 +72,12 @@ const Home = () => {
   };
 
   return (
-    <PageContainer>
-      <StyledHome
-        variants={pageAnimation}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        <Title variants={titleAnim} initial="initial" animate="animate">
-          {createTitle("BlackJax")}
-        </Title>
-        {createLinkBtns()}
-      </StyledHome>
-    </PageContainer>
+    <BasePage>
+      <Title variants={titleAnim} initial="initial" animate="animate">
+        {createTitle("BlackJax")}
+      </Title>
+      {createLinkBtns()}
+    </BasePage>
   );
 };
 

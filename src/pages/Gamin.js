@@ -7,12 +7,12 @@ import BtnHelp from "../components/UIButtons/BtnHelp";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { setCardShuffledBoolFalse } from "../components/gameSlice";
-import { PageContainer } from "../Globals/GlobalStyles";
 // Styling
 import styled from "styled-components";
 // Animation
 import { motion, AnimatePresence } from "framer-motion";
-
+// Util
+import { BasePage } from "../util/BasePage";
 function Gamin() {
   const [showBettingScreen, setShowBettingScreen] = useState(true);
 
@@ -63,7 +63,7 @@ function Gamin() {
   }, [dispatch, cardsShuffled]);
 
   return (
-    <PageContainer>
+    <BasePage>
       <StyledGamin
         variants={gaminPageAnimation}
         initial="initial"
@@ -104,7 +104,7 @@ function Gamin() {
           )}
         </AnimatePresence>
       </StyledGamin>
-    </PageContainer>
+    </BasePage>
   );
 }
 

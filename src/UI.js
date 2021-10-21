@@ -19,7 +19,6 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   const dispatch = useDispatch();
 
   //// STATES
-
   const {
     bet,
     tempBank,
