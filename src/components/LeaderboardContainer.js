@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 // Components
 import UserRank from "./UserRank";
+import PaginationController from "./PaginationController";
 // Styling
 import styled from "styled-components";
 
-const LeaderboardContainer = ({ ranks, page }) => {
+const LeaderboardContainer = ({ ranks }) => {
   return (
     <LeaderBoard>
       <h1>LEADERBOARD</h1>
       <RanksBox>
         {ranks && ranks.map((el, i) => <UserRank user={el} key={i} />)}
       </RanksBox>
+      <PaginationController />
     </LeaderBoard>
   );
 };

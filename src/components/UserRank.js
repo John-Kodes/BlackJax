@@ -47,14 +47,14 @@ const RankValue = styled.div`
 const Rank = styled.li`
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: 11rem repeat(2, 1fr);
+  grid-template-columns: 11rem 1fr;
+  justify-content: center;
   column-gap: 2.6rem;
   row-gap: 1.4rem;
 
   font-size: 2rem;
 
-  width: 100%;
-  max-width: 60rem;
+  min-width: 40rem;
   padding: 2rem;
   background-color: rgba(189, 137, 207, 0.08);
 
@@ -62,7 +62,7 @@ const Rank = styled.li`
   border-radius: 7px;
 
   p {
-    grid-column: 2/4;
+    grid-column: 2/3;
     display: flex;
     justify-content: flex-start;
     align-items: center;

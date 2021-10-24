@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
-import { pageAnimation, btnAnimation } from "../animations";
+import { btnAnimation } from "../animations";
 // Routing
 import { Link } from "react-router-dom";
 // Util
