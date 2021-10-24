@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// Components
+import LeaderboardContainer from "./../components/LeaderboardContainer";
 // Styling
 import styled from "styled-components";
 // Util
@@ -35,25 +37,7 @@ const LeaderboardPage = () => {
   return (
     <BasePage>
       <Container>
-        <LeaderBoard>
-          <h1>LEADERBOARD</h1>
-          <RanksBox>
-            {ranks.map((el, i) => (
-              <UserRank key={i}>
-                <RankValue>{el.rank}</RankValue>
-                <h3 style={{ color: el.color }}>{el.username}</h3>
-                <p>
-                  <span>Highscore:&nbsp;</span>
-                  {el.highScore}
-                </p>
-                <p>
-                  <span>Current score:&nbsp;</span>
-                  {el.currentScore}
-                </p>
-              </UserRank>
-            ))}
-          </RanksBox>
-        </LeaderBoard>
+        <LeaderboardContainer ranks={ranks} />
       </Container>
     </BasePage>
   );
