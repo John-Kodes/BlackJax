@@ -1,43 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Styling
 import styled from "styled-components";
-// // Animation
-// import { motion } from "framer-motion";
-// import { pageAnimation, btnAnimation } from "../animations";
-// // Routing
-// import { Link } from "react-router-dom";
 // Util
 import { BasePage } from "../util/BasePage";
 
 // user data: rank, username, color, highScore, currentScore
 
 const LeaderboardPage = () => {
+  const [ranks, setRanks] = useState([]);
+  const [page, setPage] = useState(1);
+
+  const getLeaderboard = async () => {
+    try {
+      const res = await fetch(
+        "https://blackjax-backend.herokuapp.com/api/v1/users/leaderboardForGuest",
+        {
+          method: "GET", // *GET, POST, PUT, DELETE, etc.
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      const users = await res.json();
+
+      setRanks(users.data.leaderboard);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getLeaderboard();
+  }, []);
+
   return (
     <BasePage>
       <Container>
         <LeaderBoard>
           <h1>LEADERBOARD</h1>
           <RanksBox>
-            {(function () {
-              const arr = [];
-              for (let i = 0; i < 10; i++) {
-                arr.push(
-                  <UserRank>
-                    <RankValue>00000</RankValue>
-                    <p>username000000000000</p>
-                    <p>
-                      <span>Highscore:&nbsp;</span>
-                      000 000 000 000 000
-                    </p>
-                    <p>
-                      <span>Current score:&nbsp;</span>
-                      000 000 000 000 000
-                    </p>
-                  </UserRank>
-                );
-              }
-              return arr;
-            })()}
+            {ranks.map((el, i) => (
+              <UserRank key={i}>
+                <RankValue>{el.rank}</RankValue>
+                <h3 style={{ color: el.color }}>{el.username}</h3>
+                <p>
+                  <span>Highscore:&nbsp;</span>
+                  {el.highScore}
+                </p>
+                <p>
+                  <span>Current score:&nbsp;</span>
+                  {el.currentScore}
+                </p>
+              </UserRank>
+            ))}
           </RanksBox>
         </LeaderBoard>
       </Container>
@@ -74,14 +88,15 @@ const UserRank = styled.li`
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: 11rem repeat(2, 1fr);
-  gap: 1.8rem;
+  column-gap: 2.6rem;
+  row-gap: 1.4rem;
 
   font-size: 2rem;
 
   width: 100%;
   max-width: 60rem;
   padding: 2rem;
-  background-color: rgba(142, 105, 156, 0.141);
+  background-color: rgba(189, 137, 207, 0.08);
 
   border: 1px solid #7f7597;
   border-radius: 7px;
@@ -90,10 +105,17 @@ const UserRank = styled.li`
     grid-column: 2/4;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-end;
-  }
+    align-items: center;
 
-  span {
+    font-size: 2rem;
+  }
+  h3 {
+    display: flex;
+
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+  p span {
     font-size: 1.6rem;
     color: rgba(225, 214, 255, 0.6);
   }
@@ -129,6 +151,7 @@ const RanksBox = styled.ul`
 `;
 
 const LeaderBoard = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 
@@ -140,6 +163,25 @@ const LeaderBoard = styled.div`
   border-radius: 4px;
   border: 1px solid #7f7597;
 
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: calc(100% - 10rem);
+    width: 100%;
+    z-index: 3;
+    pointer-events: none;
+
+    background-image: linear-gradient(
+      to bottom,
+      rgba(167, 119, 255, 0.06),
+      rgba(0, 0, 0, 0) 10%,
+      rgba(0, 0, 0, 0) 90%,
+      rgba(167, 119, 255, 0.06)
+    );
+  }
+
   h1 {
     flex: 0 0 10rem;
     display: flex;
@@ -149,7 +191,7 @@ const LeaderBoard = styled.div`
     font-weight: 300;
     font-size: 6rem;
 
-    background-color: #2f227c22;
+    background-color: #6558aa40;
     border-bottom: 1px solid #7f7597;
   }
 `;

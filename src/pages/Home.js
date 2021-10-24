@@ -32,9 +32,11 @@ const Home = () => {
   };
 
   const createTitle = (title) => {
-    return title
-      .split("")
-      .map((el) => <motion.div whileHover={titleTextHover}>{el}</motion.div>);
+    return title.split("").map((el, i) => (
+      <motion.div whileHover={titleTextHover} key={i}>
+        {el}
+      </motion.div>
+    ));
   };
   // [{link, label}, ...]
   const createLinkBtns = () => {
@@ -56,8 +58,8 @@ const Home = () => {
         label: "About",
       },
     ];
-    return linksArr.map((el) => (
-      <Link to={el.link}>
+    return linksArr.map((el, i) => (
+      <Link to={el.link} key={i}>
         <Btn
           variants={btnAnimation}
           initial="initial"
