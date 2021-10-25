@@ -5,14 +5,18 @@ import PaginationController from "./PaginationController";
 // Styling
 import styled from "styled-components";
 
-const LeaderboardContainer = ({ ranks, setPage, page, results }) => {
+const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
   return (
     <LeaderBoard>
       <h1>LEADERBOARD</h1>
       <RanksBox>
         {ranks && ranks.map((el, i) => <UserRank user={el} key={i} />)}
       </RanksBox>
-      <PaginationController setPage={setPage} page={page} results={results} />
+      <PaginationController
+        setPage={setPage}
+        page={page}
+        resultsLength={resultsLength}
+      />
     </LeaderBoard>
   );
 };

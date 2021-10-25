@@ -11,12 +11,14 @@ import { BasePage } from "../util/BasePage";
 const LeaderboardPage = () => {
   const [ranks, setRanks] = useState([]);
   const [page, setPage] = useState(1);
-  let results;
+  const [resultsLength, setResultsLength] = useState(0);
 
   const getLeaderboard = async () => {
     try {
+      console.log("loading page...");
+
       const res = await fetch(
-        `https://blackjax-backend.herokuapp.com/api/v1/users/leaderboardForGuest?page=${page}&limit=2`,
+        `https://blackjax-backend.herokuapp.com/api/v1/users/leaderboardForGuest?page=${page}`,
         {
           method: "GET", // *GET, POST, PUT, DELETE, etc.
           headers: { "Content-Type": "application/json" },
@@ -26,7 +28,7 @@ const LeaderboardPage = () => {
       const users = await res.json();
 
       setRanks(users.data.leaderboard);
-      results = users.results;
+      setResultsLength(users.results);
       console.log(users);
       console.log(page);
 
@@ -34,14 +36,12 @@ const LeaderboardPage = () => {
     } catch (err) {
       console.log(err);
     }
-    console.log("loading page...");
   };
 
   useEffect(() => {
     getLeaderboard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
-
   return (
     <BasePage>
       <Container>
@@ -49,12 +49,18 @@ const LeaderboardPage = () => {
           ranks={ranks}
           setPage={setPage}
           page={page}
-          results={results}
+          resultsLength={resultsLength}
         />
+        <TestBtn onClick={() => setPage(page + 1)}>TEST</TestBtn>
       </Container>
     </BasePage>
   );
 };
+const TestBtn = styled.button`
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
 
 const Container = styled.div`
   display: flex;

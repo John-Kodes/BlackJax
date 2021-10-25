@@ -8,22 +8,35 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const PaginationController = ({ page, setPage, results }) => {
+const PaginationController = ({ page, setPage, resultsLength }) => {
+  const lastPage = Math.ceil(resultsLength / 20); // resultsLength / resultsPerPageLength
+
   const btnHandler = (incre) => {
+    // short for increment
     if (incre === "+") {
-      setPage(page++);
+      console.log("btn clicked", page);
+      setPage(page + 1);
+    }
+    if (incre === "-") {
+      setPage(page - 1);
     }
   };
 
   return (
     <PaginationBox>
-      <PageBtn onClick={() => btnHandler("-")}>
+      <PageBtn
+        onClick={() => btnHandler("-")}
+        style={page > 1 ? {} : { pointerEvents: "none", opacity: "0.4" }}
+      >
         <FontAwesomeIcon icon={faChevronLeft} />
       </PageBtn>
-      <PageNum>1</PageNum>
+      <PageNum>{page}</PageNum>
       <Of>of</Of>
-      <PageNum>6</PageNum>
-      <PageBtn onClick={() => btnHandler("+")}>
+      <PageNum>{lastPage}</PageNum>
+      <PageBtn
+        onClick={() => btnHandler("+")}
+        style={page < lastPage ? {} : { pointerEvents: "none", opacity: "0.4" }}
+      >
         <FontAwesomeIcon icon={faChevronRight} />
       </PageBtn>
     </PaginationBox>
@@ -37,6 +50,8 @@ const Of = styled.div`
 const PageNum = styled.button`
   background-color: transparent;
   transition: transform 0.2s;
+  min-width: 2ch;
+  padding: 0;
 
   &:hover {
     transform: translateY(-0.3rem);
