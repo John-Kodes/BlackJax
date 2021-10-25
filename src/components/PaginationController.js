@@ -8,26 +8,39 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const PaginationController = ({ ranks }) => {
+const PaginationController = ({ page, setPage, results }) => {
+  const btnHandler = (incre) => {
+    if (incre === "+") {
+      setPage(page++);
+    }
+  };
+
   return (
     <PaginationBox>
-      <PageBtn>
+      <PageBtn onClick={() => btnHandler("-")}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </PageBtn>
       <PageNum>1</PageNum>
-      <PageNum>2</PageNum>
-      <PageNum>3</PageNum>
-      <PageNum>...</PageNum>
-      <PageNum>99</PageNum>
-      <PageBtn>
+      <Of>of</Of>
+      <PageNum>6</PageNum>
+      <PageBtn onClick={() => btnHandler("+")}>
         <FontAwesomeIcon icon={faChevronRight} />
       </PageBtn>
     </PaginationBox>
   );
 };
+const Of = styled.div`
+  font-size: 1.6rem;
+  padding: 0 1rem;
+`;
 
 const PageNum = styled.button`
   background-color: transparent;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-0.3rem);
+  }
 `;
 
 const PageBtn = styled.button`
@@ -38,6 +51,10 @@ const PageBtn = styled.button`
 `;
 
 const PaginationBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
   position: absolute;
   bottom: 0;
   left: 50%;
