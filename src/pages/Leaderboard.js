@@ -14,15 +14,12 @@ const LeaderboardPage = () => {
   const [resultsLength, setResultsLength] = useState(0);
 
   const getLeaderboard = async () => {
+    // TODO: implement loader element
     try {
       console.log("loading page...");
 
       const res = await fetch(
-        `https://blackjax-backend.herokuapp.com/api/v1/users/leaderboardForGuest?page=${page}`,
-        {
-          method: "GET", // *GET, POST, PUT, DELETE, etc.
-          headers: { "Content-Type": "application/json" },
-        }
+        `https://blackjax-backend.herokuapp.com/api/v1/users/leaderboardForGuest?page=${page}`
       );
 
       const users = await res.json();
@@ -51,16 +48,10 @@ const LeaderboardPage = () => {
           page={page}
           resultsLength={resultsLength}
         />
-        <TestBtn onClick={() => setPage(page + 1)}>TEST</TestBtn>
       </Container>
     </BasePage>
   );
 };
-const TestBtn = styled.button`
-  position: absolute;
-  right: 0;
-  top: 0;
-`;
 
 const Container = styled.div`
   display: flex;

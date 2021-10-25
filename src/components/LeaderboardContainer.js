@@ -10,7 +10,7 @@ const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
     <LeaderBoard>
       <h1>LEADERBOARD</h1>
       <RanksBox>
-        {ranks && ranks.map((el, i) => <UserRank user={el} key={i} />)}
+        {ranks ? ranks.map((el, i) => <UserRank user={el} key={i} />) : "yo"}
       </RanksBox>
       <PaginationController
         setPage={setPage}
@@ -20,6 +20,8 @@ const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
     </LeaderBoard>
   );
 };
+
+const BlankRank = styled.div``;
 
 const RanksBox = styled.ul`
   display: flex;

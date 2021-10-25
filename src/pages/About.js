@@ -1,7 +1,6 @@
 import React from "react";
 // Styling
 import styled from "styled-components";
-import GoBackBtn from "../components/UIButtons/BtnGoBack";
 // Animation
 import { motion } from "framer-motion";
 // Util
@@ -11,7 +10,6 @@ const About = () => {
   return (
     <BasePage>
       <StyledAbout>
-        <GoBackBtn />
         <MessageBox>
           <h1>About</h1>
           <p>

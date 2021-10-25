@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 // Components
 import Board from "../components/Board";
 import BettingScreen from "../components/BettingScreen";
-import GoBackBtn from "../components/UIButtons/BtnGoBack";
 import BtnHelp from "../components/UIButtons/BtnHelp";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -71,7 +70,6 @@ function Gamin() {
         exit="exit"
       >
         <ContainerOutOfBoundsBtns>
-          <GoBackBtn />
           <BtnHelp />
         </ContainerOutOfBoundsBtns>
 
