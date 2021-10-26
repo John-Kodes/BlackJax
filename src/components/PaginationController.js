@@ -26,6 +26,7 @@ const PaginationController = ({ page, setPage, resultsLength }) => {
     <PaginationBox>
       <PageBtn
         onClick={() => btnHandler("-")}
+        disabled={page > 1}
         style={page > 1 ? {} : { pointerEvents: "none", opacity: "0.4" }}
       >
         <FontAwesomeIcon icon={faChevronLeft} />
@@ -34,6 +35,7 @@ const PaginationController = ({ page, setPage, resultsLength }) => {
       <Of>of</Of>
       <PageNum>{lastPage}</PageNum>
       <PageBtn
+        disabled={page < lastPage}
         onClick={() => btnHandler("+")}
         style={page < lastPage ? {} : { pointerEvents: "none", opacity: "0.4" }}
       >
@@ -49,10 +51,10 @@ const Of = styled.div`
 
 const PageNum = styled.button`
   background-color: transparent;
-  transition: transform 0.2s;
   min-width: 2ch;
   padding: 0;
 
+  transition: transform 0.2s;
   &:hover {
     transform: translateY(-0.3rem);
   }
@@ -63,6 +65,11 @@ const PageBtn = styled.button`
 
   color: #fff;
   font-size: 2rem;
+
+  transition: transform 0.2s;
+  &:hover {
+    transform: translateY(-0.3rem);
+  }
 `;
 
 const PaginationBox = styled.div`

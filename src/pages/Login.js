@@ -7,7 +7,7 @@ import styled from "styled-components";
 import BasePage from "../util/BasePage";
 
 const LoginPage = () => {
-  return <BasePage>Login page</BasePage>;
+  return <BasePage useContainer={true}>Login page</BasePage>;
 };
 
 export default LoginPage;

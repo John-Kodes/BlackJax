@@ -41,27 +41,15 @@ const LeaderboardPage = () => {
   }, [page]);
 
   return (
-    <BasePage>
-      <Container>
-        <LeaderboardContainer
-          ranks={ranks}
-          setPage={setPage}
-          page={page}
-          resultsLength={resultsLength}
-        />
-      </Container>
+    <BasePage useContainer={true}>
+      <LeaderboardContainer
+        ranks={ranks}
+        setPage={setPage}
+        page={page}
+        resultsLength={resultsLength}
+      />
     </BasePage>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 100vh;
-  width: 100%;
-  padding: 4rem 2rem;
-`;
 
 export default LeaderboardPage;

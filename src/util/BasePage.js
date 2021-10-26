@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { pageAnimation } from "../animations";
 
-const BasePage = ({ children }) => {
+const BasePage = ({ children, useContainer }) => {
   const location = useLocation();
   return (
     <PageContainer>
@@ -18,12 +18,31 @@ const BasePage = ({ children }) => {
         animate="animate"
         exit="exit"
       >
-        {location.pathname !== "/" && <GoBackBtn />}
-        {children}
+        {useContainer ? (
+          <Container>
+            {location.pathname !== "/" && <GoBackBtn />}
+            {children}
+          </Container>
+        ) : (
+          <>
+            {location.pathname !== "/" && <GoBackBtn />}
+            {children}
+          </>
+        )}
       </Page>
     </PageContainer>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  width: 100%;
+  padding: 4rem 2rem;
+`;
 
 const Page = styled(motion.div)`
   display: flex;
