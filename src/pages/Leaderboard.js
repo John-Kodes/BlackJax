@@ -16,6 +16,7 @@ const LeaderboardPage = () => {
   const getLeaderboard = async () => {
     // TODO: implement loader element
     try {
+      setRanks(false);
       console.log("loading page...");
 
       const res = await fetch(

@@ -17,8 +17,8 @@ const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
   return (
     <LeaderBoard>
       <h1>LEADERBOARD</h1>
-      <RanksBox>
-        {!ranks
+      <RanksBox style={{ overflowY: ranks ? "scroll" : "hidden" }}>
+        {ranks
           ? ranks.map((el, i) => <UserRank user={el} key={i} />)
           : [1, 2, 3].map((el, i) => (
               <BlankRank key={i}>
@@ -36,11 +36,13 @@ const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
               </BlankRank>
             ))}
       </RanksBox>
-      <PaginationController
-        setPage={setPage}
-        page={page}
-        resultsLength={resultsLength}
-      />
+      {ranks && (
+        <PaginationController
+          setPage={setPage}
+          page={page}
+          resultsLength={resultsLength}
+        />
+      )}
     </LeaderBoard>
   );
 };
@@ -70,10 +72,10 @@ const RankValue = styled.div`
     position: absolute;
     width: 11rem;
     height: 11rem;
-    border: 1rem solid #4e4d64;
+    border: 1rem solid #424153;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #4e4d64 transparent transparent transparent;
+    border-color: #424153 transparent transparent transparent;
   }
   .lds-ring div:nth-child(1) {
     animation-delay: -0.45s;
