@@ -4,7 +4,7 @@ import LeaderboardContainer from "./../components/LeaderboardContainer";
 // Styling
 import styled from "styled-components";
 // Util
-import { BasePage } from "../util/BasePage";
+import BasePage from "../util/BasePage";
 
 // user data: rank, username, color, highScore, currentScore
 
@@ -14,7 +14,6 @@ const LeaderboardPage = () => {
   const [resultsLength, setResultsLength] = useState(0);
 
   const getLeaderboard = async () => {
-    // TODO: implement loader element
     try {
       setRanks(false);
       console.log("loading page...");
@@ -40,6 +39,7 @@ const LeaderboardPage = () => {
     getLeaderboard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
   return (
     <BasePage>
       <Container>

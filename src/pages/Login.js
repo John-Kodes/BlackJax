@@ -1,16 +1,13 @@
 import React from "react";
-// // Styling
-// import styled from "styled-components";
-// // Animation
-// import { motion } from "framer-motion";
-// import { pageAnimation, btnAnimation } from "../animations";
-// // Routing
-// import { Link } from "react-router-dom";
-// // Util
-// import { BasePage } from "../util/BasePage";
+// Components
+import LeaderboardContainer from "./../components/LeaderboardContainer";
+// Styling
+import styled from "styled-components";
+// Util
+import BasePage from "../util/BasePage";
 
 const LoginPage = () => {
-  return <div>Login page</div>;
+  return <BasePage>Login page</BasePage>;
 };
 
 export default LoginPage;

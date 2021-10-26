@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { pageAnimation } from "../animations";
 
-export const BasePage = ({ children }) => {
+const BasePage = ({ children }) => {
   const location = useLocation();
   return (
     <PageContainer>
@@ -38,3 +38,5 @@ const Page = styled(motion.div)`
 const PageContainer = styled(motion.div)`
   overflow: hidden;
 `;
+
+export default BasePage;

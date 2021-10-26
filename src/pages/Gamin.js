@@ -11,7 +11,8 @@ import styled from "styled-components";
 // Animation
 import { motion, AnimatePresence } from "framer-motion";
 // Util
-import { BasePage } from "../util/BasePage";
+import BasePage from "../util/BasePage";
+
 function Gamin() {
   const [showBettingScreen, setShowBettingScreen] = useState(true);
 

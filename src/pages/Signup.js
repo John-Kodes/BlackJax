@@ -7,7 +7,7 @@ import React from "react";
 // // Routing
 // import { Link } from "react-router-dom";
 // Util
-import { BasePage } from "../util/BasePage";
+import BasePage from "../util/BasePage";
 
 const SignupPage = () => {
   return <BasePage>Signup page</BasePage>;

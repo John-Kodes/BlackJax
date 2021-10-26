@@ -1,6 +1,6 @@
 import React from "react";
 // // Components
-// import { BasePage } from "../util/BasePage";
+// import BasePage from "../util/BasePage";
 // // Styling
 // import styled from "styled-components";
 // // Animation

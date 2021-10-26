@@ -7,7 +7,8 @@ import { btnAnimation } from "../animations";
 // Routing
 import { Link } from "react-router-dom";
 // Util
-import { BasePage } from "../util/BasePage";
+import BasePage from "../util/BasePage";
+
 
 const Home = () => {
   const titleAnim = {
