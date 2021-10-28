@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // Components
-import LeaderboardContainer from "./../components/LeaderboardContainer";
+import LeaderboardModal from "./../components/LeaderboardModal";
 // Styling
 import styled from "styled-components";
 // Util
@@ -42,7 +42,7 @@ const LeaderboardPage = () => {
 
   return (
     <BasePage useContainer={true}>
-      <LeaderboardContainer
+      <LeaderboardModal
         ranks={ranks}
         setPage={setPage}
         page={page}
