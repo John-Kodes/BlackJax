@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 // Pages
-import About from "./pages/About";
 import ForgotPassword from "./pages/ForgotPassword";
 import Gamin from "./pages/Gamin";
 import Home from "./pages/Home";
@@ -49,7 +48,6 @@ function App() {
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" component={Home} />
           <Route exact path="/gamin" component={Gamin} />
-          <Route exact path="/about" component={About} />
           <Route exact path="/forgotPassword" component={ForgotPassword} />
           <Route exact path="/leaderboard" component={Leaderboard} />
           <Route exact path="/login" component={Login} />

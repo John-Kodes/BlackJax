@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 // Util
 import BasePage from "../util/BasePage";
 
-
 const Home = () => {
   const titleAnim = {
     initial: {
@@ -53,10 +52,6 @@ const Home = () => {
       {
         link: "/leaderboard",
         label: "Leaderboard",
-      },
-      {
-        link: "/about",
-        label: "About",
       },
     ];
     return linksArr.map((el, i) => (
