@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// Components
+import Modal from "./Modal";
 // Styling
 import styled from "styled-components";
 // Icons
@@ -65,7 +67,7 @@ const LoginModal = () => {
       <p>
         Forgot your password? <Link to="/forgot-password">Reset password</Link>
         <br />
-        don't have an account? <Link to="/register">Register</Link>
+        don't have an account? <Link to="/signup">Sign up</Link>
       </p>
     </Modal>
   );
@@ -124,41 +126,6 @@ const Form = styled.form`
   flex-direction: column;
 
   gap: 2.8rem;
-`;
-
-const Modal = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-
-  padding: 6rem 4rem 3rem;
-  width: 100%;
-  max-width: 46rem;
-
-  background-color: rgba(18, 16, 24, 0.6);
-  border-radius: 4px;
-  border: 1px solid #7f7597;
-
-  h1 {
-    display: inline-flex;
-    align-items: center;
-    gap: 2rem;
-
-    font-size: 2.8rem;
-
-    .fa-user {
-      font-size: 4rem;
-    }
-  }
-
-  p {
-    font-size: 1.6rem;
-    a {
-      text-decoration: none;
-      color: ${(props) => props.theme.gold};
-    }
-  }
 `;
 
 export default LoginModal;

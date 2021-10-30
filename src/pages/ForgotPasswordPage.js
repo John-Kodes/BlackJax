@@ -6,8 +6,8 @@ import React from "react";
 // import { pageAnimation, btnAnimation } from "../animations";
 // // Routing
 // import { Link } from "react-router-dom";
-// // Util
-// import BasePage from "../util/BasePage";
+// // Components
+// import BasePage from "../components/BasePage";
 
 const ForgotPasswordPage = () => {
   return <div>ForgotPassword page</div>;

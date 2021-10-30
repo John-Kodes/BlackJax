@@ -1,4 +1,6 @@
 import React from "react";
+// Components
+import BasePage from "../components/BasePage";
 // // Styling
 // import styled from "styled-components";
 // // Animation
@@ -6,8 +8,6 @@ import React from "react";
 // import { pageAnimation, btnAnimation } from "../animations";
 // // Routing
 // import { Link } from "react-router-dom";
-// Util
-import BasePage from "../util/BasePage";
 
 const SignupPage = () => {
   return <BasePage>Signup page</BasePage>;

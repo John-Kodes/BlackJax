@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Board from "../components/Board";
 import BettingScreen from "../components/BettingScreen";
 import BtnHelp from "../components/UIButtons/BtnHelp";
+import BasePage from "../components/BasePage";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { setCardShuffledBoolFalse } from "../components/gameSlice";
@@ -10,8 +11,6 @@ import { setCardShuffledBoolFalse } from "../components/gameSlice";
 import styled from "styled-components";
 // Animation
 import { motion, AnimatePresence } from "framer-motion";
-// Util
-import BasePage from "../util/BasePage";
 
 function Gamin() {
   const [showBettingScreen, setShowBettingScreen] = useState(true);

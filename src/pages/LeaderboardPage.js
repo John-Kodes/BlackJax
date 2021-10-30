@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 // Components
+import BasePage from "../components/BasePage";
 import LeaderboardModal from "../components/LeaderboardModal";
 // Config
 import { API_URL } from "../config";
-// Util
-import BasePage from "../util/BasePage";
 
 // user data: rank, username, color, highScore, currentScore
 

@@ -1,8 +1,7 @@
 import React from "react";
 // Components
 import LoginModal from "../components/LoginModal";
-// Util
-import BasePage from "../util/BasePage";
+import BasePage from "../components/BasePage";
 
 const LoginPage = () => {
   return (

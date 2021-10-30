@@ -47,7 +47,7 @@ function App() {
         <Switch location={location} key={location.pathname}>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/gamin" component={GaminPage} />
-          <Route exact path="/forgotPassword" component={ForgotPasswordPage} />
+          <Route exact path="/forgot-password" component={ForgotPasswordPage} />
           <Route exact path="/leaderboard" component={LeaderboardPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/resetPassword" component={ResetPasswordPage} />
