@@ -12,14 +12,13 @@ import { Link } from "react-router-dom";
 // Config
 // import { API_URL } from "../config";
 
-const LoginModal = () => {
+const ForgotPasswordModal = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const submitHandler = async (e) => {
     // try {
     //   e.preventDefault();
-    //   const req = await fetch(`${API_URL}/users/login`, {
+    //   const req = await fetch(`${API_URL}/users/forgotPassword`, {
     //     method: "POST",
     //     credentials: "include",
     //     headers: {
@@ -40,7 +39,7 @@ const LoginModal = () => {
   return (
     <Modal>
       <h1>
-        <FontAwesomeIcon icon={faUser} /> Login
+        <FontAwesomeIcon icon={faUser} /> Reset Password
       </h1>
       <Form onSubmit={submitHandler}>
         <InputBox>
@@ -53,22 +52,14 @@ const LoginModal = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </InputBox>
-        <InputBox>
-          <FormLabel htmlFor="password">password</FormLabel>
-          <FormField
-            type="password"
-            id="password"
-            placeholder="SecuredPassword123"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </InputBox>
-        <SubmitBtn type="submit">Login</SubmitBtn>
+        <p>
+          An email will be sent to your email account with a link where you can
+          reset your password.
+        </p>
+        <SubmitBtn type="submit">Submit</SubmitBtn>
       </Form>
       <p>
-        Don't have an account? <Link to="/signup">Sign up</Link>
-        <br />
-        Forgot your password? <Link to="/forgot-password">Reset password</Link>
+        Wanna go back to the login page? <Link to="/login">Login</Link>
       </p>
     </Modal>
   );
@@ -129,4 +120,4 @@ const Form = styled.form`
   gap: 2.8rem;
 `;
 
-export default LoginModal;
+export default ForgotPasswordModal;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 // Components
 import Modal from "./Modal";
@@ -9,7 +10,7 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Link } from "react-router-dom";
 // Config
-import { API_URL } from "../config";
+// import { API_URL } from "../config";
 
 const SignupModal = () => {
   const [username, setUsername] = useState("");
