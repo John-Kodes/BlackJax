@@ -10,7 +10,7 @@ import React from "react";
 import BasePage from "../util/BasePage";
 
 const ResetPasswordPage = () => {
-  return <div>ResetPassword page</div>;
+  return <BasePage>ResetPassword page</BasePage>;
 };
 
 export default ResetPasswordPage;

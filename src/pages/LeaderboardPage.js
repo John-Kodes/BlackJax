@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // Components
-import LeaderboardModal from "./../components/LeaderboardModal";
-// Styling
-import styled from "styled-components";
+import LeaderboardModal from "../components/LeaderboardModal";
+// Config
+import { API_URL } from "../config";
 // Util
 import BasePage from "../util/BasePage";
 
@@ -16,10 +16,10 @@ const LeaderboardPage = () => {
   const getLeaderboard = async () => {
     try {
       setRanks(false);
-      console.log("loading page...");
+      console.log("loading results...");
 
       const res = await fetch(
-        `https://blackjax-backend.herokuapp.com/api/v1/users/leaderboardForGuest?page=${page}`
+        `${API_URL}/users/leaderboardForGuest?page=${page}`
       );
 
       const users = await res.json();

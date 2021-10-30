@@ -6,14 +6,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Link } from "react-router-dom";
+// Config
+// import { API_URL } from "../config";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    console.log("Form submitted!");
+  const submitHandler = async (e) => {
+    // try {
+    //   e.preventDefault();
+    //   const req = await fetch(`${API_URL}/users/login`, {
+    //     method: "POST",
+    //     credentials: "include",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       email,
+    //       password,
+    //     }),
+    //   });
+    //   const data = await req.json();
+    //   console.log(data);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return (
@@ -45,6 +63,8 @@ const LoginModal = () => {
         <SubmitBtn>Login</SubmitBtn>
       </Form>
       <p>
+        Forgot your password? <Link to="/forgot-password">Reset password</Link>
+        <br />
         don't have an account? <Link to="/register">Register</Link>
       </p>
     </Modal>
@@ -112,7 +132,7 @@ const Modal = styled.div`
   flex-direction: column;
   gap: 4rem;
 
-  padding: 6rem 4rem;
+  padding: 6rem 4rem 3rem;
   width: 100%;
   max-width: 46rem;
 

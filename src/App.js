@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 // Pages
-import ForgotPassword from "./pages/ForgotPassword";
-import Gamin from "./pages/Gamin";
-import Home from "./pages/Home";
-import Leaderboard from "./pages/Leaderboard";
-import Login from "./pages/Login";
-import Me from "./pages/Me";
-import NotFound from "./pages/NotFound";
-import ResetPassword from "./pages/ResetPassword";
-import Signup from "./pages/Signup";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import GaminPage from "./pages/GaminPage";
+import HomePage from "./pages/HomePage";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import SignupPage from "./pages/SignupPage";
 // Components
 import GlobalTheme from "./Globals/GlobalTheme";
 import BGSVG from "./img/BGSVG.svg";
@@ -46,15 +45,14 @@ function App() {
       </AuthorTag>
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/gamin" component={Gamin} />
-          <Route exact path="/forgotPassword" component={ForgotPassword} />
-          <Route exact path="/leaderboard" component={Leaderboard} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/me" component={Me} />
-          <Route exact path="/resetPassword" component={ResetPassword} />
-          <Route exact path="/signup" component={Signup} />
-          <Route component={NotFound} />
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/gamin" component={GaminPage} />
+          <Route exact path="/forgotPassword" component={ForgotPasswordPage} />
+          <Route exact path="/leaderboard" component={LeaderboardPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/resetPassword" component={ResetPasswordPage} />
+          <Route exact path="/signup" component={SignupPage} />
+          <Route component={NotFoundPage} />
         </Switch>
       </AnimatePresence>
       <BgSvgContainer />

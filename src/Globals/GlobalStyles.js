@@ -20,6 +20,9 @@ const GlobalStyles = createGlobalStyle`
         color: white;
         user-select: none;
     }
+    p {
+      line-height: 1.7;
+    }
     h1{
         font-weight: 400;
     }
