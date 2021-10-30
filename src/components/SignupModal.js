@@ -5,20 +5,23 @@ import Modal from "./Modal";
 import styled from "styled-components";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Link } from "react-router-dom";
 // Config
-// import { API_URL } from "../config";
+import { API_URL } from "../config";
 
-const LoginModal = () => {
+const SignupModal = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [color, setColor] = useState("");
 
   const submitHandler = async (e) => {
     // try {
     //   e.preventDefault();
-    //   const req = await fetch(`${API_URL}/users/login`, {
+    //   const req = await fetch(`${API_URL}/users/signup`, {
     //     method: "POST",
     //     credentials: "include",
     //     headers: {
@@ -39,9 +42,21 @@ const LoginModal = () => {
   return (
     <Modal>
       <h1>
-        <FontAwesomeIcon icon={faUser} /> Login
+        <FontAwesomeIcon icon={faUserPlus} />
+        Signup
       </h1>
       <Form onSubmit={submitHandler}>
+        <InputBox>
+          <FormLabel htmlFor="username">username</FormLabel>
+          <FormField
+            type="text"
+            id="username"
+            placeholder="John Doe"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </InputBox>
+
         <InputBox>
           <FormLabel htmlFor="email">email</FormLabel>
           <FormField
@@ -52,6 +67,19 @@ const LoginModal = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </InputBox>
+
+        <InputBoxColor>
+          <FormLabel htmlFor="color" className="color-label">
+            color
+          </FormLabel>
+          <FormField
+            type="color"
+            id="color"
+            onChange={(e) => setColor(e.target.value)}
+            className="color-input"
+          />
+        </InputBoxColor>
+
         <InputBox>
           <FormLabel htmlFor="password">password</FormLabel>
           <FormField
@@ -62,16 +90,38 @@ const LoginModal = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </InputBox>
-        <SubmitBtn type="submit">Login</SubmitBtn>
+
+        <InputBox>
+          <FormLabel htmlFor="passwordConfirm">confirm password</FormLabel>
+          <FormField
+            type="password"
+            id="passwordConfirm"
+            placeholder="SecuredPassword123"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </InputBox>
+
+        <SubmitBtn type="submit">Sign Up</SubmitBtn>
       </Form>
       <p>
-        Don't have an account? <Link to="/signup">Sign up</Link>
-        <br />
-        Forgot your password? <Link to="/forgot-password">Reset password</Link>
+        Already have an account? <Link to="/login">Login</Link>
       </p>
     </Modal>
   );
 };
+
+const InputBoxColor = styled.div`
+  display: flex;
+
+  gap: 2rem;
+
+  .color-input {
+    width: 10rem;
+    padding: 0 !important;
+    border: none !important;
+  }
+`;
 
 const SubmitBtn = styled.button`
   color: ${(props) => props.theme.black};
@@ -128,4 +178,4 @@ const Form = styled.form`
   gap: 2.8rem;
 `;
 
-export default LoginModal;
+export default SignupModal;

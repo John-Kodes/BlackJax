@@ -1,4 +1,6 @@
 import React from "react";
+// Components
+import BasePage from "../components/BasePage";
 // // Styling
 // import styled from "styled-components";
 // // Animation
@@ -6,11 +8,9 @@ import React from "react";
 // import { pageAnimation, btnAnimation } from "../animations";
 // // Routing
 // import { Link } from "react-router-dom";
-// // Components
-// import BasePage from "../components/BasePage";
 
 const ForgotPasswordPage = () => {
-  return <div>ForgotPassword page</div>;
+  return <BasePage>ForgotPassword page</BasePage>;
 };
 
 export default ForgotPasswordPage;

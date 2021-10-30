@@ -55,7 +55,7 @@ const Page = styled(motion.div)`
 `;
 
 const PageContainer = styled(motion.div)`
-  overflow: hidden;
+  overflow-x: hidden;
 `;
 
 export default BasePage;
