@@ -17,7 +17,7 @@ const SignupModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#ffffff");
 
   const submitHandler = async (e) => {
     // try {
@@ -76,6 +76,7 @@ const SignupModal = () => {
           <FormField
             type="color"
             id="color"
+            defaultValue="#ffffff"
             onChange={(e) => setColor(e.target.value)}
             className="color-input"
           />

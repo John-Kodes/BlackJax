@@ -6,7 +6,7 @@ import Modal from "./Modal";
 import styled from "styled-components";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Link } from "react-router-dom";
 // Config
@@ -39,7 +39,7 @@ const ForgotPasswordModal = () => {
   return (
     <Modal>
       <h1>
-        <FontAwesomeIcon icon={faUser} /> Reset Password
+        <FontAwesomeIcon icon={faQuestion} /> Reset Password
       </h1>
       <Form onSubmit={submitHandler}>
         <InputBox>

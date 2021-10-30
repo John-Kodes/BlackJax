@@ -37,18 +37,23 @@ export const backBtnAnim = {
 
 export const pageAnimation = {
   initial: {
-    x: 1400,
+    x: 400,
+    opacity: 0,
   },
   animate: {
     x: 0,
+    opacity: 1,
     transition: {
       duration: 0.5,
+      ease: "easeOut",
     },
   },
   exit: {
-    x: -1400,
+    x: -400,
+    opacity: 0,
     transition: {
       duration: 0.5,
+      ease: "easeIn",
     },
   },
 };
