@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 // Routing
-import { Redirect, Router } from "react-router";
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
 const LoginModal = () => {
@@ -21,7 +21,6 @@ const LoginModal = () => {
   const { login, user } = useContext(AuthContext);
 
   const submitHandler = async (e) => {
-    // TODO: Implement loading element
     e.preventDefault();
     setIsLoading(true);
     await login(email, password);

@@ -36,6 +36,27 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      const token = Cookies.get("jwt");
+
+      const res = await fetch(`${API_URL}/users/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+
+      Cookies.remove("jwt");
+      setUser(null);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const checkUserLoggedIn = async () => {
     const token = Cookies.get("jwt");
 
@@ -56,7 +77,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
