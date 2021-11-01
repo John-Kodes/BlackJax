@@ -57,6 +57,8 @@ const RankValue = styled.div`
   font-size: 3.2rem;
   height: 11rem;
   width: 11rem;
+
+  color: #424153;
 `;
 
 const BlankRank = styled.div`

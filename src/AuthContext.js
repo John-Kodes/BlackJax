@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         expires: 90,
         secure: process.env.NODE_ENV !== "development",
       });
-      console.log(data);
+      setUser(data.data.user);
     } catch (err) {
       console.log(err);
     }

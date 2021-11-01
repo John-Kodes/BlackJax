@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { Router } from "react-router";
 // Components
 import Modal from "./Modal";
 import Loading from "./loadingEl";
@@ -11,29 +10,34 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 // Routing
+import { Redirect, Router } from "react-router";
 import { Link } from "react-router-dom";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("user@gmail.com");
   const [password, setPassword] = useState("password1234");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
 
   const submitHandler = async (e) => {
     // TODO: Implement loading element
     e.preventDefault();
-    console.log("loading...");
+    setIsLoading(true);
     await login(email, password);
-    console.log("you're logged in!");
+    setIsLoading(false);
   };
 
   return (
     <Modal>
+      {user && <Redirect to="/" />}
       <h1>
         <FontAwesomeIcon icon={faUser} /> Login
-        <LoadingContainer>
-          <Loading />
-        </LoadingContainer>
+        {isLoading && (
+          <LoadingContainer>
+            <Loading />
+          </LoadingContainer>
+        )}
       </h1>
       <Form onSubmit={submitHandler}>
         <InputBox>
@@ -69,9 +73,11 @@ const LoginModal = () => {
   );
 };
 const LoadingContainer = styled.div`
-  position: relative;
   height: 4rem;
   width: 4rem;
+
+  margin-left: auto;
+  color: ${(props) => props.theme.gold};
 `;
 
 const SubmitBtn = styled.button`
