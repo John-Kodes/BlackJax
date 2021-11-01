@@ -1,7 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Router } from "react-router";
 // Components
 import Modal from "./Modal";
+// Context
+import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 // Icons
@@ -9,32 +11,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Link } from "react-router-dom";
-// Config
-// import { API_URL } from "../config";
 
 const LoginModal = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("user@gmail.com");
+  const [password, setPassword] = useState("password1234");
+
+  const { login } = useContext(AuthContext);
 
   const submitHandler = async (e) => {
-    // try {
-    //   e.preventDefault();
-    //   const req = await fetch(`${API_URL}/users/login`, {
-    //     method: "POST",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       password,
-    //     }),
-    //   });
-    //   const data = await req.json();
-    //   console.log(data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    // TODO: Implement loading element
+    e.preventDefault();
+    console.log("loading...");
+    await login(email, password);
+    console.log("you're logged in!");
   };
 
   return (
@@ -46,6 +35,7 @@ const LoginModal = () => {
         <InputBox>
           <FormLabel htmlFor="email">email</FormLabel>
           <FormField
+            defaultValue={"user@gmail.com"}
             type="email"
             id="email"
             placeholder="johndoe@email.com"
@@ -56,6 +46,7 @@ const LoginModal = () => {
         <InputBox>
           <FormLabel htmlFor="password">password</FormLabel>
           <FormField
+            defaultValue={"password1234"}
             type="password"
             id="password"
             placeholder="SecuredPassword123"

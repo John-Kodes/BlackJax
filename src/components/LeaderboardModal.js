@@ -5,15 +5,15 @@ import PaginationController from "./PaginationController";
 // Styling
 import styled from "styled-components";
 
-const randomWidth = () => {
-  let width = Math.random() * 100;
-
-  if (width < 30) width = 30;
-
-  return { width: `${width}%` };
-};
-
 const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
+  const randomWidth = () => {
+    let width = Math.random() * 100;
+
+    if (width < 30) width = 30;
+
+    return { width: `${width}%` };
+  };
+
   return (
     <LeaderBoard>
       <h1>LEADERBOARD</h1>

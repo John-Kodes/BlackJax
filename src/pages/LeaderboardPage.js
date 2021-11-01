@@ -25,9 +25,6 @@ const LeaderboardPage = () => {
 
       setRanks(users.data.leaderboard);
       setResultsLength(users.results);
-      console.log(users);
-      console.log(page);
-
       return;
     } catch (err) {
       console.log(err);

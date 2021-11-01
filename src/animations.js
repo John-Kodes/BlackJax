@@ -37,7 +37,7 @@ export const backBtnAnim = {
 
 export const pageAnimation = {
   initial: {
-    x: 400,
+    x: 600,
     opacity: 0,
   },
   animate: {
@@ -49,7 +49,7 @@ export const pageAnimation = {
     },
   },
   exit: {
-    x: -400,
+    x: -600,
     opacity: 0,
     transition: {
       duration: 0.5,

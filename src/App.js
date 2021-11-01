@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SignupPage from "./pages/SignupPage";
+// Context
+import { AuthProvider } from "./AuthContext";
 // Components
 import GlobalTheme from "./Globals/GlobalTheme";
 import BGSVG from "./img/BGSVG.svg";
@@ -38,24 +40,30 @@ function App() {
 
   return (
     <ThemeProvider theme={GlobalTheme}>
-      <GlobalStyles />
-      <AuthorTag>
-        <HeartsSm />
-        Made by John Daniel Semine
-      </AuthorTag>
-      <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.pathname}>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/gamin" component={GaminPage} />
-          <Route exact path="/forgot-password" component={ForgotPasswordPage} />
-          <Route exact path="/leaderboard" component={LeaderboardPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/resetPassword" component={ResetPasswordPage} />
-          <Route exact path="/signup" component={SignupPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </AnimatePresence>
-      <BgSvgContainer />
+      <AuthProvider>
+        <GlobalStyles />
+        <AuthorTag>
+          <HeartsSm />
+          Made by John Daniel Semine
+        </AuthorTag>
+        <AnimatePresence exitBeforeEnter>
+          <Switch location={location} key={location.pathname}>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/gamin" component={GaminPage} />
+            <Route
+              exact
+              path="/forgot-password"
+              component={ForgotPasswordPage}
+            />
+            <Route exact path="/leaderboard" component={LeaderboardPage} />
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/resetPassword" component={ResetPasswordPage} />
+            <Route exact path="/signup" component={SignupPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </AnimatePresence>
+        <BgSvgContainer />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
