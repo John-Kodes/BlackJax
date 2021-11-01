@@ -2,6 +2,7 @@ import React from "react";
 // Components
 import UserRank from "./UserRank";
 import PaginationController from "./PaginationController";
+import Loading from "./loadingEl";
 // Styling
 import styled from "styled-components";
 
@@ -23,12 +24,7 @@ const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
           : [1, 2, 3].map((el, i) => (
               <BlankRank key={i}>
                 <RankValue>
-                  <div className="lds-ring">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
+                  <Loading />
                 </RankValue>
                 <h3>&nbsp;</h3>
                 <p style={randomWidth()}>&nbsp;</p>
@@ -59,41 +55,8 @@ const RankValue = styled.div`
 
   font-weight: 600;
   font-size: 3.2rem;
-
-  .lds-ring {
-    display: inline-block;
-    position: relative;
-    width: 11rem;
-    height: 11rem;
-  }
-  .lds-ring div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 11rem;
-    height: 11rem;
-    border: 1rem solid #424153;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #424153 transparent transparent transparent;
-  }
-  .lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
-  }
-  .lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-  .lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-  }
-  @keyframes lds-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+  height: 11rem;
+  width: 11rem;
 `;
 
 const BlankRank = styled.div`
@@ -101,6 +64,7 @@ const BlankRank = styled.div`
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: 11rem 1fr;
   justify-content: center;
+  align-items: center;
   column-gap: 2.6rem;
   row-gap: 1.4rem;
 

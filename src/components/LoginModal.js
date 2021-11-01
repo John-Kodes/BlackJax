@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Router } from "react-router";
 // Components
 import Modal from "./Modal";
+import Loading from "./loadingEl";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -30,6 +31,9 @@ const LoginModal = () => {
     <Modal>
       <h1>
         <FontAwesomeIcon icon={faUser} /> Login
+        <LoadingContainer>
+          <Loading />
+        </LoadingContainer>
       </h1>
       <Form onSubmit={submitHandler}>
         <InputBox>
@@ -64,6 +68,11 @@ const LoginModal = () => {
     </Modal>
   );
 };
+const LoadingContainer = styled.div`
+  position: relative;
+  height: 4rem;
+  width: 4rem;
+`;
 
 const SubmitBtn = styled.button`
   color: ${(props) => props.theme.black};
