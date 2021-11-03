@@ -41,25 +41,51 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async () => {
-    try {
-      const token = Cookies.get("jwt");
+  const signup = async (email, password, username, color) => {
+    const req = await fetch(`${API_URL}/users/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        username,
+        color,
+      }),
+    });
 
-      const res = await fetch(`${API_URL}/users/logout`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const data = await req.json();
+    console.log(data);
+
+    if (data.status === "success") {
+      // Setting cookies
+      Cookies.set("jwt", data.token, {
+        expires: 90,
+        secure: process.env.NODE_ENV !== "development",
       });
-
-      const data = await res.json();
-
-      console.log(data);
-
-      Cookies.remove("jwt");
-      setUser(null);
-    } catch (err) {
-      console.log(err);
+      setUser(data.data.user);
+      setError(null);
+    } else {
+      setError(data.message);
     }
+  };
+
+  const logout = async () => {
+    const token = Cookies.get("jwt");
+
+    const res = await fetch(`${API_URL}/users/logout`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    console.log(data);
+
+    Cookies.remove("jwt");
+    setUser(null);
   };
 
   const checkUserLoggedIn = async () => {
@@ -82,7 +108,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, error, setError, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, error, setError, login, signup, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

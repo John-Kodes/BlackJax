@@ -1,25 +1,36 @@
 import styled, { createGlobalStyle } from "styled-components";
+import BGSVG from "../img/BGSVG.svg";
 import { motion } from "framer-motion";
 
 const GlobalStyles = createGlobalStyle`
     * {
-        margin: 0;
-        padding: 0;
+      margin: 0;
+      padding: 0;
         box-sizing: border-box;
     }
+
     html {
         font-size: 62.5%; // 1 rem = 10px
 
-        @media only screen and (max-width: 28em){
-        font-size: 50%; // 1 rem = 10px
+        @media only screen and (max-width: 28em) {
+          font-size: 50%; // 1 rem = 10px
         }
     }
+
     body{
         font-family:'Montserrat', sans-serif;
         background-color: #333;
         color: white;
         user-select: none;
-    }
+
+        background-image:
+          url(${BGSVG}),
+          linear-gradient(185deg, rgb(34, 31, 44), rgb(31, 29, 36));
+        background-blend-mode: overlay;
+        background-size: cover;
+        background-position: center center;
+      }
+
     p {
       line-height: 1.7;
     }

@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 // Components
 import Modal from "./Modal";
+import Loading, { LoadingContainer } from "./loadingEl";
+// Context
+import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 // Icons
@@ -10,9 +13,14 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Link } from "react-router-dom";
 // Config
-// import { API_URL } from "../config";
+import { API_URL } from "../config";
 
 const SignupModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { signup } = useContext(AuthContext);
+
+  // Form inputs
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,21 +29,17 @@ const SignupModal = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    console.log("submitted");
-    //   const req = await fetch(`${API_URL}/users/signup`, {
-    //     method: "POST",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       password,
-    //     }),
-    //   });
-    //   const data = await req.json();
-    //   console.log(data);
+    if (password !== passwordConfirm) {
+      setIsLoading(false);
+      return console.log("Please make sure both passwords are the same");
+    }
+
+    signup(email, password, username, color);
+    // TODO: handle errors and display
+
+    setIsLoading(false);
   };
 
   const colorChecker = (hex) => {
@@ -60,9 +64,8 @@ const SignupModal = () => {
     if (colorChecker(hex)) {
       setColor(hex);
     } else {
-      console.log("yo, color too dark");
-      e.target.value = "#ffffff";
-      setColor("#ffffff");
+      e.target.value = color;
+      setColor(color);
     }
   };
 
@@ -71,6 +74,11 @@ const SignupModal = () => {
       <h1>
         <FontAwesomeIcon icon={faUserPlus} />
         Signup
+        {isLoading && (
+          <LoadingContainer>
+            <Loading />
+          </LoadingContainer>
+        )}
       </h1>
       <Form onSubmit={submitHandler}>
         <InputBox>
@@ -109,6 +117,9 @@ const SignupModal = () => {
             onChange={colorInputHandler}
             className="color-input"
           />
+          <p>
+            <span>*</span> Don't use a dark color!
+          </p>
         </InputBoxColor>
 
         <InputBox>
@@ -129,7 +140,7 @@ const SignupModal = () => {
             id="passwordConfirm"
             placeholder="SecuredPassword123"
             required
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
           />
         </InputBox>
 
@@ -144,6 +155,7 @@ const SignupModal = () => {
 
 const InputBoxColor = styled.div`
   display: flex;
+  align-items: center;
 
   gap: 2rem;
 
@@ -151,6 +163,13 @@ const InputBoxColor = styled.div`
     width: 10rem;
     padding: 0 !important;
     border: none !important;
+  }
+
+  p {
+    font-size: 1.2rem;
+    span {
+      color: #ff004c;
+    }
   }
 `;
 

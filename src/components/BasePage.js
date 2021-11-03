@@ -41,7 +41,7 @@ const Container = styled.div`
   align-items: center;
   gap: 1.6rem;
 
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   padding: 4rem 2rem;
 `;
@@ -53,7 +53,7 @@ const Page = styled(motion.div)`
   align-items: center;
   gap: 1rem;
 
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const PageContainer = styled(motion.div)`

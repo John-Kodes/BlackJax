@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 // Components
 import Modal from "./Modal";
-import Loading from "./loadingEl";
+import Loading, { LoadingContainer } from "./loadingEl";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -71,13 +71,6 @@ const LoginModal = () => {
     </Modal>
   );
 };
-const LoadingContainer = styled.div`
-  height: 4rem;
-  width: 4rem;
-
-  margin-left: auto;
-  color: ${(props) => props.theme.gold};
-`;
 
 const SubmitBtn = styled.button`
   color: ${(props) => props.theme.black};

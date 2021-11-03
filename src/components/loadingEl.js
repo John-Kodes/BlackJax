@@ -15,6 +15,14 @@ const Loading = () => {
   );
 };
 
+export const LoadingContainer = styled.div`
+  height: 4rem;
+  width: 4rem;
+
+  margin-left: auto;
+  color: ${(props) => props.theme.gold};
+`;
+
 const Container = styled.div`
   display: flex;
   justify-content: center;

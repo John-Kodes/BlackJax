@@ -12,7 +12,6 @@ import SignupPage from "./pages/SignupPage";
 import { AuthProvider } from "./AuthContext";
 // Components
 import GlobalTheme from "./Globals/GlobalTheme";
-import BGSVG from "./img/BGSVG.svg";
 import { getLastSave } from "./components/gameSlice";
 import { HeartsSm } from "./img/suitsIcons";
 // Styling
@@ -62,7 +61,6 @@ function App() {
             <Route component={NotFoundPage} />
           </Switch>
         </AnimatePresence>
-        <BgSvgContainer />
       </AuthProvider>
     </ThemeProvider>
   );
@@ -88,18 +86,4 @@ const AuthorTag = styled.div`
   }
 `;
 
-const BgSvgContainer = styled.div`
-  position: absolute;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-
-  z-index: -9999999999999999999999;
-
-  background-image: url(${BGSVG}),
-    linear-gradient(185deg, rgba(0, 0, 0, 0.9), rgba(3, 0, 8, 0.9));
-  background-blend-mode: overlay;
-  background-size: cover;
-  background-position: center center;
-`;
 export default App;
