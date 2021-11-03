@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => checkUserLoggedIn(), []);
 
   const login = async (email, password) => {
-    // TODO: Throw error if login in valid
     const req = await fetch(`${API_URL}/users/login`, {
       method: "POST",
       headers: {
@@ -26,8 +25,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     const data = await req.json();
-
-    console.log(data);
 
     if (data.status === "success") {
       // Setting cookies
@@ -85,7 +82,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, error, login, logout }}>
+    <AuthContext.Provider value={{ user, error, setError, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

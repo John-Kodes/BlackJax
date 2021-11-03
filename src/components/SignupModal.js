@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Components
 import Modal from "./Modal";
 // Styling
@@ -20,8 +20,9 @@ const SignupModal = () => {
   const [color, setColor] = useState("#ffffff");
 
   const submitHandler = async (e) => {
-    // try {
-    //   e.preventDefault();
+    e.preventDefault();
+
+    console.log("submitted");
     //   const req = await fetch(`${API_URL}/users/signup`, {
     //     method: "POST",
     //     credentials: "include",
@@ -35,10 +36,28 @@ const SignupModal = () => {
     //   });
     //   const data = await req.json();
     //   console.log(data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
+
+  const colorChecker = () => {
+    // Hex to RGB color
+    let hexArr = color.split("");
+    hexArr.shift();
+    hexArr = hexArr.join("").match(/.{1,2}/g);
+
+    const rgb = [
+      parseInt(hexArr[0], 16),
+      parseInt(hexArr[1], 16),
+      parseInt(hexArr[2], 16),
+    ];
+
+    // Checking if color is too dark
+    return rgb.some((val) => val < 125);
+  };
+
+  useEffect(() => {
+    if (colorChecker()) console.log("yo, color too dark");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [color]);
 
   return (
     <Modal>
@@ -48,13 +67,16 @@ const SignupModal = () => {
       </h1>
       <Form onSubmit={submitHandler}>
         <InputBox>
-          <FormLabel htmlFor="username">username</FormLabel>
+          <FormLabel htmlFor="username" style={{ color }}>
+            username
+          </FormLabel>
           <FormField
             type="text"
             id="username"
             placeholder="John Doe"
             required
             onChange={(e) => setUsername(e.target.value)}
+            style={{ color }}
           />
         </InputBox>
 
