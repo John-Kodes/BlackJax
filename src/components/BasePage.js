@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router";
 // Components
 import GoBackBtn from "../components/UIButtons/BtnGoBack";
+// Context
+import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 // Animation
@@ -10,6 +12,11 @@ import { pageAnimation } from "../animations";
 
 const BasePage = ({ children, useContainer }) => {
   const location = useLocation();
+
+  const { setError } = useContext(AuthContext);
+
+  useEffect(() => setError(null), []);
+
   return (
     <PageContainer>
       <Page

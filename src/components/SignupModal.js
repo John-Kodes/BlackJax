@@ -11,14 +11,13 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 // Routing
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
-// Config
-import { API_URL } from "../config";
 
 const SignupModal = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { signup } = useContext(AuthContext);
+  const { user, signup, setError } = useContext(AuthContext);
 
   // Form inputs
   const [username, setUsername] = useState("");
@@ -33,10 +32,10 @@ const SignupModal = () => {
 
     if (password !== passwordConfirm) {
       setIsLoading(false);
-      return console.log("Please make sure both passwords are the same");
+      return setError("Please make sure both passwords are the same");
     }
 
-    signup(email, password, username, color);
+    await signup(email, password, username, color);
     // TODO: handle errors and display
 
     setIsLoading(false);
@@ -70,7 +69,8 @@ const SignupModal = () => {
   };
 
   return (
-    <Modal>
+    <Modal useContainer={true}>
+      {user && <Redirect to="/" />}
       <h1>
         <FontAwesomeIcon icon={faUserPlus} />
         Signup

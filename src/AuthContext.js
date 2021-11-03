@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
       setUser(data.data.user);
       setError(null);
     } else {
-      setError(data.message);
+      setError(data.message.replaceAll("`", ""));
     }
   };
 
