@@ -50,7 +50,7 @@ const Container = styled.div`
 
   min-height: 100vh;
   width: 100%;
-  padding: 4rem 2rem;
+  padding: 2rem;
 `;
 
 const Page = styled(motion.div)`

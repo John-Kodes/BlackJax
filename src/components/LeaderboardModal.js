@@ -134,7 +134,7 @@ const LeaderBoard = styled.div`
   display: flex;
   flex-direction: column;
 
-  height: 100%;
+  max-height: 90vh;
   width: 100%;
   max-width: 120rem;
 
