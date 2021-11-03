@@ -38,9 +38,9 @@ const SignupModal = () => {
     //   console.log(data);
   };
 
-  const colorChecker = () => {
+  const colorChecker = (hex) => {
     // Hex to RGB color
-    let hexArr = color.split("");
+    let hexArr = hex.split("");
     hexArr.shift();
     hexArr = hexArr.join("").match(/.{1,2}/g);
 
@@ -50,14 +50,21 @@ const SignupModal = () => {
       parseInt(hexArr[2], 16),
     ];
 
-    // Checking if color is too dark
-    return rgb.some((val) => val < 125);
+    // Checking if one rgb value is too dark
+    return rgb.some((val) => val > 140);
   };
 
-  useEffect(() => {
-    if (colorChecker()) console.log("yo, color too dark");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [color]);
+  const colorInputHandler = (e) => {
+    const hex = e.target.value;
+
+    if (colorChecker(hex)) {
+      setColor(hex);
+    } else {
+      console.log("yo, color too dark");
+      e.target.value = "#ffffff";
+      setColor("#ffffff");
+    }
+  };
 
   return (
     <Modal>
@@ -99,7 +106,7 @@ const SignupModal = () => {
             type="color"
             id="color"
             defaultValue="#ffffff"
-            onChange={(e) => setColor(e.target.value)}
+            onChange={colorInputHandler}
             className="color-input"
           />
         </InputBoxColor>
