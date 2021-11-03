@@ -15,6 +15,7 @@ const BasePage = ({ children, useContainer }) => {
 
   const { setError } = useContext(AuthContext);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setError(null), []);
 
   return (

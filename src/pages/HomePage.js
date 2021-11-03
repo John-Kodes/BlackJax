@@ -7,7 +7,7 @@ import AuthContext from "../AuthContext";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
-import { btnAnimation } from "../animations";
+import { btnAnimation, fadeInOut } from "../animations";
 // Routing
 import { Link } from "react-router-dom";
 
@@ -42,7 +42,7 @@ const Home = () => {
       </motion.div>
     ));
   };
-  // [{link, label}, ...]
+
   const createLinkBtns = () => {
     const linksArr = [
       {
@@ -78,9 +78,21 @@ const Home = () => {
 
   return (
     <BasePage>
-      <Title variants={titleAnim} initial="initial" animate="animate">
-        {createTitle("BlackJax")}
-      </Title>
+      <HeaderContainer>
+        <Title variants={titleAnim} initial="initial" animate="animate">
+          {createTitle("BlackJax")}
+        </Title>
+        {user && (
+          <Message
+            variants={fadeInOut}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            Hello, <span style={{ color: user.color }}>{user.username}</span>
+          </Message>
+        )}
+      </HeaderContainer>
       {createLinkBtns()}
       {user && (
         <LogoutBtn
@@ -112,12 +124,29 @@ const LogoutBtn = styled(Btn)`
   min-width: auto;
 `;
 
+const Message = styled(motion.p)`
+  font-size: 2rem;
+
+  span {
+    font-weight: 600;
+  }
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+
+  margin-bottom: 4rem;
+`;
+
 const Title = styled(motion.div)`
   display: flex;
   position: relative;
   font-size: 8rem;
   font-weight: 300;
-  margin-bottom: 12rem;
 
   @media only screen and (max-width: 21.875em) {
     font-size: 7rem;
