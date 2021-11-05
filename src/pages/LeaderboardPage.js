@@ -23,6 +23,7 @@ const LeaderboardPage = () => {
   // console.log(user);
 
   // TODO: button for skipping to user's current rank position
+  // TODO: highglight current user's rank
 
   const getLeaderboard = async () => {
     setRanks(false);
@@ -49,6 +50,10 @@ const LeaderboardPage = () => {
     setResultsLength(dataRes.results);
   };
 
+  const btnHandler = () => {
+    console.log("btn clicked");
+  };
+
   useEffect(() => {
     getLeaderboard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,7 +61,7 @@ const LeaderboardPage = () => {
 
   return (
     <BasePage useContainer={true}>
-      <TestBtn>jump to your rank</TestBtn>
+      <TestBtn onClick={btnHandler}>jump to your rank</TestBtn>
       <LeaderboardModal
         ranks={ranks}
         setPage={setPage}

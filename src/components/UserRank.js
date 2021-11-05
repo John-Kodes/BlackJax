@@ -1,11 +1,51 @@
-import React from "react";
+import React, { useContext } from "react";
+// Context
+import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 
 const UserRank = ({ user }) => {
+  const { user: loggedInUser } = useContext(AuthContext);
+
+  const loggedInUserStyles = {
+    backgroundColor: loggedInUser.color,
+  };
+
+  const rankColor = (rank) => {
+    let color;
+    switch (rank) {
+      case 1:
+        color = "#ffd000";
+        break;
+      case 2:
+        color = "#a8a8a8";
+        break;
+      case 3:
+        color = "#805533";
+        break;
+      default:
+        color = "#7271944c";
+    }
+    return {
+      backgroundColor: color,
+    };
+  };
+
   return (
-    <Rank>
-      <RankValue>{user.rank}</RankValue>
+    <Rank
+      style={
+        user?._id === loggedInUser?._id
+          ? {
+              border: `4px solid ${loggedInUser.color}`,
+              boxShadow: `0px 0px 16px -2px rgba(255, 255, 255, 0.5)`,
+            }
+          : {}
+      }
+    >
+      <RankValue>
+        {user.rank}
+        <Circle style={rankColor(user.rank)} />
+      </RankValue>
       <h3 style={{ color: user.color }}>{user.username}</h3>
       <p>
         <span>Highscore:&nbsp;</span>
@@ -19,6 +59,16 @@ const UserRank = ({ user }) => {
   );
 };
 
+const Circle = styled.div`
+  position: absolute;
+  height: 11rem;
+  width: 11rem;
+  z-index: -1;
+  border-radius: 100%;
+
+  background-color: #7271944c;
+`;
+
 const RankValue = styled.div`
   position: relative;
   grid-row: 1/-1;
@@ -31,20 +81,12 @@ const RankValue = styled.div`
 
   font-weight: 600;
   font-size: 3.2rem;
-
-  &::before {
-    content: "";
-    position: absolute;
-    height: 11rem;
-    width: 11rem;
-    z-index: -1;
-    border-radius: 100%;
-
-    background-color: rgba(114, 113, 148, 0.3);
-  }
+  text-shadow: 0px 0px 12px rgba(0, 1, 17, 0.521);
 `;
 
 const Rank = styled.li`
+  position: relative;
+
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: 11rem 1fr;
