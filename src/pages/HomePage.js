@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 // Components
 import BasePage from "../components/BasePage";
+import Loading, { LoadingContainer } from "../components/loadingEl";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -12,6 +13,8 @@ import { btnAnimation, fadeInOut } from "../animations";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { user, logout } = useContext(AuthContext);
 
   const titleAnim = {
@@ -33,6 +36,12 @@ const Home = () => {
     transition: {
       duration: 0.15,
     },
+  };
+
+  const logoutBtnHandler = async () => {
+    setIsLoading(true);
+    await logout();
+    setIsLoading(false);
   };
 
   const createTitle = (title) => {
@@ -101,8 +110,14 @@ const Home = () => {
           animate="animate"
           whileHover="hover"
           whileTap="active"
-          onClick={logout}
+          onClick={logoutBtnHandler}
+          disabled={isLoading}
         >
+          {isLoading && (
+            <LoadingContainer>
+              <Loading />
+            </LoadingContainer>
+          )}
           logout
         </LogoutBtn>
       )}
@@ -117,6 +132,10 @@ const Btn = styled(motion.button)`
 `;
 
 const LogoutBtn = styled(Btn)`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
   position: fixed;
   top: 1rem;
   right: 1rem;

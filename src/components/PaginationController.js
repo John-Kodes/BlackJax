@@ -8,10 +8,17 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const PaginationController = ({ page, setPage, resultsLength }) => {
-  const lastPage = Math.ceil(resultsLength / 20); // resultsLength / resultsPerPageLength
+const PaginationController = ({
+  page,
+  setPage,
+  resultsLength,
+  currentUserRank,
+}) => {
+  const lastPage = Math.ceil(resultsLength / 5); // resultsLength / resultsPerPageLength
+  const currentUserRankPage = Math.ceil(currentUserRank / 20);
+  const currentUserIsOnThisPage = page === currentUserRankPage;
 
-  const btnHandler = (incre) => {
+  const PaginationBtnHandler = (incre) => {
     // short for increment
     if (incre === "+") {
       console.log("btn clicked", page);
@@ -22,28 +29,79 @@ const PaginationController = ({ page, setPage, resultsLength }) => {
     }
   };
 
+  const JumpToHandler = () => {
+    if (currentUserIsOnThisPage) return;
+
+    console.log(currentUserRankPage);
+    setPage(currentUserRankPage);
+  };
+
   return (
-    <PaginationBox>
-      <PageBtn
-        onClick={() => btnHandler("-")}
-        disabled={page > 1}
-        style={page > 1 ? {} : { pointerEvents: "none", opacity: "0.4" }}
+    <PaginationContainer>
+      <PaginationBox>
+        <PageBtn
+          onClick={() => PaginationBtnHandler("-")}
+          disabled={page > 1}
+          style={page > 1 ? {} : { pointerEvents: "none", opacity: "0.4" }}
+        >
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </PageBtn>
+        <PageNum>{page}</PageNum>
+        <Of>of</Of>
+        <PageNum>{lastPage}</PageNum>
+        <PageBtn
+          disabled={page < lastPage}
+          onClick={() => PaginationBtnHandler("+")}
+          style={
+            page < lastPage ? {} : { pointerEvents: "none", opacity: "0.4" }
+          }
+        >
+          <FontAwesomeIcon icon={faChevronRight} />
+        </PageBtn>
+      </PaginationBox>
+      <JumpToRankBtn
+        onClick={JumpToHandler}
+        style={
+          currentUserIsOnThisPage
+            ? {
+                backgroundColor: "#1c113a79",
+                color: "#fff",
+                fontWeight: 400,
+                border: "2px solid #7f7597",
+              }
+            : {}
+        }
       >
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </PageBtn>
-      <PageNum>{page}</PageNum>
-      <Of>of</Of>
-      <PageNum>{lastPage}</PageNum>
-      <PageBtn
-        disabled={page < lastPage}
-        onClick={() => btnHandler("+")}
-        style={page < lastPage ? {} : { pointerEvents: "none", opacity: "0.4" }}
-      >
-        <FontAwesomeIcon icon={faChevronRight} />
-      </PageBtn>
-    </PaginationBox>
+        {currentUserIsOnThisPage
+          ? "Your rank is on this page"
+          : "I wanna see my rank!"}
+      </JumpToRankBtn>
+    </PaginationContainer>
   );
 };
+
+const JumpToRankBtn = styled.button`
+  z-index: 10;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #0e0027;
+
+  padding: 0.6rem 1.4rem;
+  border-radius: 2px;
+  background-color: #ae9fcf;
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #c2c9e7;
+  }
+
+  &:active {
+    background-color: #64517a;
+  }
+`;
+
 const Of = styled.div`
   font-size: 1.6rem;
   padding: 0 1rem;
@@ -76,6 +134,12 @@ const PaginationBox = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+`;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   position: absolute;
   bottom: 0;
@@ -83,7 +147,7 @@ const PaginationBox = styled.div`
   transform: translateX(-50%);
   z-index: 5;
 
-  padding: 0 1rem;
+  padding: 0 1rem 1rem;
   background-color: rgba(22, 15, 31, 0.8);
   border: 2px solid #7f7597;
   border-bottom: none;

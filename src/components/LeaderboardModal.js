@@ -8,7 +8,13 @@ import styled from "styled-components";
 
 // TODO: display leaderboard for users
 
-const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
+const LeaderboardContainer = ({
+  ranks,
+  setPage,
+  page,
+  resultsLength,
+  currentUserRank,
+}) => {
   const randomWidth = () => {
     let width = Math.random() * 100;
 
@@ -17,30 +23,37 @@ const LeaderboardContainer = ({ ranks, setPage, page, resultsLength }) => {
     return { width: `${width}%` };
   };
 
+  console.log(currentUserRank);
+
   return (
     <LeaderBoard>
       <h1>LEADERBOARD</h1>
       <RanksBox style={{ overflowY: ranks ? "scroll" : "hidden" }}>
-        {ranks
-          ? ranks.map((el, i) => <UserRank user={el} key={i} />)
-          : [1, 2, 3].map((el, i) => (
-              <BlankRank key={i}>
-                <RankValue>
-                  <Loading />
-                </RankValue>
-                <h3>&nbsp;</h3>
-                <p style={randomWidth()}>&nbsp;</p>
-                <p style={randomWidth()}>&nbsp;</p>
-              </BlankRank>
+        {ranks ? (
+          <>
+            {ranks.map((el, i) => (
+              <UserRank user={el} key={i} />
             ))}
+            <PaginationController
+              setPage={setPage}
+              page={page}
+              resultsLength={resultsLength}
+              currentUserRank={currentUserRank}
+            />
+          </>
+        ) : (
+          [1, 2, 3].map((el, i) => (
+            <BlankRank key={i}>
+              <RankValue>
+                <Loading />
+              </RankValue>
+              <h3>&nbsp;</h3>
+              <p style={randomWidth()}>&nbsp;</p>
+              <p style={randomWidth()}>&nbsp;</p>
+            </BlankRank>
+          ))
+        )}
       </RanksBox>
-      {ranks && (
-        <PaginationController
-          setPage={setPage}
-          page={page}
-          resultsLength={resultsLength}
-        />
-      )}
     </LeaderBoard>
   );
 };

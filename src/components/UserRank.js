@@ -7,10 +7,6 @@ import styled from "styled-components";
 const UserRank = ({ user }) => {
   const { user: loggedInUser } = useContext(AuthContext);
 
-  const loggedInUserStyles = {
-    backgroundColor: loggedInUser.color,
-  };
-
   const rankColor = (rank) => {
     let color;
     switch (rank) {

@@ -7,8 +7,6 @@ import LeaderboardModal from "../components/LeaderboardModal";
 import AuthContext from "../AuthContext";
 // Config
 import { API_URL } from "../config";
-// style
-import styled from "styled-components";
 
 // user data: rank, username, color, highScore, currentScore
 
@@ -23,7 +21,6 @@ const LeaderboardPage = () => {
   // console.log(user);
 
   // TODO: button for skipping to user's current rank position
-  // TODO: highglight current user's rank
 
   const getLeaderboard = async () => {
     setRanks(false);
@@ -31,7 +28,9 @@ const LeaderboardPage = () => {
     const token = Cookies.get("jwt");
 
     const res = await fetch(
-      `${API_URL}/users/leaderboard${!user ? "ForGuest" : ""}?page=${page}`,
+      `${API_URL}/users/leaderboard${
+        !user ? "ForGuest" : ""
+      }?page=${page}&limit=5`,
       user
         ? {
             headers: {
@@ -44,14 +43,10 @@ const LeaderboardPage = () => {
     const dataRes = await res.json();
     console.log(dataRes);
 
-    if (user) setCurrentUserRank(dataRes.data.userRank);
+    if (user) setCurrentUserRank(dataRes.data.user.userRank);
 
     setRanks(dataRes.data.leaderboard);
     setResultsLength(dataRes.results);
-  };
-
-  const btnHandler = () => {
-    console.log("btn clicked");
   };
 
   useEffect(() => {
@@ -61,7 +56,6 @@ const LeaderboardPage = () => {
 
   return (
     <BasePage useContainer={true}>
-      <TestBtn onClick={btnHandler}>jump to your rank</TestBtn>
       <LeaderboardModal
         ranks={ranks}
         setPage={setPage}
@@ -72,12 +66,5 @@ const LeaderboardPage = () => {
     </BasePage>
   );
 };
-
-const TestBtn = styled.button`
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  z-index: 1000;
-`;
 
 export default LeaderboardPage;

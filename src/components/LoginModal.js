@@ -61,7 +61,9 @@ const LoginModal = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </InputBox>
-        <SubmitBtn type="submit">Login</SubmitBtn>
+        <SubmitBtn type="submit" disabled={isLoading}>
+          Login
+        </SubmitBtn>
       </Form>
       <p>
         Don't have an account? <Link to="/signup">Sign up</Link>
@@ -75,6 +77,16 @@ const LoginModal = () => {
 const SubmitBtn = styled.button`
   color: ${(props) => props.theme.black};
   background-color: ${(props) => props.theme.gold};
+
+  transition: all 0.2s;
+
+  &:hover,
+  &:focus {
+    filter: brightness(130%);
+  }
+  &:active {
+    filter: brightness(90%);
+  }
 `;
 
 const FormField = styled.input`
