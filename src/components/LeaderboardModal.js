@@ -6,8 +6,6 @@ import Loading from "./loadingEl";
 // Styling
 import styled from "styled-components";
 
-// TODO: display leaderboard for users
-
 const LeaderboardContainer = ({
   ranks,
   setPage,

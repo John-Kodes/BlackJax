@@ -28,9 +28,7 @@ const LeaderboardPage = () => {
     const token = Cookies.get("jwt");
 
     const res = await fetch(
-      `${API_URL}/users/leaderboard${
-        !user ? "ForGuest" : ""
-      }?page=${page}&limit=5`,
+      `${API_URL}/users/leaderboard${!user ? "ForGuest" : ""}?page=${page}`,
       user
         ? {
             headers: {
@@ -43,7 +41,7 @@ const LeaderboardPage = () => {
     const dataRes = await res.json();
     console.log(dataRes);
 
-    if (user) setCurrentUserRank(dataRes.data.user.userRank);
+    if (dataRes.data?.user) setCurrentUserRank(dataRes.data.user.userRank);
 
     setRanks(dataRes.data.leaderboard);
     setResultsLength(dataRes.results);

@@ -14,7 +14,7 @@ const PaginationController = ({
   resultsLength,
   currentUserRank,
 }) => {
-  const lastPage = Math.ceil(resultsLength / 5); // resultsLength / resultsPerPageLength
+  const lastPage = Math.ceil(resultsLength / 20); // resultsLength / resultsPerPageLength
   const currentUserRankPage = Math.ceil(currentUserRank / 20);
   const currentUserIsOnThisPage = page === currentUserRankPage;
 
@@ -41,7 +41,7 @@ const PaginationController = ({
       <PaginationBox>
         <PageBtn
           onClick={() => PaginationBtnHandler("-")}
-          disabled={page > 1}
+          // disabled={page > 1}
           style={page > 1 ? {} : { pointerEvents: "none", opacity: "0.4" }}
         >
           <FontAwesomeIcon icon={faChevronLeft} />
@@ -50,7 +50,7 @@ const PaginationController = ({
         <Of>of</Of>
         <PageNum>{lastPage}</PageNum>
         <PageBtn
-          disabled={page < lastPage}
+          // disabled={page < lastPage}
           onClick={() => PaginationBtnHandler("+")}
           style={
             page < lastPage ? {} : { pointerEvents: "none", opacity: "0.4" }
