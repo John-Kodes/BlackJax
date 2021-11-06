@@ -13,31 +13,35 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => checkUserLoggedIn(), []);
 
   const login = async (email, password) => {
-    const req = await fetch(`${API_URL}/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = await req.json();
-
-    if (data.status === "success") {
-      // Setting cookies
-      Cookies.set("jwt", data.token, {
-        expires: 90,
-        secure: process.env.NODE_ENV !== "development",
+    try {
+      const req = await fetch(`${API_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
       });
-      setUser(data.data.user);
-      setError(null);
-    } else {
-      setError(
-        "Login failed. Email or password may be incorrect, please try again"
-      );
+
+      const data = await req.json();
+
+      if (data.status === "success") {
+        // Setting cookies
+        Cookies.set("jwt", data.token, {
+          expires: 90,
+          secure: process.env.NODE_ENV !== "development",
+        });
+        setUser(data.data.user);
+        setError(null);
+      } else {
+        setError(
+          "Login failed. Email or password may be incorrect, please try again"
+        );
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
