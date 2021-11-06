@@ -72,7 +72,6 @@ function Gamin() {
         <ContainerOutOfBoundsBtns>
           <BtnHelp />
         </ContainerOutOfBoundsBtns>
-
         <AnimatePresence>
           <Board
             setShowBettingScreen={setShowBettingScreen}

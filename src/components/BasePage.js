@@ -11,9 +11,10 @@ import { motion } from "framer-motion";
 import { pageAnimation } from "../animations";
 
 const BasePage = ({ children, useContainer }) => {
+  const { setError } = useContext(AuthContext);
   const location = useLocation();
 
-  const { setError } = useContext(AuthContext);
+  const path = location.pathname;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setError(null), []);
@@ -25,6 +26,7 @@ const BasePage = ({ children, useContainer }) => {
         initial="initial"
         animate="animate"
         exit="exit"
+        style={path === "/gamin" ? { gap: 0 } : {}}
       >
         {useContainer ? (
           <Container>
@@ -59,6 +61,7 @@ const Page = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 
   min-height: 100vh;
 `;
