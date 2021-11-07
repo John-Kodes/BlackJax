@@ -9,37 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Link } from "react-router-dom";
-// Config
-// import { API_URL } from "../config";
 
 const ForgotPasswordModal = () => {
   const [email, setEmail] = useState("");
 
-  const submitHandler = async (e) => {
-    // try {
-    //   e.preventDefault();
-    //   const req = await fetch(`${API_URL}/users/forgotPassword`, {
-    //     method: "POST",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       password,
-    //     }),
-    //   });
-    //   const data = await req.json();
-    //   console.log(data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
+  const submitHandler = async (e) => {};
 
   return (
     <Modal>
       <h1>
-        <FontAwesomeIcon icon={faQuestion} /> Reset Password
+        <FontAwesomeIcon icon={faQuestion} /> Forgot Password
       </h1>
       <Form onSubmit={submitHandler}>
         <InputBox>

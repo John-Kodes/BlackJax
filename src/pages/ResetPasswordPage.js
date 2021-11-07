@@ -1,16 +1,14 @@
 import React from "react";
 // Components
 import BasePage from "../components/BasePage";
-// // Styling
-// import styled from "styled-components";
-// // Animation
-// import { motion } from "framer-motion";
-// import { pageAnimation, btnAnimation } from "../animations";
-// // Routing
-// import { Link } from "react-router-dom";
+import ResetPasswordModal from "../components/ResetPasswordModal";
 
 const ResetPasswordPage = () => {
-  return <BasePage>ResetPassword page</BasePage>;
+  return (
+    <BasePage useContainer={true}>
+      <ResetPasswordModal />
+    </BasePage>
+  );
 };
 
 export default ResetPasswordPage;

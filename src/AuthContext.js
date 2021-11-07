@@ -92,6 +92,30 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const forgotPasswordHandler = async (email) => {
+    const req = await fetch(`${API_URL}/users/forgotPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+
+    const data = await req.json();
+    console.log(data);
+
+    if (data.status === "success") {
+      // User should receive an email with a link to /ResetPasswordPage/:token
+      console.log("email sent");
+      return true;
+
+    } else {
+      setError(data.message);
+    }
+  };
+
   const checkUserLoggedIn = async () => {
     const token = Cookies.get("jwt");
 
@@ -115,7 +139,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, error, setError, login, signup, logout }}
+      value={{
+        user,
+        error,
+        setError,
+        login,
+        signup,
+        logout,
+        forgotPasswordHandler,
+      }}
     >
       {children}
     </AuthContext.Provider>

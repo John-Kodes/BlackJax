@@ -56,7 +56,11 @@ function App() {
             />
             <Route exact path="/leaderboard" component={LeaderboardPage} />
             <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/resetPassword" component={ResetPasswordPage} />
+            <Route
+              exact
+              path="/reset-password/:token"
+              component={ResetPasswordPage}
+            />
             <Route exact path="/signup" component={SignupPage} />
             <Route component={NotFoundPage} />
           </Switch>
