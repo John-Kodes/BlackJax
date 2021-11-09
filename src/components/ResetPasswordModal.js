@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
 // Components
 import Modal from "./Modal";
@@ -11,11 +12,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 // Routing
 import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ResetPasswordModal = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const { resetToken } = useParams();
+  console.log(resetToken);
 
   const [isLoading, setIsLoading] = useState(false);
 

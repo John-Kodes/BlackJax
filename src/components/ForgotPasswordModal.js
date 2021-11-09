@@ -1,45 +1,73 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 // Components
 import Modal from "./Modal";
+import Loading, { LoadingContainer } from "./loadingEl";
 // Styling
 import styled from "styled-components";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faQuestion, faCheck } from "@fortawesome/free-solid-svg-icons";
 // Routing
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import AuthContext from "../AuthContext";
 
 const ForgotPasswordModal = () => {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const submitHandler = async (e) => {};
+  const { forgotPasswordHandler } = useContext(AuthContext);
+
+  const submitHandler = async (e) => {
+    setIsLoading(true);
+    e.preventDefault();
+    const success = await forgotPasswordHandler(email);
+    setIsLoading(false);
+    setIsSuccess(true);
+  };
 
   return (
     <Modal>
-      <h1>
-        <FontAwesomeIcon icon={faQuestion} /> Forgot Password
-      </h1>
-      <Form onSubmit={submitHandler}>
-        <InputBox>
-          <FormLabel htmlFor="email">email</FormLabel>
-          <FormField
-            type="email"
-            id="email"
-            placeholder="johndoe@email.com"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </InputBox>
-        <p>
-          An email will be sent to your email account with a link where you can
-          reset your password.
-        </p>
-        <SubmitBtn type="submit">Submit</SubmitBtn>
-      </Form>
-      <p>
-        Wanna go back to the login page? <Link to="/login">Login</Link>
-      </p>
+      {!isSuccess ? (
+        <>
+          <h1>
+            <FontAwesomeIcon icon={faQuestion} /> Forgot Password
+            {isLoading && (
+              <LoadingContainer>
+                <Loading />
+              </LoadingContainer>
+            )}
+          </h1>
+          <Form onSubmit={submitHandler}>
+            <InputBox>
+              <FormLabel htmlFor="email">email</FormLabel>
+              <FormField
+                type="email"
+                id="email"
+                placeholder="johndoe@email.com"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </InputBox>
+            <p>
+              An email will be sent to your email account with a link where you
+              can reset your password.
+            </p>
+            <SubmitBtn type="submit">Submit</SubmitBtn>
+          </Form>
+          <p>
+            Wanna go back to the login page? <Link to="/login">Login</Link>
+          </p>
+        </>
+      ) : (
+        <>
+          <h1>
+            <FontAwesomeIcon icon={faCheck} />
+            Success!
+          </h1>
+          <p>Check your email inbox to reset your password</p>
+        </>
+      )}
     </Modal>
   );
 };

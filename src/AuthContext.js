@@ -92,6 +92,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  // TODO: Be sure to update the BLACKJAX_URL env in the heroku app to the live app and that's not in production
+  // TODO: clear error when successful and display a message telling the user that the email has been sent and to go check it
   const forgotPasswordHandler = async (email) => {
     const req = await fetch(`${API_URL}/users/forgotPassword`, {
       method: "POST",
@@ -109,8 +111,32 @@ export const AuthProvider = ({ children }) => {
     if (data.status === "success") {
       // User should receive an email with a link to /ResetPasswordPage/:token
       console.log("email sent");
+      setError("");
       return true;
+    } else {
+      setError(data.message);
+      return false;
+    }
+  };
 
+  const resetPasswordHandler = async (token, password) => {
+    const req = await fetch(`${API_URL}/users/forgotPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password,
+      }),
+    });
+
+    const data = await req.json();
+    console.log(data);
+
+    if (data.status === "success") {
+      // User should receive an email with a link to /ResetPasswordPage/:token
+      console.log("email sent");
+      return true;
     } else {
       setError(data.message);
     }
@@ -147,6 +173,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         logout,
         forgotPasswordHandler,
+        resetPasswordHandler,
       }}
     >
       {children}
