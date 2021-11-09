@@ -7,73 +7,115 @@ import Loading, { LoadingContainer } from "./loadingEl";
 import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
+// Animation
+import { motion } from "framer-motion";
+import { btnAnimation } from "../animations";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUndoAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
 // Routing
-import { Redirect } from "react-router";
 import { Link, useParams } from "react-router-dom";
 
 const ResetPasswordModal = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const { resetToken } = useParams();
-  console.log(resetToken);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const { resetToken } = useParams();
+
+  const { user, setError, resetPasswordHandler } = useContext(AuthContext);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // await login(email, password);
+    if (password !== passwordConfirm) {
+      setIsLoading(false);
+      return setError("Passwords are not the same. Please try again");
+    }
+
+    const success = await resetPasswordHandler(resetToken, password);
+
+    setIsSuccess(success);
     setIsLoading(false);
   };
 
   return (
     <Modal>
-      {user && <Redirect to="/" />}
-      <h1>
-        <FontAwesomeIcon icon={faUndoAlt} /> Set New Password
-        {isLoading && (
-          <LoadingContainer>
-            <Loading />
-          </LoadingContainer>
-        )}
-      </h1>
-      <Form onSubmit={submitHandler}>
-        <InputBox>
-          <FormLabel htmlFor="password">new password</FormLabel>
-          <FormField
-            type="password"
-            id="password"
-            placeholder="SecuredPassword123"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </InputBox>
-        <InputBox>
-          <FormLabel htmlFor="passwordConfirm">confirm password</FormLabel>
-          <FormField
-            type="password"
-            id="passwordConfirm"
-            placeholder="SecuredPassword123"
-            required
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-          />
-        </InputBox>
-        <SubmitBtn type="submit" disabled={isLoading}>
-          Submit
-        </SubmitBtn>
-      </Form>
-      <p>
-        Wanna try logging in again? <Link to="/login">Login</Link>
-      </p>
+      {isSuccess ? (
+        <>
+          <h1>
+            <FontAwesomeIcon icon={faUndoAlt} /> Success!
+          </h1>
+          <p>Password has successfully reset and you're now logged in!</p>
+          <BtnContainer>
+            <Link to="/">
+              <Btn
+                variants={btnAnimation}
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
+                whileTap="active"
+              >
+                Go home
+              </Btn>
+            </Link>
+          </BtnContainer>
+        </>
+      ) : (
+        <>
+          <h1>
+            <FontAwesomeIcon icon={faUndoAlt} /> Reset Password
+            {isLoading && (
+              <LoadingContainer>
+                <Loading />
+              </LoadingContainer>
+            )}
+          </h1>
+          <Form onSubmit={submitHandler}>
+            <InputBox>
+              <FormLabel htmlFor="password">new password</FormLabel>
+              <FormField
+                type="password"
+                id="password"
+                placeholder="SecuredPassword123"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </InputBox>
+            <InputBox>
+              <FormLabel htmlFor="passwordConfirm">confirm password</FormLabel>
+              <FormField
+                type="password"
+                id="passwordConfirm"
+                placeholder="SecuredPassword123"
+                required
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+              />
+            </InputBox>
+            <SubmitBtn type="submit" disabled={isLoading}>
+              Submit
+            </SubmitBtn>
+          </Form>
+          <p>
+            Wanna try logging in again? <Link to="/login">Login</Link>
+          </p>
+        </>
+      )}
     </Modal>
   );
 };
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Btn = styled(motion.button)`
+  font-weight: 400;
+  font-size: 2.2rem;
+  min-width: 20rem;
+`;
 
 const SubmitBtn = styled.button`
   color: ${(props) => props.theme.black};

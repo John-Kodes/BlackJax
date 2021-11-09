@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import AuthContext from "../AuthContext";
 // Components
 import BasePage from "../components/BasePage";
 import ForgotPasswordModal from "../components/ForgotPasswordModal";
+// Context
+import AuthContext from "../AuthContext";
 // styles
 import styled from "styled-components";
 

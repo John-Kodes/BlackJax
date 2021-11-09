@@ -120,8 +120,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const resetPasswordHandler = async (token, password) => {
-    const req = await fetch(`${API_URL}/users/forgotPassword`, {
-      method: "POST",
+    const req = await fetch(`${API_URL}/users/resetPassword/${token}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -131,14 +131,20 @@ export const AuthProvider = ({ children }) => {
     });
 
     const data = await req.json();
-    console.log(data);
 
     if (data.status === "success") {
-      // User should receive an email with a link to /ResetPasswordPage/:token
-      console.log("email sent");
+      console.log("Password has been reset!");
+      Cookies.set("jwt", data.token, {
+        expires: 90,
+        secure: process.env.NODE_ENV !== "development",
+      });
+
+      setUser(data.data.user);
+      setError(null);
       return true;
     } else {
       setError(data.message);
+      return false;
     }
   };
 
