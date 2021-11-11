@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+// Config
+import { API_URL, ADMIN_PASS } from "../config";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
@@ -76,8 +79,34 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     }
   };
 
-  const startOverHandler = () => {
+  const startOverHandler = async () => {
+    await updateScore(1000);
     dispatch(startOver());
+  };
+
+  const updateScore = async (currentScore) => {
+    console.log("Updating score...");
+    // should display a loading element
+
+    const token = Cookies.get("jwt");
+    const res = await fetch(`${API_URL}/users/updateScore`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        adminPass: ADMIN_PASS,
+        currentScore,
+      }),
+    });
+    const data = await res.json();
+
+    if (data.status === "success") {
+      console.log(data);
+    } else {
+      console.log(data.message);
+    }
   };
 
   useEffect(() => {
@@ -130,9 +159,10 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     exit: { opacity: 0, transition: { duration: 0.7, delay: 0 } },
   };
 
-  const showBettingCard = () => {
-    if (!dealerHand.length > 0) {
-      return (
+  return (
+    <Container>
+      <TestBtn onClick={updateScore}>test</TestBtn>
+      {!dealerHand.length > 0 && (
         <>
           <StyledBackDrop
             variants={backDropAnim}
@@ -183,14 +213,37 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
             </StyledBettingScreen>
           )}
         </>
-      );
-    }
-  };
-
-  return <Container>{showBettingCard()}</Container>;
+      )}
+    </Container>
+  );
 };
 
-export default React.memo(BettingScreen);
+export default BettingScreen;
+
+const TestBtn = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999999999999;
+  cursor: pointer;
+
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  border: 2px solid orange;
+  background-color: rgba(256, 256, 256, 0);
+
+  border-radius: 4px;
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: rgba(256, 256, 256, 0.2);
+  }
+
+  &:active {
+    background-color: rgba(256, 256, 256, 0);
+  }
+`;
 
 const Container = styled(motion.div)`
   display: flex;

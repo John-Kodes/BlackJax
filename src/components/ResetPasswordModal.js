@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
 // Components
 import Modal from "./Modal";
@@ -25,7 +24,7 @@ const ResetPasswordModal = () => {
 
   const { resetToken } = useParams();
 
-  const { user, setError, resetPasswordHandler } = useContext(AuthContext);
+  const { setError, resetPasswordHandler } = useContext(AuthContext);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -46,7 +45,7 @@ const ResetPasswordModal = () => {
       {isSuccess ? (
         <>
           <h1>
-            <FontAwesomeIcon icon={faUndoAlt} /> Success!
+            <FontAwesomeIcon icon={faCheck} /> Success!
           </h1>
           <p>Password has successfully reset and you're now logged in!</p>
           <BtnContainer>
