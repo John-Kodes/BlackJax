@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
 // Config
 import { API_URL, ADMIN_PASS } from "../config";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
+// Context
+import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
@@ -24,6 +26,8 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   const [betTotal, setBetTotal] = useState(0);
 
   const { tempBank, bank, dealerHand } = useSelector((state) => state.game);
+
+  const { user } = useContext(AuthContext);
 
   const dispatch = useDispatch();
 
@@ -88,6 +92,16 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     console.log("Updating score...");
     // should display a loading element
 
+    if (!(betArr.length < 1 && dealerHand.length < 1 && bank > 0)) return;
+
+    // NOTE: localStorage will be used for guest accounts
+    if (!user) {
+      localStorage.setItem("localBank", bank);
+      dispatch(loadInBettingScreen());
+      return;
+    }
+    // Setting save
+
     const token = Cookies.get("jwt");
     const res = await fetch(`${API_URL}/users/updateScore`, {
       method: "PATCH",
@@ -104,19 +118,15 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
     if (data.status === "success") {
       console.log(data);
+      dispatch(loadInBettingScreen());
     } else {
       console.log(data.message);
     }
   };
 
   useEffect(() => {
-    // Autosave point
-    if (betArr.length < 1 && dealerHand.length < 1 && bank > 0) {
-      localStorage.setItem("localBank", bank);
-
-      dispatch(loadInBettingScreen());
-    }
-  }, [dispatch, bank, betArr.length, dealerHand.length]);
+    // NOTE: Autosave point, updating save
+  }, [bank, betArr.length, dealerHand.length]);
 
   useEffect(() => {
     // auto updates the UI bank

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 // Pages
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import GaminPage from "./pages/GaminPage";
@@ -8,12 +8,12 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SignupPage from "./pages/SignupPage";
-// Context
-import { AuthProvider } from "./AuthContext";
 // Components
 import GlobalTheme from "./Globals/GlobalTheme";
 import { getLastSave } from "./components/gameSlice";
 import { HeartsSm } from "./img/suitsIcons";
+// Context
+import AuthContext, { AuthProvider } from "./AuthContext";
 // Styling
 import styled from "styled-components";
 import GlobalStyles from "./Globals/GlobalStyles";
@@ -29,43 +29,43 @@ function App() {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // get last save from localStorage
-    const getLocalBank = Number(localStorage.getItem("localBank"));
-    const localBank = getLocalBank < 1 ? 1000 : getLocalBank;
+  const { user } = useContext(AuthContext);
 
-    dispatch(getLastSave(localBank));
-  }, [dispatch]);
+  useEffect(() => {
+    // NOTE: getting last save
+    if (user) {
+      dispatch(getLastSave(user.currentScore));
+    } else {
+      const getLocalBank = Number(localStorage.getItem("localBank"));
+      const localBank = getLocalBank < 1 ? 1000 : getLocalBank;
+
+      dispatch(getLastSave(localBank));
+    }
+  }, [dispatch, user]);
 
   return (
     <ThemeProvider theme={GlobalTheme}>
-      <AuthProvider>
-        <GlobalStyles />
-        <AuthorTag>
-          <HeartsSm />
-          Made by John Daniel Semine
-        </AuthorTag>
-        <AnimatePresence exitBeforeEnter>
-          <Switch location={location} key={location.pathname}>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/gamin" component={GaminPage} />
-            <Route
-              exact
-              path="/forgot-password"
-              component={ForgotPasswordPage}
-            />
-            <Route exact path="/leaderboard" component={LeaderboardPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route
-              exact
-              path="/reset-password/:resetToken"
-              component={ResetPasswordPage}
-            />
-            <Route exact path="/signup" component={SignupPage} />
-            <Route component={NotFoundPage} />
-          </Switch>
-        </AnimatePresence>
-      </AuthProvider>
+      <GlobalStyles />
+      <AuthorTag>
+        <HeartsSm />
+        Made by John Daniel Semine
+      </AuthorTag>
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/gamin" component={GaminPage} />
+          <Route exact path="/forgot-password" component={ForgotPasswordPage} />
+          <Route exact path="/leaderboard" component={LeaderboardPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route
+            exact
+            path="/reset-password/:resetToken"
+            component={ResetPasswordPage}
+          />
+          <Route exact path="/signup" component={SignupPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </AnimatePresence>
     </ThemeProvider>
   );
 }

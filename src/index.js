@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 // Components
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+// Context
+import { AuthProvider } from "./AuthContext";
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -18,7 +20,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
