@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import Cookies from "js-cookie";
 // Config
 import { API_URL, ADMIN_PASS } from "../config";
@@ -88,9 +88,9 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     dispatch(startOver());
   };
 
-  const updateScore = async (currentScore) => {
-    console.log("Updating score...");
-    // should display a loading element
+  const updateScore = useCallback(async () => {
+    // TODO: should display a loading element
+    console.log("im running");
 
     if (!(betArr.length < 1 && dealerHand.length < 1 && bank > 0)) return;
 
@@ -100,7 +100,6 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       dispatch(loadInBettingScreen());
       return;
     }
-    // Setting save
 
     const token = Cookies.get("jwt");
     const res = await fetch(`${API_URL}/users/updateScore`, {
@@ -111,7 +110,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       },
       body: JSON.stringify({
         adminPass: ADMIN_PASS,
-        currentScore,
+        currentScore: bank,
       }),
     });
     const data = await res.json();
@@ -122,11 +121,12 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     } else {
       console.log(data.message);
     }
-  };
+  }, [bank, betArr.length, dealerHand.length, dispatch, user]);
 
   useEffect(() => {
     // NOTE: Autosave point, updating save
-  }, [bank, betArr.length, dealerHand.length]);
+    updateScore();
+  }, [bank, updateScore]);
 
   useEffect(() => {
     // auto updates the UI bank
@@ -171,7 +171,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   return (
     <Container>
-      <TestBtn onClick={updateScore}>test</TestBtn>
+      {/* <TestBtn onClick={updateScore}>test</TestBtn> */}
       {!dealerHand.length > 0 && (
         <>
           <StyledBackDrop

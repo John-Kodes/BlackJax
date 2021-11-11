@@ -13,7 +13,7 @@ import GlobalTheme from "./Globals/GlobalTheme";
 import { getLastSave } from "./components/gameSlice";
 import { HeartsSm } from "./img/suitsIcons";
 // Context
-import AuthContext, { AuthProvider } from "./AuthContext";
+import AuthContext from "./AuthContext";
 // Styling
 import styled from "styled-components";
 import GlobalStyles from "./Globals/GlobalStyles";
