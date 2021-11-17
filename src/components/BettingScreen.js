@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext, useCallback } from "react";
-import Cookies from "js-cookie";
-// Config
-import { API_URL, ADMIN_PASS } from "../config";
+import React, { useEffect, useState, useContext } from "react";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
 // Context
 import AuthContext from "../AuthContext";
+// Util
+import { updateUserScore } from "../util";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
@@ -84,15 +83,12 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   };
 
   const startOverHandler = async () => {
-    await updateScore(1000);
+    await updateScore();
     dispatch(startOver());
   };
 
-  const updateScore = useCallback(async () => {
+  const updateScore = async () => {
     // TODO: should display a loading element
-    console.log("im running");
-
-    if (!(betArr.length < 1 && dealerHand.length < 1 && bank > 0)) return;
 
     // NOTE: localStorage will be used for guest accounts
     if (!user) {
@@ -101,19 +97,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       return;
     }
 
-    const token = Cookies.get("jwt");
-    const res = await fetch(`${API_URL}/users/updateScore`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        adminPass: ADMIN_PASS,
-        currentScore: bank,
-      }),
-    });
-    const data = await res.json();
+    const data = await updateUserScore(1000);
 
     if (data.status === "success") {
       console.log(data);
@@ -121,12 +105,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     } else {
       console.log(data.message);
     }
-  }, [bank, betArr.length, dealerHand.length, dispatch, user]);
-
-  useEffect(() => {
-    // NOTE: Autosave point, updating save
-    updateScore();
-  }, [bank, updateScore]);
+  };
 
   useEffect(() => {
     // auto updates the UI bank
@@ -230,30 +209,30 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
 export default BettingScreen;
 
-const TestBtn = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 9999999999999;
-  cursor: pointer;
+// const TestBtn = styled.div`
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   z-index: 9999999999999;
+//   cursor: pointer;
 
-  font-size: 2rem;
-  padding: 1rem 2rem;
-  border: 2px solid orange;
-  background-color: rgba(256, 256, 256, 0);
+//   font-size: 2rem;
+//   padding: 1rem 2rem;
+//   border: 2px solid orange;
+//   background-color: rgba(256, 256, 256, 0);
 
-  border-radius: 4px;
+//   border-radius: 4px;
 
-  transition: all 0.2s;
+//   transition: all 0.2s;
 
-  &:hover {
-    background-color: rgba(256, 256, 256, 0.2);
-  }
+//   &:hover {
+//     background-color: rgba(256, 256, 256, 0.2);
+//   }
 
-  &:active {
-    background-color: rgba(256, 256, 256, 0);
-  }
-`;
+//   &:active {
+//     background-color: rgba(256, 256, 256, 0);
+//   }
+// `;
 
 const Container = styled(motion.div)`
   display: flex;

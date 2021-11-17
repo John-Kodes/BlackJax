@@ -111,10 +111,12 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
     else if (dealerHandTotal > 0 && dealerWillPlay && results === "none") {
       dipatchResults(1.5);
     }
-    // return () => {
-    //   const nothing = 'just to remove the warning';
-    // };
   });
+
+  // Triggering end of each round
+  useEffect(() => {
+    if (results !== "none") console.log(results);
+  }, [results]);
 
   useEffect(() => {
     setPause(false);
