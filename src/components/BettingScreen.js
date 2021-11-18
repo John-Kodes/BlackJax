@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
+import Cookies from "js-cookie";
+// config
+import { API_URL, ADMIN_PASS } from "../config";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
 // Context
 import AuthContext from "../AuthContext";
-// Util
-import { updateUserScore } from "../util";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
@@ -26,7 +27,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const { tempBank, bank, dealerHand } = useSelector((state) => state.game);
 
-  const { user } = useContext(AuthContext);
+  const { user, gamePlayed, setGamePlayed } = useContext(AuthContext);
 
   const dispatch = useDispatch();
 
@@ -87,35 +88,59 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     dispatch(startOver());
   };
 
-  const updateScore = async () => {
-    // TODO: should display a loading element
+  const updateScore = useCallback(
+    async (currentScore) => {
+      // TODO: should display a loading element
 
-    // NOTE: localStorage will be used for guest accounts
-    if (!user) {
-      localStorage.setItem("localBank", bank);
-      dispatch(loadInBettingScreen());
-      return;
-    }
+      // NOTE: localStorage will be used for guest accounts
+      if (!user) {
+        localStorage.setItem("localBank", currentScore);
+        dispatch(loadInBettingScreen());
+        return;
+      }
 
-    const data = await updateUserScore(1000);
+      const token = Cookies.get("jwt");
 
-    if (data.status === "success") {
-      console.log(data);
-      dispatch(loadInBettingScreen());
-    } else {
-      console.log(data.message);
-    }
-  };
+      const res = await fetch(`${API_URL}/users/updateScore`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          adminPass: ADMIN_PASS,
+          currentScore,
+        }),
+      });
 
+      const data = await res.json();
+
+      if (data.status === "success") {
+        console.log(data);
+        dispatch(loadInBettingScreen());
+      } else {
+        console.log(data.message);
+      }
+    },
+    [dispatch, user]
+  );
+
+  // NOTE: Executes when betting screen loads in AND if a round finished
   useEffect(() => {
-    // auto updates the UI bank
+    if (gamePlayed) {
+      updateScore(bank);
+      setGamePlayed(false);
+      console.log("im saving");
+    }
+  }, [gamePlayed, setGamePlayed, bank, updateScore]);
+
+  // auto updates the UI bank
+  useEffect(() => {
     if (betArr.length > 0 && dealerHand.length < 1) {
       const total = betArr.reduce((acc, cur) => acc + cur);
       setBetTotal(total);
       dispatch(calcBet(betArr));
     }
-
-    // return () => console.log("bettingScreen clean up");
   }, [dispatch, betArr, betArr.length, dealerHand.length]);
 
   const bettingScreenAnim = {

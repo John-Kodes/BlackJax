@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, useContext } from "react";
 // Styling
 import { PlayingBtn } from "../../Globals/GlobalStyles";
 // Icons
@@ -13,6 +13,7 @@ import {
   concludeGame,
   shuffleCards,
 } from "../gameSlice";
+import AuthContext from "../../AuthContext";
 
 const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [dealerLoopBool, setDealerLoopBool] = useState(false);
   const [pause, setPause] = useState(false);
+
+  // Context
+  const { setGamePlayed } = useContext(AuthContext);
 
   const {
     results,
@@ -57,9 +61,10 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
         setDealerLoopBool(false);
         setShowBettingScreen(true);
         dispatch(concludeGame());
+        setGamePlayed(true); // used to trigger update
       }, time * 1000);
     },
-    [dispatch, setShowBettingScreen]
+    [dispatch, setShowBettingScreen, setGamePlayed]
   );
 
   // START NEXT ROUND
@@ -112,11 +117,6 @@ const BtnStand = ({ setShowBettingScreen, showBettingScreen }) => {
       dipatchResults(1.5);
     }
   });
-
-  // Triggering end of each round
-  useEffect(() => {
-    if (results !== "none") console.log(results);
-  }, [results]);
 
   useEffect(() => {
     setPause(false);

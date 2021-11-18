@@ -9,6 +9,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
+  // For triggering update user score save
+  const [gamePlayed, setGamePlayed] = useState(false);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => checkUserLoggedIn(), []);
 
@@ -169,6 +172,9 @@ export const AuthProvider = ({ children }) => {
         user,
         error,
         setError,
+        gamePlayed,
+        setGamePlayed,
+
         login,
         signup,
         logout,
