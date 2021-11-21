@@ -7,7 +7,6 @@ import AuthContext from "../../AuthContext";
 import styled from "styled-components";
 // Animation
 import { motion } from "framer-motion";
-import { btnAnimation, fadeInOut } from "../../animations";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -34,6 +33,7 @@ const BtnSettings = () => {
     borderColor: "transparent",
     color: "transparent",
     transitionTimingFunction: "ease-in",
+    backgroundColor: "transparent",
   };
 
   return (
@@ -42,7 +42,7 @@ const BtnSettings = () => {
         <Container style={isOpen ? closeCss : {}}>
           <Btn onClick={() => setIsOpen(!isOpen)}>
             {isLoading ? (
-              <LoadingContainer style={{ height: "5.8rem", width: "5.8rem" }}>
+              <LoadingContainer>
                 <Loading />
               </LoadingContainer>
             ) : (
@@ -130,7 +130,7 @@ const Container = styled(motion.div)`
 
   border: 2px solid #7f7597;
   border-radius: 4px;
-  background-color: #04002452;
+  background-color: #16132b52;
   overflow: hidden;
 
   transition: all 0.4s;

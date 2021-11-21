@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SignupPage from "./pages/SignupPage";
+import MePage from "./pages/MePage";
 // Components
 import GlobalTheme from "./Globals/GlobalTheme";
 import { getLastSave } from "./components/gameSlice";
@@ -57,6 +58,7 @@ function App() {
           <Route exact path="/forgot-password" component={ForgotPasswordPage} />
           <Route exact path="/leaderboard" component={LeaderboardPage} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/me" component={MePage} />
           <Route
             exact
             path="/reset-password/:resetToken"

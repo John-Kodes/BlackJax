@@ -6,7 +6,7 @@ import { API_URL } from "./config";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("pending");
   const [error, setError] = useState(null);
 
   // For triggering update user score save

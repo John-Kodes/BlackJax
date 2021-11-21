@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router";
 // Components
 import GoBackBtn from "../components/UIButtons/BtnGoBack";
+import Loading, { LoadingContainer } from "./loadingEl";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -11,10 +12,8 @@ import { motion } from "framer-motion";
 import { pageAnimation } from "../animations";
 
 const BasePage = ({ children, useContainer }) => {
-  const { setError } = useContext(AuthContext);
+  const { user, setError } = useContext(AuthContext);
   const location = useLocation();
-
-  const path = location.pathname;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setError(null), []);
@@ -26,17 +25,28 @@ const BasePage = ({ children, useContainer }) => {
         initial="initial"
         animate="animate"
         exit="exit"
-        style={path === "/gamin" ? { gap: 0 } : {}}
+        style={location.pathname === "/gamin" ? { gap: 0 } : {}}
       >
-        {useContainer ? (
-          <Container>
-            {location.pathname !== "/" && <GoBackBtn />}
-            {children}
-          </Container>
+        {user === "pending" ? (
+          <>
+            <LoadingContainer>
+              <Loading style={{ color: "white" }} />
+            </LoadingContainer>
+            <LoadingMessage>Loading...</LoadingMessage>
+          </>
         ) : (
           <>
-            {location.pathname !== "/" && <GoBackBtn />}
-            {children}
+            {useContainer ? (
+              <Container>
+                {location.pathname !== "/" && <GoBackBtn />}
+                {children}
+              </Container>
+            ) : (
+              <>
+                {location.pathname !== "/" && <GoBackBtn />}
+                {children}
+              </>
+            )}
           </>
         )}
       </Page>
@@ -64,10 +74,19 @@ const Page = styled(motion.div)`
   gap: 1rem;
 
   min-height: 100vh;
+
+  // for loading element
+  div:first-child {
+    margin: 0;
+  }
 `;
 
 const PageContainer = styled(motion.div)`
   overflow-x: hidden;
+`;
+
+const LoadingMessage = styled.p`
+  font-size: 2rem;
 `;
 
 export default BasePage;

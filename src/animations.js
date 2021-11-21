@@ -22,7 +22,7 @@ export const btnAnimation = {
   hover: {
     y: -5,
     border: "2px solid white",
-    background: "#04002452",
+    background: "#16132b52",
   },
   active: {
     y: 2,
