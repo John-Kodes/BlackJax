@@ -16,13 +16,30 @@ import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
  */
 
 const BtnSettings = () => {
+  // const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const { user } = useContext(AuthContext);
+
+  const BtnHandler = () => {
+    console.log("click");
+  };
+
+  const closeCss = {
+    width: "9rem",
+    borderColor: "transparent",
+    color: "transparent",
+  };
+
   return (
     <>
       {user && (
-        <Container>
+        <Container
+          style={isOpen ? closeCss : {}}
+          onClick={() => setIsOpen(!isOpen)}
+        >
           <Btn>
-            <FontAwesomeIcon icon={faCog} />
+            <FontAwesomeIcon icon={isOpen ? faCog : faTimes} />
           </Btn>
           <ul>
             <li>View profile</li>
@@ -40,6 +57,11 @@ const Btn = styled.button`
   border-radius: 100%;
   background-color: transparent;
   transition: all 0.1s;
+
+  padding: 0;
+  margin-right: 1.4rem;
+  min-height: 5.8rem;
+  min-width: 5.8rem;
 
   &::before {
     content: "";
@@ -85,15 +107,19 @@ const Container = styled(motion.div)`
   position: fixed;
   top: 1rem;
   right: 1rem;
+  height: 10rem;
+  width: 24rem;
 
   font-size: 2rem;
   font-weight: 400;
+  color: #7f7597;
 
-  padding: 1.4rem 1rem 1.4rem 2rem;
-
-  /* when active */
   border: 2px solid #7f7597;
   border-radius: 4px;
+  overflow: hidden;
+
+  transition: all 0.4s;
+  /* width: 9rem; */
 
   ul {
     display: flex;
@@ -103,12 +129,9 @@ const Container = styled(motion.div)`
 
   li {
     position: relative;
-    transition: all 0.2s;
-    color: #7f7597;
     font-weight: 600;
     width: fit-content;
-
-    transition: all 0.2s;
+    white-space: nowrap;
 
     &::before {
       content: "";
