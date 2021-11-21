@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 // Components
 import BasePage from "../components/BasePage";
-import Loading, { LoadingContainer } from "../components/loadingEl";
 import BtnSettings from "../components/UIButtons/BtnSettings";
 // Context
 import AuthContext from "../AuthContext";
@@ -14,9 +13,7 @@ import { btnAnimation, fadeInOut } from "../animations";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const titleAnim = {
     initial: {
@@ -37,12 +34,6 @@ const Home = () => {
     transition: {
       duration: 0.15,
     },
-  };
-
-  const logoutBtnHandler = async () => {
-    setIsLoading(true);
-    await logout();
-    setIsLoading(false);
   };
 
   const createTitle = (title) => {
@@ -104,24 +95,7 @@ const Home = () => {
         )}
       </HeaderContainer>
       {createLinkBtns()}
-      {/* {user && (
-        <LogoutBtn
-          variants={btnAnimation}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          whileTap="active"
-          onClick={logoutBtnHandler}
-          disabled={isLoading}
-        >
-          {isLoading && (
-            <LoadingContainer>
-              <Loading />
-            </LoadingContainer>
-          )}
-          logout
-        </LogoutBtn>
-      )} */}
+
       <BtnSettings />
     </BasePage>
   );
@@ -131,18 +105,6 @@ const Btn = styled(motion.button)`
   font-weight: 400;
   font-size: 2.2rem;
   min-width: 20rem;
-`;
-
-const LogoutBtn = styled(Btn)`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-
-  min-width: auto;
 `;
 
 const Message = styled(motion.p)`

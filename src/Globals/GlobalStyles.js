@@ -36,6 +36,11 @@ const GlobalStyles = createGlobalStyle`
     }
     ul {
       list-style-type: none;
+
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
     }
     h1{
         font-weight: 400;

@@ -2,9 +2,9 @@ import React from "react";
 // styling
 import styled from "styled-components";
 
-const Loading = () => {
+const Loading = ({ style }) => {
   return (
-    <Container>
+    <Container style={style}>
       <div className="lds-ring">
         <div></div>
         <div></div>

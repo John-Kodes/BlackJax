@@ -11,39 +11,49 @@ import { btnAnimation, fadeInOut } from "../../animations";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
+// Router
+import { Link } from "react-router-dom";
 
 /* if user === "pending" then page should be loading
  */
 
 const BtnSettings = () => {
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
-  const BtnHandler = () => {
-    console.log("click");
+  const logoutBtnHandler = async () => {
+    setIsLoading(true);
+    await logout();
+    setIsLoading(false);
   };
 
   const closeCss = {
     width: "9rem",
     borderColor: "transparent",
     color: "transparent",
+    transitionTimingFunction: "ease-in",
   };
 
   return (
     <>
       {user && (
-        <Container
-          style={isOpen ? closeCss : {}}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <Btn>
-            <FontAwesomeIcon icon={isOpen ? faCog : faTimes} />
+        <Container style={isOpen ? closeCss : {}}>
+          <Btn onClick={() => setIsOpen(!isOpen)}>
+            {isLoading ? (
+              <LoadingContainer style={{ height: "5.8rem", width: "5.8rem" }}>
+                <Loading />
+              </LoadingContainer>
+            ) : (
+              <FontAwesomeIcon icon={isOpen ? faCog : faTimes} />
+            )}
           </Btn>
           <ul>
-            <li>View profile</li>
-            <li>Logout</li>
+            <Link to="/me">
+              <li>View profile</li>
+            </Link>
+            <li onClick={logoutBtnHandler}>Logout</li>
           </ul>
         </Container>
       )}
@@ -53,6 +63,10 @@ const BtnSettings = () => {
 
 const Btn = styled.button`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   border: 2px solid transparent;
   border-radius: 100%;
   background-color: transparent;
@@ -116,10 +130,10 @@ const Container = styled(motion.div)`
 
   border: 2px solid #7f7597;
   border-radius: 4px;
+  background-color: #04002452;
   overflow: hidden;
 
   transition: all 0.4s;
-  /* width: 9rem; */
 
   ul {
     display: flex;
