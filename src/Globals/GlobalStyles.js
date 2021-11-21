@@ -34,6 +34,9 @@ const GlobalStyles = createGlobalStyle`
     p {
       line-height: 1.7;
     }
+    ul {
+      list-style-type: none;
+    }
     h1{
         font-weight: 400;
     }

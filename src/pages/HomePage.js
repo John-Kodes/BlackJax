@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 // Components
 import BasePage from "../components/BasePage";
 import Loading, { LoadingContainer } from "../components/loadingEl";
+import BtnSettings from "../components/UIButtons/BtnSettings";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -103,7 +104,7 @@ const Home = () => {
         )}
       </HeaderContainer>
       {createLinkBtns()}
-      {user && (
+      {/* {user && (
         <LogoutBtn
           variants={btnAnimation}
           initial="initial"
@@ -120,7 +121,8 @@ const Home = () => {
           )}
           logout
         </LogoutBtn>
-      )}
+      )} */}
+      <BtnSettings />
     </BasePage>
   );
 };
