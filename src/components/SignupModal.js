@@ -10,6 +10,8 @@ import styled from "styled-components";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+// Util
+import { colorChecker } from "../util";
 // Routing
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
@@ -39,22 +41,6 @@ const SignupModal = () => {
     // TODO: handle errors and display
 
     setIsLoading(false);
-  };
-
-  const colorChecker = (hex) => {
-    // Hex to RGB color
-    let hexArr = hex.split("");
-    hexArr.shift();
-    hexArr = hexArr.join("").match(/.{1,2}/g);
-
-    const rgb = [
-      parseInt(hexArr[0], 16),
-      parseInt(hexArr[1], 16),
-      parseInt(hexArr[2], 16),
-    ];
-
-    // Checking if one rgb value is too dark
-    return rgb.some((val) => val > 140);
   };
 
   const colorInputHandler = (e) => {
