@@ -2,8 +2,8 @@ import React from "react";
 // Styling
 import styled from "styled-components";
 
-const Modal = ({ children }) => {
-  return <Container>{children}</Container>;
+const Modal = ({ children, style }) => {
+  return <Container style={style}>{children}</Container>;
 };
 
 const Container = styled.div`
@@ -38,6 +38,11 @@ const Container = styled.div`
       text-decoration: none;
       color: ${(props) => props.theme.gold};
     }
+  }
+
+  span {
+    font-size: 1.8rem;
+    font-weight: 600;
   }
 `;
 

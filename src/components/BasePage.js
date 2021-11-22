@@ -77,7 +77,7 @@ const Page = styled(motion.div)`
 
   // for loading element
   div:first-child {
-    margin: 0;
+    margin-left: 0;
   }
 `;
 

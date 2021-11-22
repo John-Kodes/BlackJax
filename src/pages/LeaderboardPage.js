@@ -18,10 +18,6 @@ const LeaderboardPage = () => {
 
   const { user } = useContext(AuthContext);
 
-  // console.log(user);
-
-  // TODO: button for skipping to user's current rank position
-
   const getLeaderboard = async () => {
     setRanks(false);
 
@@ -39,7 +35,6 @@ const LeaderboardPage = () => {
     );
 
     const dataRes = await res.json();
-    console.log(dataRes);
 
     if (dataRes.data?.user) setCurrentUserRank(dataRes.data.user.userRank);
 

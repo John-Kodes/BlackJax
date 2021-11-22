@@ -21,8 +21,6 @@ const LeaderboardContainer = ({
     return { width: `${width}%` };
   };
 
-  console.log(currentUserRank);
-
   return (
     <LeaderBoard>
       <h1>LEADERBOARD</h1>
