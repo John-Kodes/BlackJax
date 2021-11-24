@@ -8,9 +8,9 @@ import ErrorModal from "../components/ErrorModal";
 // import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
-// // Icons
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEdit } from "@fortawesome/free-solid-svg-icons";
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 // // Util
 // import { colorChecker } from "../util";
 // // Config
@@ -28,97 +28,103 @@ const ChangePasswordPage = () => {
   return (
     <BasePage useContainer={true}>
       <ErrorModal />
-      <Modal style={{ gap: "2rem" }}>bruh</Modal>
+      <Modal>
+        <h1>
+          <FontAwesomeIcon icon={faLock} />
+          Change Password
+        </h1>
+        <Form>
+          <InputBox>
+            <FormLabel htmlFor="oldPassword">old password</FormLabel>
+            <FormField
+              type="password"
+              id="oldPassword"
+              placeholder="OldPassword123"
+              required
+              //   onChange={}
+            />
+          </InputBox>{" "}
+          <InputBox>
+            <FormLabel htmlFor="newPassword">new password</FormLabel>
+            <FormField
+              type="password"
+              id="newPassword"
+              placeholder="NewPassword1234"
+              required
+              //   onChange={}
+            />
+          </InputBox>
+          <InputBox>
+            <FormLabel htmlFor="newPasswordConfirm">confirm password</FormLabel>
+            <FormField
+              type="password"
+              id="newPasswordConfirm"
+              placeholder="NewPassword1234"
+              required
+              //   onChange={}
+            />
+          </InputBox>
+          <SubmitBtn type="submit">Submit</SubmitBtn>
+        </Form>
+        <p>You will need to login again after changing your password.</p>
+      </Modal>
     </BasePage>
   );
 };
 
-const IconContainer = styled.div`
-  position: absolute;
-  top: 3rem;
-  right: 3rem;
+const SubmitBtn = styled.button`
+  color: ${(props) => props.theme.black};
+  background-color: ${(props) => props.theme.gold};
+`;
 
-  font-size: 4rem;
-  color: #dbccff68;
+const FormField = styled.input`
+  font-size: 1.8rem;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+
+  background-color: transparent;
+  padding: 0.8rem 1rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+
+  transition: border 0.5s;
+  outline: none;
+  &::placeholder {
+    color: #a59eb8;
+  }
+
+  &:invalid {
+    border: 1px solid hsl(345, 100%, 50%);
+  }
+
+  &:valid {
+    border: 1px solid #00ffbf;
+  }
+
+  &:not(:focus) {
+    border: 1px solid #7f7597;
+  }
+`;
+
+const FormLabel = styled.label`
+  font-weight: 600;
+  font-size: 2.2rem;
+
+  text-transform: uppercase;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-`;
 
-const InputBoxColor = styled.div`
-  display: flex;
-  align-items: center;
-
-  gap: 2rem;
-
-  .color-input {
-    width: 10rem;
-    padding: 0 !important;
-    border: none !important;
-  }
-
-  p {
-    font-size: 1.2rem;
-    span {
-      color: #ff004c;
-    }
-  }
-`;
-
-const FormField = styled.input`
-  display: inline-flex;
-  align-items: center;
-  gap: 2rem;
-
-  font-size: 2.8rem;
-  font-family: "Montserrat", sans-serif;
-  background-color: transparent;
-  border: none;
-
-  transition: border 0.5s;
-  outline: none;
-  svg {
-    font-size: 4rem;
-  }
-
-  &::placeholder {
-    color: #a59eb8;
-  }
-`;
-
-const Btn = styled.button`
-  font-size: 1.8rem;
-  font-weight: 400;
-
-  background-color: rgba(18, 16, 24, 0.6);
-  border: 1px solid #7f7597;
-  border-radius: 4px;
-
-  transition: all 0.2s;
-
-  &:hover {
-    background-color: rgba(44, 39, 59, 0.6);
-  }
-
-  &:active {
-    color: #aaa;
-    background-color: rgba(18, 16, 24, 0.6);
-  }
-
-  &:disabled {
-    background-color: rgba(67, 66, 70, 0.4);
-    border-color: #aaaaaa;
-    color: #aaa;
-    cursor: default;
-  }
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  gap: 2.8rem;
 `;
 
 export default ChangePasswordPage;
