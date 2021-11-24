@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import BasePage from "../components/BasePage";
 import Modal from "../components/Modal";
 import ErrorModal from "../components/ErrorModal";
+import Loading, { LoadingContainer } from "../components/loadingEl";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -16,9 +17,7 @@ import { colorChecker } from "../util";
 // Config
 import { API_URL } from "../config";
 // Routing
-import { Redirect } from "react-router-dom";
-
-// TODO: Add update password functionality
+import { Redirect, Link } from "react-router-dom";
 
 const MePage = () => {
   const { user, setUser, setError } = useContext(AuthContext);
@@ -38,6 +37,7 @@ const MePage = () => {
     setIsEditing(false);
     setNewUsername("");
     setColor(user.color);
+    setError(null);
   };
 
   const editBtnHandler = () => {
@@ -66,10 +66,8 @@ const MePage = () => {
     });
 
     const data = await req.json();
-    console.log(data);
 
     if (data.status === "success") {
-      console.log("saved!", newUsername, color);
       setUser(data.data.user);
       setIsEditing(false);
       setNewUsername("");
@@ -101,7 +99,13 @@ const MePage = () => {
           {isEditing ? (
             <>
               <IconContainer>
-                <FontAwesomeIcon icon={faEdit} />
+                {isLoading ? (
+                  <LoadingContainer>
+                    <Loading />
+                  </LoadingContainer>
+                ) : (
+                  <FontAwesomeIcon icon={faEdit} />
+                )}
               </IconContainer>
               <FormField
                 type="text"
@@ -155,7 +159,9 @@ const MePage = () => {
                 <Btn type="button" onClick={editBtnHandler}>
                   Edit profile
                 </Btn>
-                <Btn type="button">Change password</Btn>
+                <Link to="/change-password">
+                  <Btn type="button">Change password</Btn>
+                </Link>
               </>
             )}
           </BtnContainer>
