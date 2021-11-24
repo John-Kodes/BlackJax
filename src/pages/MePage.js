@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
+import Cookies from "js-cookie";
 // Components
 import BasePage from "../components/BasePage";
 import Modal from "../components/Modal";
+import ErrorModal from "../components/ErrorModal";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -11,18 +13,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 // Util
 import { colorChecker } from "../util";
+// Config
+import { API_URL } from "../config";
 // Routing
 import { Redirect } from "react-router-dom";
 
-// TODO: when on edit mode, change the h1 field to an input field and create a field for changing color
 // TODO: Add update password functionality
 
 const MePage = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser, setError } = useContext(AuthContext);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState("");
   const [color, setColor] = useState(user.color);
+
+  const nameBool = newUsername === user.username || newUsername === "";
 
   const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g, "$1,");
 
@@ -34,11 +40,45 @@ const MePage = () => {
     setColor(user.color);
   };
 
-  const saveHandler = (e) => {
+  const editBtnHandler = () => {
+    setNewUsername("");
+    setColor(user.color);
+    setIsEditing(true);
+  };
+
+  const saveChangesHandler = async (e) => {
     e.preventDefault();
-    if (!newUsername) return;
-    console.log("saved!");
-    setIsEditing(false);
+
+    setIsLoading(true);
+
+    const token = Cookies.get("jwt");
+
+    const req = await fetch(`${API_URL}/users/me`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        username: newUsername || undefined,
+        color,
+      }),
+    });
+
+    const data = await req.json();
+    console.log(data);
+
+    if (data.status === "success") {
+      console.log("saved!", newUsername, color);
+      setUser(data.data.user);
+      setIsEditing(false);
+      setNewUsername("");
+      setColor(user.color);
+    } else {
+      console.log(user);
+      setError(data.message.replaceAll("`", ""));
+    }
+    setIsLoading(false);
   };
 
   const colorInputHandler = (e) => {
@@ -54,9 +94,10 @@ const MePage = () => {
 
   return (
     <BasePage useContainer={true}>
+      <ErrorModal />
       {!user && <Redirect to="/" />}
       <Modal style={{ gap: "2rem" }}>
-        <Form onSubmit={saveHandler}>
+        <Form onSubmit={saveChangesHandler}>
           {isEditing ? (
             <>
               <IconContainer>
@@ -66,9 +107,8 @@ const MePage = () => {
                 type="text"
                 id="username"
                 placeholder="Enter new username"
-                required
                 onChange={(e) => setNewUsername(e.target.value)}
-                style={{ color }}
+                style={{ color: color || user.color }}
               />
               <InputBoxColor>
                 <FormField
@@ -102,7 +142,7 @@ const MePage = () => {
               <>
                 <Btn
                   type="submit"
-                  disabled={newUsername === user.username || newUsername === ""}
+                  disabled={(color === user.color && nameBool) || isLoading}
                 >
                   Save changes
                 </Btn>
@@ -112,7 +152,7 @@ const MePage = () => {
               </>
             ) : (
               <>
-                <Btn type="button" onClick={() => setIsEditing(true)}>
+                <Btn type="button" onClick={editBtnHandler}>
                   Edit profile
                 </Btn>
                 <Btn type="button">Change password</Btn>
