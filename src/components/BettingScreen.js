@@ -10,6 +10,9 @@ import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 // Animation
 import { motion } from "framer-motion";
 // Redux
@@ -24,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   const [betArr, setBetArr] = useState([]);
   const [betTotal, setBetTotal] = useState(0);
+  const [customAmount, setCustomAmount] = useState(0);
 
   const { tempBank, bank, dealerHand } = useSelector((state) => state.game);
 
@@ -66,6 +70,12 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       </StyledChipContainer>
     );
   });
+
+  const customAmountHandler = (e) => {
+    e.preventDefault();
+
+    console.log(customAmount);
+  };
 
   const btnDealHandler = () => {
     setShowBettingScreen(false);
@@ -116,7 +126,6 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       const data = await res.json();
 
       if (data.status === "success") {
-        console.log(data);
         dispatch(loadInBettingScreen());
       } else {
         console.log(data.message);
@@ -130,7 +139,6 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     if (gamePlayed) {
       updateScore(bank);
       setGamePlayed(false);
-      console.log("im saving");
     }
   }, [gamePlayed, setGamePlayed, bank, updateScore]);
 
@@ -210,7 +218,31 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
               <StyledBank>Bank: ${tempBank}</StyledBank>
               <StyledChipBox>{chipsArrStyled}</StyledChipBox>
               <StyledBetBox>
-                <h1>${betTotal}</h1>
+                <Form onSubmit={customAmountHandler}>
+                  <FormLabel htmlFor="customAmount">${betTotal}</FormLabel>
+                  <InputBox>
+                    <CustomAmountInput
+                      type="number"
+                      id="customAmount"
+                      placeholder="Enter Amount"
+                      min="1"
+                      step="1"
+                      onChange={(e) => setCustomAmount(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (
+                          e.key === "." ||
+                          e.key === "-" ||
+                          e.key === "+" ||
+                          e.key === "e"
+                        )
+                          e.preventDefault();
+                      }}
+                    />
+                    <EnterBtn disabled={customAmount < 1}>
+                      <FontAwesomeIcon icon={faCheck} />
+                    </EnterBtn>
+                  </InputBox>
+                </Form>
                 <BtnBox>
                   <BtnDeal
                     click={btnDealHandler}
@@ -234,30 +266,83 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
 export default BettingScreen;
 
-// const TestBtn = styled.div`
-//   position: fixed;
-//   top: 0;
-//   right: 0;
-//   z-index: 9999999999999;
-//   cursor: pointer;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 
-//   font-size: 2rem;
-//   padding: 1rem 2rem;
-//   border: 2px solid orange;
-//   background-color: rgba(256, 256, 256, 0);
+  margin-bottom: 2rem;
 
-//   border-radius: 4px;
+  @media only screen and (max-width: 40em) {
+    margin: 0;
+    flex: 0 0 40%;
+  }
+`;
 
-//   transition: all 0.2s;
+const EnterBtn = styled.button`
+  color: ${(props) => props.theme.black};
 
-//   &:hover {
-//     background-color: rgba(256, 256, 256, 0.2);
-//   }
+  background-color: ${(props) => props.theme.gold};
+  border-radius: 0 4px 4px 0;
 
-//   &:active {
-//     background-color: rgba(256, 256, 256, 0);
-//   }
-// `;
+  transition: all 0.3s;
+
+  &:hover {
+    filter: brightness(1.5);
+  }
+
+  &:disabled {
+    color: #888;
+  }
+`;
+
+const InputBox = styled.div`
+  display: flex;
+
+  width: 100%;
+  max-width: 30rem;
+`;
+
+const FormLabel = styled.label`
+  font-weight: 400;
+  font-size: 3.6rem;
+`;
+
+const CustomAmountInput = styled.input`
+  font-size: 1.8rem;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+
+  background-color: rgba(48, 42, 37, 0.3);
+  padding: 0.8rem 1rem;
+  width: 100%;
+  border: 4px solid ${(props) => props.theme.gold};
+  border-radius: 4px 0 0 4px;
+  border-right: transparent;
+
+  transition: all 0.2s;
+  outline: none;
+
+  &::placeholder {
+    color: #a59eb8;
+  }
+
+  &:focus {
+    background-color: rgba(48, 42, 37, 0.9);
+  }
+
+  // removing arrows
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+`;
 
 const Container = styled(motion.div)`
   display: flex;
@@ -464,7 +549,7 @@ const StyledBetBox = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 40rem;
+  height: 50rem;
   clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
   padding: 1rem;
 
@@ -475,18 +560,11 @@ const StyledBetBox = styled(motion.div)`
   @media only screen and (max-width: 40em) {
     flex-direction: row;
     justify-content: space-evenly;
+    padding: 0;
 
     width: 100%;
     margin-top: 2rem;
-    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-
-    h1 {
-      margin-bottom: 0rem;
-    }
-  }
-
-  h1 {
-    margin-bottom: 2rem;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 `;
 
