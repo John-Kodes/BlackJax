@@ -25,9 +25,9 @@ const MePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState("");
-  const [color, setColor] = useState(user.color);
+  const [color, setColor] = useState(user?.color);
 
-  const nameBool = newUsername === user.username || newUsername === "";
+  const nameBool = newUsername === user?.username || newUsername === "";
 
   const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g, "$1,");
 
@@ -129,14 +129,14 @@ const MePage = () => {
             </>
           ) : (
             <>
-              <h1 style={{ color: user.color }}>{user.username}</h1>
+              <h1 style={{ color: user?.color }}>{user?.username}</h1>
               <p>
                 Your current score is{" "}
-                <span>{formatNumber(user.currentScore)}</span>
+                <span>{formatNumber(user?.currentScore)}</span>
                 .
                 <br />
                 And your highscore is{" "}
-                <span>{formatNumber(user.highScore)}!</span>
+                <span>{formatNumber(user?.highScore)}!</span>
               </p>
             </>
           )}
@@ -146,7 +146,7 @@ const MePage = () => {
               <>
                 <Btn
                   type="submit"
-                  disabled={(color === user.color && nameBool) || isLoading}
+                  disabled={(color === user?.color && nameBool) || isLoading}
                 >
                   Save changes
                 </Btn>

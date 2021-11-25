@@ -63,7 +63,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     const data = await req.json();
-    console.log(data);
 
     if (data.status === "success") {
       // Setting cookies
@@ -81,15 +80,11 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     const token = Cookies.get("jwt");
 
-    const res = await fetch(`${API_URL}/users/logout`, {
+    await fetch(`${API_URL}/users/logout`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    const data = await res.json();
-
-    console.log(data);
 
     Cookies.remove("jwt");
     setUser(null);
@@ -147,6 +142,30 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const changePasswordHandler = async (currentPassword, newPassword) => {
+    const token = Cookies.get("jwt");
+
+    const res = await fetch(`${API_URL}/users/updatePassword`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        currentPassword,
+        newPassword,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      logout();
+    } else {
+      setError(data.message);
+    }
+  };
+
   const checkUserLoggedIn = async () => {
     const token = Cookies.get("jwt");
 
@@ -180,6 +199,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         forgotPasswordHandler,
         resetPasswordHandler,
+        changePasswordHandler,
       }}
     >
       {children}

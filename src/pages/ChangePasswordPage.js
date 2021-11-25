@@ -1,47 +1,67 @@
 import React, { useContext, useState } from "react";
-import Cookies from "js-cookie";
 // Components
 import BasePage from "../components/BasePage";
 import Modal from "../components/Modal";
 import ErrorModal from "../components/ErrorModal";
+import Loading, { LoadingContainer } from "../components/loadingEl";
 // Context
-// import AuthContext from "../AuthContext";
+import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-// // Util
-// import { colorChecker } from "../util";
-// // Config
-// import { API_URL } from "../config";
-// // Routing
-// import { Redirect } from "react-router-dom";
-
-// TODO: Add update password functionality
+// Routing
+import { Redirect } from "react-router-dom";
 
 const ChangePasswordPage = () => {
-  //   const { user, setUser, setError } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
 
-  //   const [isLoading, setIsLoading] = useState(false);
+  const { user, changePasswordHandler, setError } = useContext(AuthContext);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    if (newPassword !== newPasswordConfirm) {
+      setIsLoading(false);
+
+      return setError(
+        `"Confirm Password" is different from "New Password". Please try again`
+      );
+    }
+
+    await changePasswordHandler(currentPassword, newPassword);
+
+    setIsLoading(false);
+  };
 
   return (
     <BasePage useContainer={true}>
+      {!user && <Redirect to="/login" />}
       <ErrorModal />
       <Modal>
         <h1>
           <FontAwesomeIcon icon={faLock} />
           Change Password
+          {isLoading && (
+            <LoadingContainer>
+              <Loading />
+            </LoadingContainer>
+          )}
         </h1>
-        <Form>
+        <Form onSubmit={submitHandler}>
           <InputBox>
-            <FormLabel htmlFor="oldPassword">old password</FormLabel>
+            <FormLabel htmlFor="currentPassword">current password</FormLabel>
             <FormField
               type="password"
-              id="oldPassword"
+              id="currentPassword"
               placeholder="OldPassword123"
               required
-              //   onChange={}
+              onChange={(e) => setCurrentPassword(e.target.value)}
             />
           </InputBox>{" "}
           <InputBox>
@@ -51,7 +71,7 @@ const ChangePasswordPage = () => {
               id="newPassword"
               placeholder="NewPassword1234"
               required
-              //   onChange={}
+              onChange={(e) => setNewPassword(e.target.value)}
             />
           </InputBox>
           <InputBox>
@@ -61,10 +81,12 @@ const ChangePasswordPage = () => {
               id="newPasswordConfirm"
               placeholder="NewPassword1234"
               required
-              //   onChange={}
+              onChange={(e) => setNewPasswordConfirm(e.target.value)}
             />
           </InputBox>
-          <SubmitBtn type="submit">Submit</SubmitBtn>
+          <SubmitBtn type="submit" disabled={isLoading}>
+            Submit
+          </SubmitBtn>
         </Form>
         <p>You will need to login again after changing your password.</p>
       </Modal>
@@ -75,6 +97,12 @@ const ChangePasswordPage = () => {
 const SubmitBtn = styled.button`
   color: ${(props) => props.theme.black};
   background-color: ${(props) => props.theme.gold};
+
+  transition: all 0.2s;
+
+  &:disabled {
+    background-color: #999;
+  }
 `;
 
 const FormField = styled.input`
