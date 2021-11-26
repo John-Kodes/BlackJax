@@ -52,14 +52,12 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const customAmountHandler = (e) => {
     e.preventDefault();
-    console.log(customAmount, bank);
 
-    if (betTotal + customAmount > bank) {
+    if (customAmount > bank) {
       setCustomAmount(bank);
       setBetArr([bank]);
-    } else if (betTotal + customAmount < bank) {
-      console.log("im running", betTotal, bank);
-      setBetArr([...betArr, customAmount]);
+    } else if (customAmount < bank) {
+      setBetArr([customAmount]);
     }
     handleReset();
   };
