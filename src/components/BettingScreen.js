@@ -12,7 +12,7 @@ import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 // Animation
 import { motion } from "framer-motion";
 // Redux
@@ -35,46 +35,33 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const dispatch = useDispatch();
 
+  // FUNCTIONS
+
   // click a chip to push it to an array. all the values in that array will be dispatched
   const betAmount = (amount) => {
     setBetArr([...betArr, amount]);
   };
 
-  const chipAnim = {
-    hover: {
-      y: -8,
-      transition: {
-        duration: 0.1,
-      },
-    },
-    tap: {
-      y: 2,
-      transition: {
-        duration: 0.1,
-      },
-    },
-  };
-
-  const chipsArrFiltered = chipsArr.filter((chip) => chip.value <= tempBank);
-  const chipsArrStyled = chipsArrFiltered.map((chip) => {
-    return (
-      <StyledChipContainer
-        variants={chipAnim}
-        whileHover="hover"
-        whileTap="tap"
-        key={chip.value}
-        onClick={() => betAmount(chip.value)}
-      >
-        {PokerChipColor(chip.color)}
-        <StyledChip style={{ color: "white" }}>{chip.value}</StyledChip>
-      </StyledChipContainer>
+  // Clears all input fields
+  const handleReset = () => {
+    Array.from(document.querySelectorAll("input")).forEach(
+      (input) => (input.value = "")
     );
-  });
+    setCustomAmount(0);
+  };
 
   const customAmountHandler = (e) => {
     e.preventDefault();
+    console.log(customAmount, bank);
 
-    console.log(customAmount);
+    if (betTotal + customAmount > bank) {
+      setCustomAmount(bank);
+      setBetArr([bank]);
+    } else if (betTotal + customAmount < bank) {
+      console.log("im running", betTotal, bank);
+      setBetArr([...betArr, customAmount]);
+    }
+    handleReset();
   };
 
   const btnDealHandler = () => {
@@ -83,13 +70,15 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   };
 
   const betAll = () => {
-    if (betTotal === bank) {
+    // Bet All
+    if (betTotal !== bank) {
+      setBetTotal(bank);
+      dispatch(calcBet([bank]));
+      // Reset
+    } else {
       setBetTotal(0);
       setBetArr([0]);
       dispatch(calcBet([0]));
-    } else {
-      setBetTotal(bank);
-      dispatch(calcBet([bank]));
     }
   };
 
@@ -134,6 +123,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     [dispatch, user]
   );
 
+  // SAVE PROGRESS
   // NOTE: Executes when betting screen loads in AND if a round finished
   useEffect(() => {
     if (gamePlayed) {
@@ -181,6 +171,38 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     exit: { opacity: 0, transition: { duration: 0.7, delay: 0 } },
   };
 
+  const chipAnim = {
+    hover: {
+      y: -8,
+      transition: {
+        duration: 0.1,
+      },
+    },
+    tap: {
+      y: 2,
+      transition: {
+        duration: 0.1,
+      },
+    },
+  };
+
+  const chipsArrFiltered = chipsArr.filter((chip) => chip.value <= tempBank);
+
+  const chipsArrStyled = chipsArrFiltered.map((chip) => {
+    return (
+      <StyledChipContainer
+        variants={chipAnim}
+        whileHover="hover"
+        whileTap="tap"
+        key={chip.value}
+        onClick={() => betAmount(chip.value)}
+      >
+        {PokerChipColor(chip.color)}
+        <StyledChip style={{ color: "white" }}>{chip.value}</StyledChip>
+      </StyledChipContainer>
+    );
+  });
+
   return (
     <Container>
       {/* <TestBtn onClick={updateScore}>test</TestBtn> */}
@@ -227,7 +249,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
                       placeholder="Enter Amount"
                       min="1"
                       step="1"
-                      onChange={(e) => setCustomAmount(e.target.value)}
+                      onChange={(e) => setCustomAmount(e.target.value * 1)}
                       onKeyDown={(e) => {
                         if (
                           e.key === "." ||
@@ -239,7 +261,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
                       }}
                     />
                     <EnterBtn disabled={customAmount < 1}>
-                      <FontAwesomeIcon icon={faCheck} />
+                      <FontAwesomeIcon icon={faPlus} />
                     </EnterBtn>
                   </InputBox>
                 </Form>

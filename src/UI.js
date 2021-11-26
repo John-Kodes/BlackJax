@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 // Components
 import BtnStand from "./components/UIButtons/BtnStand";
 import BtnHit from "./components/UIButtons/BtnHit";
 import GoBackBtn from "./components/UIButtons/BtnGoBack";
 import BtnHelp from "./components/UIButtons/BtnHelp";
+// Context
+import AuthContext from "./AuthContext";
 // Icons
 import { CardIcon, DoubleIcon } from "./img/UiBtnIcons";
 // Redux
@@ -17,6 +19,8 @@ import { motion } from "framer-motion";
 
 const UI = ({ setShowBettingScreen, showBettingScreen }) => {
   const dispatch = useDispatch();
+
+  const { user } = useContext(AuthContext);
 
   //// STATES
   const {
