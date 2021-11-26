@@ -57,7 +57,9 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           </div>
           <div className="player-tag">
             <h3>{playerHandTotal}</h3>
-            <h3>Player</h3>
+            <h3 style={{ color: user?.color }}>
+              {user?.username.length <= 6 ? user?.username : "Player"}
+            </h3>
           </div>
         </div>
       </MobileUI>
@@ -75,7 +77,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           Dealer
         </h3>
       </DealerTag>
-      <PlayerTag>
+      <PlayerTag style={{ color: user?.color }}>
         <h3>
           <span>{playerHandTotal}</span>
           {user?.username || "Player"}
@@ -292,6 +294,10 @@ const PlayerTag = styled(DealerTag)`
   top: auto;
   clip-path: none;
   clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
+
+  span {
+    color: #fff;
+  }
 
   @media only screen and (max-width: 67em) {
     padding-right: 3.5rem;
