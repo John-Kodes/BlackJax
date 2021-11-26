@@ -73,7 +73,6 @@ const MePage = () => {
       setNewUsername("");
       setColor(user.color);
     } else {
-      console.log(user);
       setError(data.message.replaceAll("`", ""));
     }
     setIsLoading(false);

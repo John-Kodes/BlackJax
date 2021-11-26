@@ -25,7 +25,6 @@ const PaginationController = ({
   const PaginationBtnHandler = (incre) => {
     // short for increment
     if (incre === "+") {
-      console.log("btn clicked", page);
       setPage(page + 1);
     }
     if (incre === "-") {
@@ -36,7 +35,6 @@ const PaginationController = ({
   const JumpToHandler = () => {
     if (currentUserIsOnThisPage) return;
 
-    console.log(currentUserRankPage);
     setPage(currentUserRankPage);
   };
 

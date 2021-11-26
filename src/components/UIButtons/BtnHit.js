@@ -27,8 +27,6 @@ const BtnHit = React.memo(() => {
     if (playerHandTotal > 20) {
       dispatch(dealersTurn());
     }
-
-    // return () => console.log("btnHit clean up", playerHandTotal);
   }, [dispatch, playerHandTotal]);
 
   return (
