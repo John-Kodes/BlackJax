@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+// Context
+import AuthContext from "../AuthContext";
 // Styling
 import styled from "styled-components";
 // Icons
@@ -17,6 +19,8 @@ const PaginationController = ({
   const lastPage = Math.ceil(resultsLength / 20); // resultsLength / resultsPerPageLength
   const currentUserRankPage = Math.ceil(currentUserRank / 20);
   const currentUserIsOnThisPage = page === currentUserRankPage;
+
+  const { user } = useContext(AuthContext);
 
   const PaginationBtnHandler = (incre) => {
     // short for increment
@@ -59,23 +63,25 @@ const PaginationController = ({
           <FontAwesomeIcon icon={faChevronRight} />
         </PageBtn>
       </PaginationBox>
-      <JumpToRankBtn
-        onClick={JumpToHandler}
-        style={
-          currentUserIsOnThisPage
-            ? {
-                backgroundColor: "#1c113a79",
-                color: "#fff",
-                fontWeight: 400,
-                border: "2px solid #7f7597",
-              }
-            : {}
-        }
-      >
-        {currentUserIsOnThisPage
-          ? "Your rank is on this page"
-          : "I wanna see my rank!"}
-      </JumpToRankBtn>
+      {user && (
+        <JumpToRankBtn
+          onClick={JumpToHandler}
+          style={
+            currentUserIsOnThisPage
+              ? {
+                  backgroundColor: "#1c113a79",
+                  color: "#fff",
+                  fontWeight: 400,
+                  border: "2px solid #7f7597",
+                }
+              : {}
+          }
+        >
+          {currentUserIsOnThisPage
+            ? "Your rank is on this page"
+            : "I wanna see my rank!"}
+        </JumpToRankBtn>
+      )}
     </PaginationContainer>
   );
 };
@@ -92,6 +98,8 @@ const JumpToRankBtn = styled.button`
   background-color: #ae9fcf;
 
   transition: all 0.2s;
+
+  margin-bottom: 1rem;
 
   &:hover {
     background-color: #c2c9e7;
@@ -147,7 +155,7 @@ const PaginationContainer = styled.div`
   transform: translateX(-50%);
   z-index: 5;
 
-  padding: 0 1rem 1rem;
+  padding: 0 1rem;
   background-color: rgba(22, 15, 31, 0.8);
   border: 2px solid #7f7597;
   border-bottom: none;

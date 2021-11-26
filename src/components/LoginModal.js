@@ -13,8 +13,8 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, Redirect } from "react-router-dom";
 
 const LoginModal = () => {
-  const [email, setEmail] = useState("user@gmail.com");
-  const [password, setPassword] = useState("password1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const { login, user } = useContext(AuthContext);
@@ -41,7 +41,7 @@ const LoginModal = () => {
         <InputBox>
           <FormLabel htmlFor="email">email</FormLabel>
           <FormField
-            defaultValue={"user@gmail.com"}
+            defaultValue={""}
             type="email"
             id="email"
             placeholder="johndoe@email.com"
@@ -52,7 +52,7 @@ const LoginModal = () => {
         <InputBox>
           <FormLabel htmlFor="password">password</FormLabel>
           <FormField
-            defaultValue={"password1234"}
+            defaultValue={""}
             type="password"
             id="password"
             placeholder="SecuredPassword123"
