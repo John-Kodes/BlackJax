@@ -57,7 +57,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           </div>
           <div className="player-tag">
             <h3>{playerHandTotal}</h3>
-            <h3>{user?.username || "Player"}</h3>
+            <h3>Player</h3>
           </div>
         </div>
       </MobileUI>
@@ -199,6 +199,13 @@ const Canvas = styled(motion.div)`
   border: 1px solid transparent;
 
   padding: 6rem 2rem;
+
+  h3 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 12ch;
+    white-space: nowrap;
+  }
 `;
 
 const CardsLeft = styled(motion.div)`

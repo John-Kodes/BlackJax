@@ -37,8 +37,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const dispatch = useDispatch();
 
-  // FUNCTIONS
-
+  //// FUNCTIONS
   // click a chip to push it to an array. all the values in that array will be dispatched
   const betAmount = (amount) => {
     setBetArr([...betArr, amount]);
