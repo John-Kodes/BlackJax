@@ -5,6 +5,7 @@ import { API_URL, ADMIN_PASS } from "../config";
 // Components
 import chipsArr from "../data/chipsData";
 import PokerChipColor from "../img/PokerChip.js";
+import Loading, { LoadingContainer } from "./loadingEl";
 // Context
 import AuthContext from "../AuthContext";
 // Styling
@@ -12,7 +13,7 @@ import styled from "styled-components";
 import BtnDeal from "./UIButtons/BtnDeal";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 // Animation
 import { motion } from "framer-motion";
 // Redux
@@ -25,9 +26,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [betArr, setBetArr] = useState([]);
   const [betTotal, setBetTotal] = useState(0);
-  const [customAmount, setCustomAmount] = useState(0);
+  const [customAmount, setCustomAmount] = useState();
 
   const { tempBank, bank, dealerHand } = useSelector((state) => state.game);
 
@@ -81,17 +83,18 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   };
 
   const startOverHandler = async () => {
-    await updateScore();
+    setIsLoading(true);
+    await updateScore(1000);
     dispatch(startOver());
   };
 
   const updateScore = useCallback(
     async (currentScore) => {
-      // TODO: should display a loading element
+      if (isLoading) return;
 
       // NOTE: localStorage will be used for guest accounts
       if (!user) {
-        localStorage.setItem("localBank", currentScore);
+        localStorage.setItem("localBank", currentScore || 1000);
         dispatch(loadInBettingScreen());
         return;
       }
@@ -106,7 +109,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
         },
         body: JSON.stringify({
           adminPass: ADMIN_PASS,
-          currentScore,
+          currentScore: currentScore || 1000,
         }),
       });
 
@@ -117,8 +120,9 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       } else {
         console.log(data.message);
       }
+      setIsLoading(false);
     },
-    [dispatch, user]
+    [dispatch, isLoading, user]
   );
 
   // SAVE PROGRESS
@@ -226,7 +230,14 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
                 <br />
                 some money from the bank 😊
               </p>
-              <StartOverBtn onClick={startOverHandler}>GOOD IDEA!</StartOverBtn>
+              <StartOverBtn onClick={startOverHandler} disabled={isLoading}>
+                GOOD IDEA!
+              </StartOverBtn>
+              {isLoading && (
+                <LoadingContainer>
+                  <Loading />
+                </LoadingContainer>
+              )}
             </RestartScreen>
           ) : (
             <StyledBettingScreen
@@ -259,7 +270,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
                       }}
                     />
                     <EnterBtn disabled={customAmount < 1}>
-                      <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon icon={faCheck} />
                     </EnterBtn>
                   </InputBox>
                 </Form>
@@ -402,6 +413,10 @@ const RestartScreen = styled(motion.div)`
   p {
     font-size: 2.4rem;
     margin-bottom: 2rem;
+  }
+  & > div:last-child {
+    margin-left: 0;
+    margin-top: 4rem;
   }
 `;
 

@@ -13,9 +13,6 @@ import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
 // Router
 import { Link } from "react-router-dom";
 
-/* if user === "pending" then page should be loading
- */
-
 const BtnSettings = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -39,14 +36,14 @@ const BtnSettings = () => {
   return (
     <>
       {user && (
-        <Container style={isOpen ? closeCss : {}}>
+        <Container style={isOpen ? {} : closeCss}>
           <Btn onClick={() => setIsOpen(!isOpen)}>
             {isLoading ? (
               <LoadingContainer>
                 <Loading />
               </LoadingContainer>
             ) : (
-              <FontAwesomeIcon icon={isOpen ? faCog : faTimes} />
+              <FontAwesomeIcon icon={isOpen ? faTimes : faCog} />
             )}
           </Btn>
           <ul>
