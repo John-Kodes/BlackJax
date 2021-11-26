@@ -4,6 +4,7 @@ import Board from "../components/Board";
 import BettingScreen from "../components/BettingScreen";
 import BtnHelp from "../components/UIButtons/BtnHelp";
 import BasePage from "../components/BasePage";
+import GoBackBtn from "../components/UIButtons/BtnGoBack";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { setCardShuffledBoolFalse } from "../components/gameSlice";
@@ -69,6 +70,9 @@ function Gamin() {
         animate="animate"
         exit="exit"
       >
+        <GoBackBtnContainer>
+          <GoBackBtn />
+        </GoBackBtnContainer>
         <ContainerOutOfBoundsBtns>
           <BtnHelp />
         </ContainerOutOfBoundsBtns>
@@ -123,6 +127,12 @@ const Message = styled(motion.div)`
   border: 3px solid #b38300;
   border-radius: 0.4rem;
   z-index: 100;
+`;
+
+const GoBackBtnContainer = styled.div`
+  @media only screen and (max-width: 67em) {
+    display: none;
+  }
 `;
 
 const StyledGamin = styled(motion.div)`

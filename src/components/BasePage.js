@@ -15,6 +15,9 @@ const BasePage = ({ children, useContainer }) => {
   const { user, setError } = useContext(AuthContext);
   const location = useLocation();
 
+  const useGoBackBtn =
+    location.pathname !== "/" && location.pathname !== "/gamin";
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setError(null), []);
 
@@ -38,12 +41,12 @@ const BasePage = ({ children, useContainer }) => {
           <>
             {useContainer ? (
               <Container>
-                {location.pathname !== "/" && <GoBackBtn />}
+                {useGoBackBtn && <GoBackBtn />}
                 {children}
               </Container>
             ) : (
               <>
-                {location.pathname !== "/" && <GoBackBtn />}
+                {useGoBackBtn && <GoBackBtn />}
                 {children}
               </>
             )}

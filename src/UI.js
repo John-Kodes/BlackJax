@@ -61,16 +61,13 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           </div>
         </div>
       </MobileUI>
-
       <CardsLeft>
         {CardIcon()}
         <h4>{deckNum ? deckNum : "err"}</h4>
       </CardsLeft>
-
       <ContainerHelp>
         <BtnHelp />
       </ContainerHelp>
-
       <DealerTag>
         <GoBackBtn />
         <h3>
@@ -78,7 +75,6 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           Dealer
         </h3>
       </DealerTag>
-
       <PlayerTag>
         <h3>
           <span>{playerHandTotal}</span>
@@ -88,7 +84,6 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
       <Bank>
         <h4>Bank: ${tempBank}</h4>
       </Bank>
-
       <BtnsContainer>
         <BetNum>
           <span>BET</span>${bet}
@@ -121,7 +116,8 @@ const MobileUI = styled.div`
   visibility: hidden;
 
   @media only screen and (max-width: 34em) {
-    display: block;
+    display: flex;
+    gap: 1rem;
     visibility: visible;
   }
   .go_back--btn {
@@ -249,13 +245,13 @@ const DealerTag = styled(motion.div)`
   font-size: 3rem;
   color: #d3d3d3;
 
-  padding: 0.5rem 5rem 0.5rem 1.5rem;
+  padding: 0.5rem 5rem 0.5rem 1.8rem;
   background: ${(props) => props.theme.primaryColorDark};
   clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
   z-index: 100;
 
   @media only screen and (max-width: 67em) {
-    padding-left: 11rem;
+    padding-left: 12rem;
   }
 
   @media only screen and (max-width: 60em) {
@@ -346,4 +342,5 @@ const BtnsBox = styled(motion.div)`
   }
 `;
 
-export default React.memo(UI);
+// export default React.memo(UI);
+export default UI;
