@@ -57,7 +57,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
           </div>
           <div className="player-tag">
             <h3>{playerHandTotal}</h3>
-            <h3>Player</h3>
+            <h3>{user?.username || "Player"}</h3>
           </div>
         </div>
       </MobileUI>
@@ -78,7 +78,7 @@ const UI = ({ setShowBettingScreen, showBettingScreen }) => {
       <PlayerTag>
         <h3>
           <span>{playerHandTotal}</span>
-          Player
+          {user?.username || "Player"}
         </h3>
       </PlayerTag>
       <Bank>
