@@ -154,6 +154,15 @@ const MobileUI = styled.div`
       justify-content: space-between;
       gap: 1rem;
     }
+
+    > div > h3:first-child {
+      display: flex;
+      justify-content: center;
+      min-width: 2ch;
+      font-size: 3rem;
+      font-weight: 600;
+    }
+
     .go_back--btn {
     }
 
