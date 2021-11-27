@@ -23,15 +23,17 @@ const LeaderboardPage = () => {
 
     const token = Cookies.get("jwt");
 
+    const isGuest = !user ? "ForGuest" : "";
+
     const res = await fetch(
-      `${API_URL}/users/leaderboard${!user ? "ForGuest" : ""}?page=${page}`,
-      user
-        ? {
+      `${API_URL}/users/leaderboard${isGuest}?page=${page}`,
+      isGuest
+        ? {}
+        : {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
-        : {}
     );
 
     const dataRes = await res.json();
@@ -43,9 +45,10 @@ const LeaderboardPage = () => {
   };
 
   useEffect(() => {
+    if (user === "pending") return;
     getLeaderboard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, user]);
 
   return (
     <BasePage useContainer={true}>

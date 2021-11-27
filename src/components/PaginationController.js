@@ -91,7 +91,8 @@ const JumpToRankBtn = styled.button`
   font-weight: 600;
   color: #0e0027;
 
-  padding: 0.6rem 1.4rem;
+  width: 100%;
+  padding: 0.6rem 0;
   border-radius: 2px;
   background-color: #ae9fcf;
 
