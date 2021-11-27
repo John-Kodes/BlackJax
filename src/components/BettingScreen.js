@@ -597,7 +597,6 @@ const StyledBetBox = styled(motion.div)`
     padding: 0;
 
     width: 100%;
-    margin-top: 2rem;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 `;
@@ -647,7 +646,8 @@ const StyledBettingScreen = styled(motion.div)`
   }
 
   @media only screen and (max-width: 40em) {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: 1rem;
   }
 `;
 
