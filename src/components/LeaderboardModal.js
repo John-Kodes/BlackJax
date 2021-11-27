@@ -121,6 +121,7 @@ const RanksBox = styled.ul`
 
   padding: 2rem 0 7rem;
   overflow-y: scroll;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 6px;
