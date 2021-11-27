@@ -179,10 +179,14 @@ const LeaderBoard = styled.div`
     align-items: center;
 
     font-weight: 300;
-    font-size: 6rem;
+    font-size: 5.8rem;
 
     background-color: #6558aa40;
     border-bottom: 1px solid #7f7597;
+
+    @media only screen and (max-width: 35em) {
+      font-size: 10vw;
+    }
   }
 `;
 

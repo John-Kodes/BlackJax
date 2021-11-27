@@ -65,7 +65,10 @@ const ForgotPasswordModal = () => {
             <FontAwesomeIcon icon={faCheck} />
             Success!
           </h1>
-          <p>Check your email inbox to reset your password</p>
+          <p>
+            Check your email inbox to reset your password. If you don't see your
+            email, check the promotional tab.
+          </p>
         </>
       )}
     </Modal>
