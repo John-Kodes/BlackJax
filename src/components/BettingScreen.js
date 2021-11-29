@@ -276,7 +276,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
                     click={btnDealHandler}
                     betTotal={betTotal}
                     disabled={!showBettingScreen}
-                  ></BtnDeal>
+                  />
                   <BetBtnContainer>
                     <BetAllBtn
                       onClick={betAllHandler}

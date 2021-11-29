@@ -39,14 +39,16 @@ const StyledBtnDeal = styled(PlayingBtn)`
   }
 
   &:disabled {
-    background-color: transparent;
-    color: white;
-    border: 4px solid #ffffff;
+    background-color: rgba(68, 68, 68, 0.39);
+    color: #ccc;
+    border: 4px solid #ccc;
     filter: none;
+
     &:hover {
-      background-color: transparent;
-      color: white;
-      border: 4px solid #ffffff;
+      background-color: rgba(68, 68, 68, 0.39);
+      color: #ccc;
+      border: 4px solid #ccc;
+      filter: none;
     }
   }
 `;

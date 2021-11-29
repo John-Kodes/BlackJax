@@ -10,9 +10,13 @@ const RoundResults = () => {
   const results = useSelector((state) => state.game.results);
 
   let text = "";
+
   switch (results) {
     case "push":
       text = "PUSH";
+      break;
+    case "bust":
+      text = "BUST";
       break;
     case "dealer":
       text = "DEALER WINS";
