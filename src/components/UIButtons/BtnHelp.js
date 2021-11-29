@@ -11,7 +11,7 @@ const BtnHelp = () => {
   //// TEXT CONTENTS
   const ContentHowToPlay = (
     <>
-      <h2>BUTTONS</h2>
+      <h2>Buttons and What They Do</h2>
       <p>
         <span>HIT:</span> Draw a card from the Deck.
         <br />
@@ -202,6 +202,7 @@ const Instructions = styled(motion.div)`
   width: 30ch;
 
   h2 {
+    font-weight: 600;
     position: relative;
     margin-bottom: 1rem;
 
@@ -239,7 +240,7 @@ const StyledBtnHelp = styled(motion.button)`
   padding: 1.2rem 1.2rem;
   z-index: 100;
 
-  backdrop-filter: blur(1.5px) brightness(50%);
+  backdrop-filter: blur(1.8 px) brightness(40%);
 
   transition: color 0.3s;
 

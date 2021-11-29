@@ -279,11 +279,18 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
                     betTotal={betTotal}
                     disabled={!showBettingScreen}
                   ></BtnDeal>
-                  <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
-                    {betTotal === bank ? "all out..." : "ALL IN!"}
-                    <div className="btnBG1" />
-                    <div className="btnBG2" />
-                  </BetAllBtn>
+                  <BetBtnContainer>
+                    <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
+                      ALL IN!
+                      <div className="btnBG1" />
+                      <div className="btnBG2" />
+                    </BetAllBtn>
+                    <AllOutBtn>
+                      all out...
+                      <div className="btnBG1" />
+                      <div className="btnBG2" />
+                    </AllOutBtn>
+                  </BetBtnContainer>
                 </BtnBox>
               </StyledBetBox>
             </StyledBettingScreen>
@@ -437,9 +444,15 @@ const StartOverBtn = styled(motion.button)`
   }
 `;
 
+const BetBtnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
 const BetAllBtn = styled(motion.button)`
   position: relative;
-  margin-top: 2rem;
+
   padding: 0.5rem 1.5rem;
   border-radius: 10rem;
   background-color: transparent;
@@ -498,6 +511,8 @@ const BetAllBtn = styled(motion.button)`
     transition: all 0.6s;
   }
 `;
+
+const AllOutBtn = styled(BetAllBtn)``;
 
 const StyledChipContainer = styled(motion.div)`
   display: flex;
@@ -604,6 +619,7 @@ const StyledBetBox = styled(motion.div)`
 const BtnBox = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 `;
 
 const StyledBank = styled(motion.div)`
