@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("pending");
   const [error, setError] = useState(null);
+  const [lastBet, setLastBet] = useState(0);
 
   // For triggering update user score save
   const [gamePlayed, setGamePlayed] = useState(false);
@@ -193,6 +194,8 @@ export const AuthProvider = ({ children }) => {
         setError,
         gamePlayed,
         setGamePlayed,
+        lastBet,
+        setLastBet,
 
         login,
         signup,

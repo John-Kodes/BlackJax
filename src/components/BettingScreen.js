@@ -33,7 +33,9 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   const { tempBank, bank, dealerHand } = useSelector((state) => state.game);
 
-  const { user, gamePlayed, setGamePlayed } = useContext(AuthContext);
+  const { user, gamePlayed, setGamePlayed, lastBet, setLastBet } = useContext(
+    AuthContext
+  );
 
   const dispatch = useDispatch();
 
@@ -64,6 +66,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
   };
 
   const btnDealHandler = () => {
+    setLastBet(betTotal);
     setShowBettingScreen(false);
     dispatch(updateBank());
   };
@@ -131,7 +134,7 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     }
   }, [gamePlayed, setGamePlayed, bank, updateScore]);
 
-  // auto updates the UI bank
+  // NOTE: auto updates the UI bank
   useEffect(() => {
     if (betArr.length > 0 && dealerHand.length < 1) {
       const total = betArr.reduce((acc, cur) => acc + cur);
@@ -139,6 +142,14 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
       dispatch(calcBet(betArr));
     }
   }, [dispatch, betArr, betArr.length, dealerHand.length]);
+
+  // NOTE: Automatically using the last bet
+  useEffect(() => {
+    if (!showBettingScreen) return;
+
+    setTimeout(() => betAmount(lastBet), 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const bettingScreenAnim = {
     initial: {
@@ -204,7 +215,6 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   return (
     <Container>
-      {/* <TestBtn onClick={updateScore}>test</TestBtn> */}
       {!dealerHand.length > 0 && (
         <>
           <StyledBackDrop
