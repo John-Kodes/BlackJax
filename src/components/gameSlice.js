@@ -259,9 +259,9 @@ const gameSlice = createSlice({
       )
         state.results = "dealer";
 
-      if (dealerHand > 21 && playerHand > 21) state.results = "bust";
-
       if (dealerHand === playerHand) state.results = "push";
+
+      if (dealerHand > 21 && playerHand > 21) state.results = "bust";
     },
 
     calcBet: {
