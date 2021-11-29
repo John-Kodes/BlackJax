@@ -22,7 +22,7 @@ This project also really made me feel more comfortable with using Figma, which h
 
 ## Potential Future Features/Updates
 
-- Create a leaderboard system that shows a list of players and their high scores. But will only be posted when the player "cash out"
+- ~~Create a leaderboard system that shows a list of players and their high scores. But will only be posted when the player "cash out"~~ Added!
 
 - Create an interactive tutorial on how to play the game for first time players.
 
