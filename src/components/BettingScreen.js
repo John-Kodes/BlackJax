@@ -68,17 +68,15 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
     dispatch(updateBank());
   };
 
-  const betAll = () => {
-    // Bet All
-    if (betTotal !== bank) {
-      setBetTotal(bank);
-      dispatch(calcBet([bank]));
-      // Reset
-    } else {
-      setBetTotal(0);
-      setBetArr([0]);
-      dispatch(calcBet([0]));
-    }
+  const betAllHandler = () => {
+    setBetTotal(bank);
+    dispatch(calcBet([bank]));
+  };
+
+  const allOutHandler = () => {
+    setBetTotal(0);
+    setBetArr([0]);
+    dispatch(calcBet([0]));
   };
 
   const startOverHandler = async () => {
@@ -280,12 +278,18 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
                     disabled={!showBettingScreen}
                   ></BtnDeal>
                   <BetBtnContainer>
-                    <BetAllBtn onClick={betAll} disabled={!showBettingScreen}>
+                    <BetAllBtn
+                      onClick={betAllHandler}
+                      disabled={!showBettingScreen || betTotal === bank}
+                    >
                       ALL IN!
                       <div className="btnBG1" />
                       <div className="btnBG2" />
                     </BetAllBtn>
-                    <AllOutBtn>
+                    <AllOutBtn
+                      onClick={allOutHandler}
+                      disabled={!showBettingScreen || betTotal < 1}
+                    >
                       all out...
                       <div className="btnBG1" />
                       <div className="btnBG2" />
@@ -463,7 +467,13 @@ const BetAllBtn = styled(motion.button)`
 
   transition: all 0.3s;
 
-  &:hover {
+  &:disabled {
+    color: #ccc;
+    background-color: rgba(68, 68, 68, 0.39);
+    border-color: #ccc;
+  }
+
+  &:not(:disabled):hover {
     transform: translateY(-5px);
     box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.3);
     color: black;
