@@ -297,7 +297,8 @@ const gameSlice = createSlice({
         const { results, bet, bank, playerHand } = state;
 
         if (results === "dealer") state.tempBank = bank;
-        if (results === "push") state.tempBank = bet + bank;
+        if (results === "push" || results === "bust")
+          state.tempBank = bet + bank;
         if (results === "player") state.tempBank = bet * 2 + bank;
         if (
           results === "player" &&
