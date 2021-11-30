@@ -145,7 +145,10 @@ const BettingScreen = ({ showBettingScreen, setShowBettingScreen }) => {
 
   // NOTE: Automatically using the last bet
   useEffect(() => {
-    setTimeout(() => betAmount(lastBet), 100);
+    setTimeout(() => {
+      if (lastBet > bank) return setLastBet(0);
+      betAmount(lastBet);
+    }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
